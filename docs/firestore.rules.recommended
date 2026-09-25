@@ -1,0 +1,29 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Staff = signed in with email and password (not anonymous).
+    function isStaff() {
+      return request.auth != null
+        && request.auth.token.firebase.sign_in_provider != 'anonymous';
+    }
+
+    // Website and chat enquiries: anyone (anonymous) may CREATE a new
+    // enquiry; only staff can read, edit or delete them.
+    match /enquiries/{doc} {
+      allow read, update, delete: if isStaff();
+      allow create: if isStaff()
+        || (request.auth != null
+            && request.resource.data.status == 'new'
+            && request.resource.data.name is string
+            && request.resource.data.email is string
+            && request.resource.data.size() <= 40);
+    }
+
+    match /meta/{doc}      { allow read, write: if isStaff(); }
+    match /marketing/{doc} { allow read, write: if isStaff(); }
+
+    // Keep the rest of the existing HOSPRO rules below unchanged
+    // (precheckin, feedback, quotes, beverage, contracts, default deny).
+  }
+}

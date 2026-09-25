@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Event planner and quote request | Brandon Hall Hotel and Spa</title>
+<meta name="description" content="Plan your meeting, conference or celebration at Brandon Hall Hotel and Spa. Choose a room and layout drawn to scale, add catering, extras and group bedrooms, and request a quote.">
+<meta name="theme-color" content="#2C3E50">
+<meta property="og:title" content="Event planner and quote request | Brandon Hall Hotel and Spa">
+<meta property="og:description" content="Plan your meeting, conference or celebration at Brandon Hall Hotel and Spa. Choose a room and layout drawn to scale, add catering, extras and group bedrooms, and request a quote.">
+<meta property="og:image" content="https://www.brandonhallhotelandspa.com/assets/img/exterior-summer.jpg">
+<link rel="icon" href="../../assets/brand/favicon.png">
+<link rel="preload" href="../../assets/fonts/italiana-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/fonts/lato-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<div class="utility">
+  <div class="wrap">
+    <span class="u-hide">Main Street, Brandon, near Coventry</span>
+    <div class="u-links">
+      <a href="tel:+442477102555">024 7710 2555</a>
+      <a class="u-hide" href="../../offers/">Offers</a>
+      <a class="u-hide" href="../../contact/">Contact</a>
+    </div>
+  </div>
+</div>
+<header class="site-header">
+  <div class="wrap">
+    <nav class="nav" aria-label="Main">
+      <a href="../../rooms-suites/">Stay</a>
+      <a href="../../dining/">Dining</a>
+      <a href="../../spa-leisure/">Spa &amp; Leisure</a>
+    </nav>
+    <button class="menu-toggle" aria-expanded="false" aria-controls="drawer" aria-label="Open menu" style="justify-self:start"><svg viewBox="0 0 28 28" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h22M3 14h22M3 20h22"/></svg></button>
+    <a class="brand-logo" href="../../index.html" aria-label="Brandon Hall Hotel and Spa home"><img src="../../assets/brand/logo-navy.svg" alt="Brandon Hall Hotel and Spa" width="232" height="151"></a>
+    <nav class="nav nav--right" aria-label="Main continued">
+      <a href="../../weddings/">Weddings</a>
+      <a href="../../meetings-events/" aria-current="page">Meetings &amp; Events</a>
+      <a href="../../christmas/">Christmas</a>
+      <a class="btn btn--book" href="https://booking.profitroom.com/en/brandonhallhotelspawarwickshire/home?no-cache=&amp;currency=GBP" target="_blank" rel="noopener" data-book>Book direct</a>
+    </nav>
+    <a class="btn btn--book mobile-book" href="https://booking.profitroom.com/en/brandonhallhotelspawarwickshire/home?no-cache=&amp;currency=GBP" target="_blank" rel="noopener" data-book>Book</a>
+  </div>
+</header>
+<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Menu">
+  <div class="drawer-top"><img src="../../assets/brand/logo-white.svg" alt=""><button class="close">Close</button></div>
+  <nav aria-label="Mobile"><a href="../../rooms-suites/">Stay</a><a href="../../dining/">Dining</a><a href="../../spa-leisure/">Spa &amp; Leisure</a><a href="../../weddings/">Weddings</a><a href="../../meetings-events/">Meetings &amp; Events</a><a href="../../christmas/">Christmas</a><a href="../../offers/">Offers</a><a href="../../contact/">Contact</a></nav>
+  <div class="drawer-meta">
+    <p><a href="tel:+442477102555">024 7710 2555</a><br><a href="mailto:events@brandonhallhotelandspa.com">events@brandonhallhotelandspa.com</a></p>
+    <a class="btn btn--book mt-1" href="https://booking.profitroom.com/en/brandonhallhotelspawarwickshire/home?no-cache=&amp;currency=GBP" target="_blank" rel="noopener" data-book>Book direct</a>
+  </div>
+</div>
+<main id="main">
+
+<section class="section page-top" style="padding-bottom:36px">
+  <div class="wrap intro">
+    <div class="t">
+      <span class="kicker"><a href="../" style="text-decoration:none">Meetings and events</a></span>
+      <h1 style="font-size:clamp(2.6rem,5.6vw,4.4rem)">Plan your event</h1>
+    </div>
+    <div class="c">
+      <p class="lede">Build your event step by step. The plan and summary update as you go.</p>
+      <p>When you're happy, send it to our events team. They'll check availability and come back with a tailored proposal. There's no commitment at this stage.</p>
+    </div>
+  </div>
+</section>
+
+<section style="padding-bottom:var(--section)">
+  <div class="wrap planner">
+    <form id="p-form" novalidate>
+      <fieldset class="step" id="step-1">
+        <legend><span class="step-n">1</span><span class="step-t">Your event</span></legend>
+        <div class="chips" id="p-type" role="group" aria-label="Type of event"></div>
+        <div class="grid-3">
+          <label class="field" for="p-date">Date<input id="p-date" type="date"></label>
+          <label class="field" for="p-days">Days<select id="p-days"><option value="1">1 day</option><option value="2">2 days</option><option value="3">3 days</option><option value="4">4 days</option><option value="5">5 days</option></select></label>
+          <label class="field" for="p-guests">Guests<input id="p-guests" type="number" min="1" max="300" inputmode="numeric"></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="step" id="step-2">
+        <legend><span class="step-n">2</span><span class="step-t">Layout and room</span></legend>
+        <div class="layout-pick" id="p-layout" role="group" aria-label="Layout"></div>
+        <p class="small" id="p-layout-desc"></p>
+        <div class="opts" id="p-rooms" role="radiogroup" aria-label="Room"></div>
+      </fieldset>
+
+      <fieldset class="step" id="step-3">
+        <legend><span class="step-n">3</span><span class="step-t">Package</span></legend>
+        <div class="opts" id="p-pkg" role="radiogroup" aria-label="Package"></div>
+        <p class="small" id="p-pkg-note"></p>
+      </fieldset>
+
+      <fieldset class="step" id="step-4">
+        <legend><span class="step-n">4</span><span class="step-t">Food and drink</span></legend>
+        <p class="small mt-0" id="p-cat-note"></p>
+        <div class="checks mt-1" id="p-cat"></div>
+      </fieldset>
+
+      <fieldset class="step" id="step-5">
+        <legend><span class="step-n">5</span><span class="step-t">Extras and technology</span></legend>
+        <div class="checks" id="p-extras"></div>
+        <label class="field mt-1" id="p-breakout-wrap" for="p-breakout" hidden>Breakout room<select id="p-breakout"></select></label>
+      </fieldset>
+
+      <fieldset class="step" id="step-6">
+        <legend><span class="step-n">6</span><span class="step-t">Bedrooms for your group</span></legend>
+        <p class="notice mt-0" id="p-stay-24" hidden>The 24-hour package already includes one night's accommodation and breakfast for each delegate. Add more bedrooms or nights below if you need them.</p>
+        <label class="toggle mt-1"><input type="checkbox" id="p-stay"> Hold a block of bedrooms for my group</label>
+        <div id="p-stay-fields" hidden>
+          <div class="grid-3">
+            <label class="field" for="p-arrival">Arrival<input id="p-arrival" type="date"></label>
+            <label class="field" for="p-nights">Nights<input id="p-nights" type="number" min="1" max="14" value="1" inputmode="numeric"></label>
+            <label class="field" for="p-bedrooms">Bedrooms<input id="p-bedrooms" type="number" min="1" max="120" value="10" inputmode="numeric"></label>
+          </div>
+          <p class="small mt-1" style="margin-bottom:8px">Room mix</p>
+          <div class="grid-4">
+            <label class="field" for="p-singles">Single use<input id="p-singles" type="number" min="0" max="120" value="10" inputmode="numeric"></label>
+            <label class="field" for="p-doubles">Double<input id="p-doubles" type="number" min="0" max="120" value="0" inputmode="numeric"></label>
+            <label class="field" for="p-twins">Twin<input id="p-twins" type="number" min="0" max="120" value="0" inputmode="numeric"></label>
+            <label class="field" for="p-board">Board<select id="p-board"><option value="bb">Bed and breakfast</option><option value="dbb">Dinner, bed and breakfast</option></select></label>
+          </div>
+          <p class="err mt-1" id="p-mix-note" aria-live="polite"></p>
+        </div>
+      </fieldset>
+
+      <fieldset class="step" id="step-7">
+        <legend><span class="step-n">7</span><span class="step-t">Your details</span></legend>
+        <div class="grid-2">
+          <label class="field" for="p-name">Name<input id="p-name" type="text" autocomplete="name" required><span class="err" id="p-name-err"></span></label>
+          <label class="field" for="p-company">Company or organisation <span class="hint">Optional</span><input id="p-company" type="text" autocomplete="organization"></label>
+          <label class="field" for="p-email">Email<input id="p-email" type="email" autocomplete="email" required><span class="err" id="p-email-err"></span></label>
+          <label class="field" for="p-phone">Phone <span class="hint">Optional</span><input id="p-phone" type="tel" autocomplete="tel"></label>
+        </div>
+        <label class="field mt-1" for="p-notes">Anything else we should know? <span class="hint">Timings, dietary needs, accessibility, budget</span><textarea id="p-notes" rows="4"></textarea></label>
+        <label class="field mt-1" for="p-source">How did you hear about us? <span class="hint">Optional</span><select id="p-source"><option value="">Choose one</option><option>Search engine</option><option>Recommendation</option><option>Been before</option><option>Social media</option><option>Event agency</option><option>Other</option></select></label>
+        <label class="check mt-1" style="border:0"><input type="checkbox" id="p-consent"><span>I'm happy for Brandon Hall Hotel and Spa to contact me about this enquiry. See our <a href="../../privacy/">privacy notice</a>.</span></label>
+        <p class="err" id="p-consent-err"></p>
+        <div class="visually-hidden" aria-hidden="true"><label for="p-website">Leave this empty</label><input id="p-website" type="text" tabindex="-1" autocomplete="off"></div>
+        <div class="btn-row"><button class="btn btn--book" type="submit" id="p-submit">Request my quote</button></div>
+        <p class="err" id="p-send-err" aria-live="polite"></p>
+      </fieldset>
+
+      <div class="done" id="p-done" hidden tabindex="-1" aria-live="polite">
+        <h3 id="p-done-title"></h3>
+        <p id="p-done-text"></p>
+        <pre id="p-done-copy"></pre>
+        <div class="btn-row"><button type="button" class="btn btn--light" id="p-copy">Copy details</button><button type="button" class="btn btn--light" id="p-print">Print summary</button></div>
+      </div>
+    </form>
+
+    <aside class="summary" aria-label="Your event summary">
+      <div class="sheet"><div class="inner">
+        <span class="kicker">Your event</span>
+        <div class="plan-box" id="s-plan"></div>
+        <p class="small mt-1" id="s-caption"></p>
+        <dl id="s-list"></dl>
+        <div class="est" id="s-estimate" hidden>
+          <strong>Package estimate</strong><span class="v" id="s-est-total"></span>
+          <p id="s-est-line"></p>
+        </div>
+        <div class="est" id="s-carbon" hidden>
+          <strong>Estimated footprint</strong><span class="v co2" id="s-co2"></span>
+          <p id="s-co2-line"></p>
+          <p>An indicative estimate from room energy, catering and bedrooms, using UK hospitality benchmarks.</p>
+        </div>
+      </div></div>
+      <p class="small mt-1">Plans are drawn to the room's measurements. Our events team confirms the final layout, availability and price.</p>
+    </aside>
+  </div>
+</section>
+</main>
+<div class="pattern-band" aria-hidden="true"></div>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <img class="flogo" src="../../assets/brand/logo-gold.svg" alt="Brandon Hall Hotel and Spa">
+        <address>Brandon Hall Hotel and Spa<br>Main Street, Brandon, Wolston<br>Coventry CV8 3FW</address>
+        <p class="mt-1"><a href="https://maps.app.goo.gl/FGjTuhDh8wG2QdVG7" target="_blank" rel="noopener">Find us on Google Maps</a></p>
+      </div>
+      <div>
+        <h4>Stay and visit</h4>
+        <ul>
+          <li><a href="../../rooms-suites/">Rooms and suites</a></li>
+          <li><a href="../../dining/">The Clarendon</a></li>
+          <li><a href="../../spa-leisure/">Spa and leisure</a></li>
+          <li><a href="../../offers/">Offers</a></li>
+          <li><a href="https://booking.profitroom.com/en/brandonhallhotelspawarwickshire/home?no-cache=&amp;currency=GBP" target="_blank" rel="noopener" data-book>Book direct</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Celebrate and meet</h4>
+        <ul>
+          <li><a href="../../weddings/">Weddings</a></li>
+          <li><a href="../../meetings-events/">Meetings and events</a></li>
+          <li><a href="../../meetings-events/spaces/">Our event spaces</a></li>
+          <li><a href="../../meetings-events/planner/">Event planner</a></li>
+          <li><a href="../../christmas/">Christmas and New Year</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Talk to us</h4>
+        <ul>
+          <li><a href="tel:+442477102555">024 7710 2555</a></li>
+          <li><a href="mailto:events@brandonhallhotelandspa.com">events@brandonhallhotelandspa.com</a></li>
+          <li><a href="../../contact/">Contact and directions</a></li>
+        </ul>
+        <div class="social">
+          <a href="https://www.instagram.com/brandonhallhotelandspa/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1.1.4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1.1.4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1.1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1.1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.1 0-3.5 0-4.7.1-1.1.1-1.7.2-2.1.4-.5.2-.9.4-1.3.8-.4.4-.6.8-.8 1.3-.2.4-.3 1-.4 2.1C2.6 9.9 2.6 10.3 2.6 12s0 2.1.1 3.3c.1 1.1.2 1.7.4 2.1.2.5.4.9.8 1.3.4.4.8.6 1.3.8.4.2 1 .3 2.1.4 1.2.1 1.6.1 4.7.1s3.5 0 4.7-.1c1.1-.1 1.7-.2 2.1-.4.5-.2.9-.4 1.3-.8.4-.4.6-.8.8-1.3.2-.4.3-1 .4-2.1.1-1.2.1-1.6.1-3.3s0-2.1-.1-3.3c-.1-1.1-.2-1.7-.4-2.1-.2-.5-.4-.9-.8-1.3-.4-.4-.8-.6-1.3-.8-.4-.2-1-.3-2.1-.4C15.5 4 15.1 4 12 4zm0 3.1a4.9 4.9 0 1 1 0 9.8 4.9 4.9 0 0 1 0-9.8zm0 8.1a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4zm6.2-8.3a1.1 1.1 0 1 1-2.3 0 1.1 1.1 0 0 1 2.3 0z"/></svg></a>
+          <a href="https://www.facebook.com/brandonhallhotelandspa" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21.9v-8.2h2.8l.4-3.2h-3.2V8.4c0-.9.3-1.6 1.6-1.6h1.7V4c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.4H7.3v3.2h2.8v8.2h3.4z"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span>&copy; <span data-year>2026</span> Brandon Hall Hotel and Spa. 7 Hospitality Management Ltd.</span>
+      <span><a href="../../privacy/">Privacy</a> &nbsp;&nbsp; <a href="../../accessibility/">Accessibility</a></span>
+    </div>
+  </div>
+</footer>
+<div class="be-panel"></div>
+<script src="https://wis.upperbooking.com/brandonhallhotelspawarwickshire/be-panel?locale=en" defer></script>
+<script src="../../assets/js/venue-data.js"></script>
+<script src="../../assets/js/floorplan.js"></script>
+<script src="../../assets/js/planner.js"></script>
+<script src="../../assets/js/site.js"></script>
+</body>
+</html>
