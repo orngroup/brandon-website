@@ -97,11 +97,11 @@
       var price = pkgPrice(p);
       return '<label class="opt opt--pkg' + (p.id === S.pkg ? ' is-on' : '') + '"><input type="radio" name="pkg" value="' + p.id + '"' + (p.id === S.pkg ? ' checked' : '') + '>' +
         '<span class="opt-main"><strong>' + p.name + '</strong><span>' + p.includes.slice(0, 3).join(", ") + (p.includes.length > 3 ? " and more" : "") + '</span></span>' +
-        '<span class="opt-side">' + (C.showPackagePrices && price ? 'from <b>' + money(price) + '</b> pp' : 'Priced in your quote') + '</span></label>';
+        (C.showPackagePrices && price ? '<span class="opt-side">from <b>' + money(price) + '</b> pp</span>' : '<span></span>') + '</label>';
     }).join("");
     $("#p-pkg-note").textContent = C.showPackagePrices
       ? (S.date ? (isWeekend() ? "Weekend rates shown for your date." : "Midweek rates shown for your date.") : "Choose a date to see midweek or weekend rates.") + " Rates include VAT."
-      : "";
+      : "Choose what suits you best. Our events team will confirm the price in your proposal.";
   }
 
   /* ---------- Steps 4 & 5: catering and extras ---------- */
@@ -318,7 +318,7 @@
       created: new Date().toISOString()
     };
   }
-  function sendToHospro(body) {
+  function hosproDb() {
     var H = C.hospro;
     if (!H || !H.enabled) return Promise.reject(new Error("HOSPRO disabled"));
     return loadScript(H.sdk + "firebase-app-compat.js")
@@ -327,9 +327,32 @@
         var app = (firebase.apps.find(function (a) { return a.name === "bh-web"; })) || firebase.initializeApp(H.firebase, "bh-web");
         var auth = app.auth();
         return (auth.currentUser ? Promise.resolve() : auth.signInAnonymously()).then(function () {
-          return app.firestore().collection("enquiries").add(hosproRecord(body));
+          return { db: app.firestore(), uid: auth.currentUser ? auth.currentUser.uid : "" };
         });
       });
+  }
+  // Called when someone passes the gate: records them in HOSPRO straight away,
+  // so the team can follow up even if they don't finish the plan.
+  function createLead() {
+    return hosproDb().then(function (h) {
+      return h.db.collection("enquiries").add({
+        name: CT.name, email: CT.email, phone: CT.phone, company: CT.company || "",
+        event: "meeting", pax: null, date: "", room: "",
+        notes: "Started the online event planner" + (CT.company ? " · Company: " + CT.company : ""),
+        source: "Website", stage: "Planner started", status: "new",
+        uid: h.uid, created: new Date().toISOString()
+      }).then(function (ref) { CT.leadId = ref.id; saveContact(); });
+    });
+  }
+  function sendToHospro(body) {
+    return hosproDb().then(function (h) {
+      var rec = hosproRecord(body); rec.uid = h.uid; rec.stage = "Quote requested";
+      if (CT.leadId) {
+        return h.db.collection("enquiries").doc(CT.leadId).update(rec)
+          .catch(function () { return h.db.collection("enquiries").add(rec); });
+      }
+      return h.db.collection("enquiries").add(rec);
+    });
   }
 
   function validate() {
@@ -337,7 +360,6 @@
     var need = [["p-name", S.name, "Enter your name"], ["p-email", S.email, "Enter your email address"]];
     need.forEach(function (n) { setErr(n[0], n[1] ? "" : n[2]); if (!n[1]) errs.push(n[0]); });
     if (S.email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(S.email)) { setErr("p-email", "Enter an email address like name@company.co.uk"); errs.push("p-email"); }
-    if (!$("#p-consent").checked) { setErr("p-consent", "Tick to let us contact you about this enquiry"); errs.push("p-consent"); } else setErr("p-consent", "");
     return errs;
   }
   function setErr(id, msg) {
@@ -383,6 +405,52 @@
     if (navigator.clipboard) navigator.clipboard.writeText(t).then(function () { $("#p-copy").textContent = "Copied"; });
   });
   $("#p-print").addEventListener("click", function () { window.print(); });
+
+
+  /* ---------- Gate: contact details before planning ---------- */
+  var CT = {};
+  var CT_KEY = "bh_planner_contact";
+  function saveContact() { try { localStorage.setItem(CT_KEY, JSON.stringify(CT)); } catch (e) {} }
+  function loadContact() { try { return JSON.parse(localStorage.getItem(CT_KEY)) || null; } catch (e) { return null; } }
+
+  function fillContact() {
+    ["name", "company", "email", "phone"].forEach(function (k) { S[k] = CT[k] || ""; var el = $("#p-" + k); if (el) el.value = S[k]; });
+    $("#who").textContent = CT.name + (CT.company ? ", " + CT.company : "");
+  }
+  function openPlanner(focus) {
+    $("#gate").hidden = true; $("#planner-wrap").hidden = false;
+    fillContact();
+    if (focus) { $("#step-1 .step-t").setAttribute("tabindex", "-1"); $("#step-1 .step-t").focus(); window.scrollTo({ top: $("#planner-wrap").offsetTop - 90, behavior: "smooth" }); }
+  }
+  function gateErr(id, msg) { var e = $("#" + id + "-err"); if (e) e.textContent = msg; var el = $("#" + id); if (el) el.setAttribute("aria-invalid", msg ? "true" : "false"); return !msg; }
+
+  $("#gate-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var v = function (id) { return $("#" + id).value.trim(); };
+    var ok = true, first = null;
+    function need(id, cond, msg) { var good = gateErr(id, cond ? "" : msg); if (!good && !first) first = id; ok = ok && good; }
+    need("g-name", v("g-name"), "Enter your name");
+    need("g-email", /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v("g-email")), "Enter an email address like name@company.co.uk");
+    need("g-phone", v("g-phone").replace(/[^0-9]/g, "").length >= 10, "Enter a phone number we can reach you on");
+    need("g-consent", $("#g-consent").checked, "Tick to let us contact you about your event");
+    if (!ok) { $("#" + first).focus(); return; }
+    CT = { name: v("g-name"), company: v("g-company"), email: v("g-email"), phone: v("g-phone"), consent: new Date().toISOString() };
+    saveContact();
+    openPlanner(true);
+    if (!$("#g-website").value) createLead().catch(function (err) { console.warn("Lead not saved to HOSPRO:", err && err.message); });
+  });
+  $("#not-you").addEventListener("click", function (e) {
+    e.preventDefault();
+    try { localStorage.removeItem(CT_KEY); } catch (x) {}
+    CT = {};
+    ["g-name", "g-company", "g-email", "g-phone"].forEach(function (id) { $("#" + id).value = ""; });
+    $("#g-consent").checked = false;
+    $("#planner-wrap").hidden = true; $("#gate").hidden = false; $("#g-name").focus();
+  });
+
+  var saved = loadContact();
+  if (saved && saved.name && saved.email) { CT = saved; openPlanner(false); }
+  else { $("#gate").hidden = false; }
 
   /* ---------- Initial values ---------- */
   $("#p-guests").value = S.guests;

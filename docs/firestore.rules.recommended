@@ -9,9 +9,15 @@ service cloud.firestore {
     }
 
     // Website and chat enquiries: anyone (anonymous) may CREATE a new
-    // enquiry; only staff can read, edit or delete them.
+    // enquiry, and may complete the lead they started in the planner.
+    // Only staff can read or delete enquiries.
     match /enquiries/{doc} {
-      allow read, update, delete: if isStaff();
+      allow read, delete: if isStaff();
+      allow update: if isStaff()
+        || (request.auth != null
+            && resource.data.uid == request.auth.uid
+            && request.resource.data.uid == request.auth.uid
+            && resource.data.stage == 'Planner started');
       allow create: if isStaff()
         || (request.auth != null
             && request.resource.data.status == 'new'

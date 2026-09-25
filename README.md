@@ -3,13 +3,15 @@
 Static multi-page site for GitHub Pages. No build step is needed to publish: every page is plain HTML.
 
 ## Publish on GitHub Pages
-1. Upload the contents of this folder to the root of the `orngroup/brandon-website` repository (keep `.nojekyll`).
+1. Upload the contents of this folder to the root of the `orngroup/brandon-website` repository, replacing what's there. Mac Finder and GitHub's uploader skip hidden files, so also create an empty file called `.nojekyll` in the repo root (Add file > Create new file, name it `.nojekyll`, commit). This makes GitHub serve the files exactly as they are.
 2. Repository **Settings > Pages**: Source "Deploy from a branch", branch `main`, folder `/ (root)`.
 3. Preview address: `https://orngroup.github.io/brandon-website/`. All links are relative, so the site works there and on the real domain.
 4. To go live on the hotel domain, add a `CNAME` file containing `www.brandonhallhotelandspa.com`, then point the domain's DNS at GitHub Pages. Do this only when the full site is signed off, as it replaces the current WordPress site.
 
 ## Editing
 - **Rooms, capacities, packages, catering, extras, contact settings:** `assets/js/venue-data.js`. The Meetings pages and the Event Planner all read from this one file.
+- **Event Planner access:** visitors give their name, company (optional), email and phone number before the planner opens. That creates a "Planner started" enquiry in HOSPRO straight away, so the team can follow up even if they don't finish. When they send their plan, the same enquiry is updated to "Quote requested" with the full specification. Details are remembered on their device so they can come back.
+- **Prices:** the planner shows no prices or estimates (`showPackagePrices: false` in `assets/js/venue-data.js`). Customers choose freely and the events team prices the proposal. The Meetings page still shows the published "from" rates from the brochure.
 - **Where quote requests go:** straight into HOSPRO. The Event Planner signs in anonymously to the HOSPRO Firebase project (brandonhall-7bdef) and adds the enquiry to the `enquiries` collection with source "Website" and status "new", using HOSPRO's own room and event IDs. If HOSPRO can't be reached, the visitor's email app opens with everything filled in, addressed to events@. Settings: `hospro` in `assets/js/venue-data.js`.
 - **Page text:** edit the HTML directly, or edit `tools/build.py` and run `python3 tools/build.py` to regenerate every page with the shared header and footer.
 - **Brochures and menus:** replace the PDFs in `/downloads` keeping the same file names.

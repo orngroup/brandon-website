@@ -37,8 +37,9 @@ window.BH_CONFIG = {
     }
   },
 
-  /* Show package "from" prices (as printed in the brochure). */
-  showPackagePrices: true,
+  /* Show package prices and a cost estimate in the Event Planner.
+     Off: customers choose freely and the events team prices it. */
+  showPackagePrices: false,
 
   bookingUrl: "https://booking.profitroom.com/en/brandonhallhotelspawarwickshire/home?no-cache=&currency=GBP"
 };

@@ -526,12 +526,40 @@ def planner():
     </div>
     <div class="c">
       <p class="lede">Build your event step by step. The plan and summary update as you go.</p>
-      <p>When you're happy, send it to our events team. They'll check availability and come back with a tailored proposal. There's no commitment at this stage.</p>
+      <p>Choose your room, layout, package, food and drink, extras and bedrooms. When you're happy, send it to our events team and they'll come back with availability and a tailored proposal. There's no commitment at this stage.</p>
     </div>
   </div>
 </section>
 
-<section style="padding-bottom:var(--section)">
+<section class="gate-wrap" id="gate" hidden>
+  <div class="wrap">
+    <div class="gate">
+      <div class="gate-inner">
+        <span class="kicker">Before you start</span>
+        <h2>Tell us who's planning</h2>
+        <p>We'll use these details to send your proposal, and our events team can help if you get stuck. You can come back to your plan at any time on this device.</p>
+        <form id="gate-form" novalidate>
+          <div class="grid-2">
+            <label class="field" for="g-name">Name<input id="g-name" type="text" autocomplete="name" required><span class="err" id="g-name-err"></span></label>
+            <label class="field" for="g-company">Company or organisation<input id="g-company" type="text" autocomplete="organization" placeholder="If booking for a business"><span class="err"></span></label>
+            <label class="field" for="g-email">Email<input id="g-email" type="email" autocomplete="email" required><span class="err" id="g-email-err"></span></label>
+            <label class="field" for="g-phone">Phone number<input id="g-phone" type="tel" autocomplete="tel" required><span class="err" id="g-phone-err"></span></label>
+          </div>
+          <label class="check mt-1" style="border:0"><input type="checkbox" id="g-consent"><span>I'm happy for {HOTEL} to contact me about my event. See our <a href="../../privacy/">privacy notice</a>.</span></label>
+          <p class="err" id="g-consent-err"></p>
+          <div class="visually-hidden" aria-hidden="true"><label for="g-website">Leave this empty</label><input id="g-website" type="text" tabindex="-1" autocomplete="off"></div>
+          <div class="btn-row"><button class="btn btn--book" type="submit">Start planning</button></div>
+        </form>
+        <p class="small mt-2">Prefer to talk? Call <a class="textlink" href="tel:{PHONE_HREF}">{PHONE}</a> or email <a class="textlink" href="mailto:{EMAIL}">{EMAIL}</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-bottom:var(--section)" id="planner-wrap" hidden>
+  <div class="wrap">
+    <p class="who-bar">Planning as <strong id="who"></strong>. <a href="#" id="not-you">Not you?</a></p>
+  </div>
   <div class="wrap planner">
     <form id="p-form" novalidate>
       <fieldset class="step" id="step-1">
@@ -591,17 +619,15 @@ def planner():
       </fieldset>
 
       <fieldset class="step" id="step-7">
-        <legend><span class="step-n">7</span><span class="step-t">Your details</span></legend>
+        <legend><span class="step-n">7</span><span class="step-t">Check and send</span></legend>
         <div class="grid-2">
           <label class="field" for="p-name">Name<input id="p-name" type="text" autocomplete="name" required><span class="err" id="p-name-err"></span></label>
           <label class="field" for="p-company">Company or organisation <span class="hint">Optional</span><input id="p-company" type="text" autocomplete="organization"></label>
           <label class="field" for="p-email">Email<input id="p-email" type="email" autocomplete="email" required><span class="err" id="p-email-err"></span></label>
-          <label class="field" for="p-phone">Phone <span class="hint">Optional</span><input id="p-phone" type="tel" autocomplete="tel"></label>
+          <label class="field" for="p-phone">Phone number<input id="p-phone" type="tel" autocomplete="tel"></label>
         </div>
         <label class="field mt-1" for="p-notes">Anything else we should know? <span class="hint">Timings, dietary needs, accessibility, budget</span><textarea id="p-notes" rows="4"></textarea></label>
         <label class="field mt-1" for="p-source">How did you hear about us? <span class="hint">Optional</span><select id="p-source"><option value="">Choose one</option><option>Search engine</option><option>Recommendation</option><option>Been before</option><option>Social media</option><option>Event agency</option><option>Other</option></select></label>
-        <label class="check mt-1" style="border:0"><input type="checkbox" id="p-consent"><span>I'm happy for {HOTEL} to contact me about this enquiry. See our <a href="../../privacy/">privacy notice</a>.</span></label>
-        <p class="err" id="p-consent-err"></p>
         <div class="visually-hidden" aria-hidden="true"><label for="p-website">Leave this empty</label><input id="p-website" type="text" tabindex="-1" autocomplete="off"></div>
         <div class="btn-row"><button class="btn btn--book" type="submit" id="p-submit">Request my quote</button></div>
         <p class="err" id="p-send-err" aria-live="polite"></p>
@@ -643,7 +669,7 @@ def planner():
 # HOLDING PAGES (built in the next stage)
 # ----------------------------------------------------------------
 def holding(path, active, title, lede, img, alt, downloads=(), extra=""):
-    depth = path.count("/")
+    depth = path.count("/") + 1
     p = "../" * depth
     h = head(p, f"{title} | {HOTEL}", lede)
     dls = "".join(dl(p, *d) for d in downloads)
@@ -655,7 +681,7 @@ def holding(path, active, title, lede, img, alt, downloads=(), extra=""):
 <section class="section holding">
   <div class="wrap split" style="align-items:start">
     <div class="a">
-      <p class="notice" style="margin-top:0">Preview: the full {title.lower()} page is part of the next stage of the build.</p>
+      <p class="notice" style="margin-top:0">We're putting the finishing touches to this page. In the meantime, the downloads here have everything you need.</p>
       {extra}
       <p class="mt-2">For anything you need in the meantime, call <a class="textlink" href="tel:{PHONE_HREF}">{PHONE}</a> or email <a class="textlink" href="mailto:{EMAIL}">{EMAIL}</a>.</p>
     </div>
