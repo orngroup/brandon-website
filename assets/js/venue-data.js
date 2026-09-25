@@ -243,7 +243,7 @@ window.bhRoomDims = function (room) {
 
 /* Meeting and event photographs.
    src = copy in this repo (assets/img/meetings). Run the
-   "Fetch meeting photos" GitHub Action once to download them.
+   "Fetch hotel photos" GitHub Action once to download them.
    Until then each image falls back to the current hotel website. */
 window.BH_MEETING_PHOTOS = [
   { src: "assets/img/meetings/meeting-1.png",  remote: "https://www.brandonhallhotelandspa.com/wp-content/uploads/2025/09/1758893100-1000x667.png",  alt: "A meeting room set with seating and a presentation screen" },

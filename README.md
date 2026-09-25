@@ -24,16 +24,19 @@ Static multi-page site for GitHub Pages. No build step is needed to publish: eve
 4. Firestore rules: the current rule lets any signed-in user, including an anonymous website visitor, read every enquiry. Replace the enquiries, meta and marketing rules with `docs/firestore.rules.recommended` so the public can only create enquiries and only staff can read them.
 5. Send a test enquiry from the live planner and check it appears in HOSPRO.
 
-## Meeting photographs (one-off)
-The six meeting photographs currently live on the WordPress site. Until they're copied here, the site shows them from there. To copy them in: GitHub > Actions > **Fetch meeting photos** > Run workflow. It downloads them into `assets/img/meetings` and commits them. Do this before the WordPress site is switched off.
+## Photographs still on the WordPress site (one-off)
+The meeting room, leisure club and Out & About photographs currently live on the WordPress site. Until they're copied here, the site shows them from there. To copy them in: GitHub > Actions > **Fetch hotel photos** > Run workflow. It downloads them into `assets/img/meetings` and `assets/img/site` and commits them. Do this before the WordPress site is switched off.
 
 ## Stage status
-Built: Home, Meetings & Events, Our event spaces, Event planner.
-Holding pages (with downloads attached): Rooms & Suites, Dining, Weddings, Christmas, Spa & Leisure, Offers, Contact, Privacy, Accessibility.
+Built: Home, Rooms & Suites, Leisure & Wellness, Out & About, Meetings & Events, Our event spaces, Event planner.
+Holding pages (with downloads attached): Dining, Weddings, Christmas, Offers, Contact, Privacy, Accessibility.
+The Profitroom pop-up booking bar has been removed. "Book direct" buttons go straight to the Profitroom booking engine.
 
 ## To confirm with the hotel
 - Brandon 1 (54 m², 13.26 x 6.55 m) and Brandon 2 (76 m², 9.23 x 6.08 m): areas and dimensions don't match.
 - Woodlands 2 length listed as 19.5 m in HOSPRO; drawn here at 9.5 m (half the suite).
 - Wolston partition removed: can Wolston 1, 2 and 3 still be booked separately?
 - Beech, Hunt and Warwick are hidden until they are ready to sell.
-- Meeting room photographs are still needed.
+- Which meeting photo shows which room, so each room can carry its own photo.
+- The current Rooms page lists "Charge of £5 over night" under facilities. What is this for (parking?). It's left off the new site until confirmed.
+- Leisure club opening times, and whether treatments are offered. The new page doesn't mention treatments.

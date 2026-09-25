@@ -14,7 +14,7 @@ IG = "https://www.instagram.com/brandonhallhotelandspa/"
 FB = "https://www.facebook.com/brandonhallhotelandspa"
 SITE_URL = "https://www.brandonhallhotelandspa.com"
 
-NAV_LEFT = [("stay", "rooms-suites/", "Stay"), ("dining", "dining/", "Dining"), ("spa", "spa-leisure/", "Spa &amp; Leisure")]
+NAV_LEFT = [("stay", "rooms-suites/", "Stay"), ("dining", "dining/", "Dining"), ("spa", "spa-leisure/", "Leisure &amp; Wellness")]
 NAV_RIGHT = [("weddings", "weddings/", "Weddings"), ("meetings", "meetings-events/", "Meetings &amp; Events"), ("christmas", "christmas/", "Christmas")]
 
 IG_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1.1.4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1.1.4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1.1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1.1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.1 0-3.5 0-4.7.1-1.1.1-1.7.2-2.1.4-.5.2-.9.4-1.3.8-.4.4-.6.8-.8 1.3-.2.4-.3 1-.4 2.1C2.6 9.9 2.6 10.3 2.6 12s0 2.1.1 3.3c.1 1.1.2 1.7.4 2.1.2.5.4.9.8 1.3.4.4.8.6 1.3.8.4.2 1 .3 2.1.4 1.2.1 1.6.1 4.7.1s3.5 0 4.7-.1c1.1-.1 1.7-.2 2.1-.4.5-.2.9-.4 1.3-.8.4-.4.6-.8.8-1.3.2-.4.3-1 .4-2.1.1-1.2.1-1.6.1-3.3s0-2.1-.1-3.3c-.1-1.1-.2-1.7-.4-2.1-.2-.5-.4-.9-.8-1.3-.4-.4-.8-.6-1.3-.8-.4-.2-1-.3-2.1-.4C15.5 4 15.1 4 12 4zm0 3.1a4.9 4.9 0 1 1 0 9.8 4.9 4.9 0 0 1 0-9.8zm0 8.1a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4zm6.2-8.3a1.1 1.1 0 1 1-2.3 0 1.1 1.1 0 0 1 2.3 0z"/></svg>'
@@ -51,13 +51,14 @@ def header(p, active):
             cur = ' aria-current="page"' if key == active else ""
             out.append(f'<a href="{p}{href}"{cur}>{label}</a>')
         return "\n      ".join(out)
-    drawer_links = "".join(f'<a href="{p}{h}">{l}</a>' for _, h, l in NAV_LEFT + NAV_RIGHT + [("o", "offers/", "Offers"), ("c", "contact/", "Contact")])
+    drawer_links = "".join(f'<a href="{p}{h}">{l}</a>' for _, h, l in NAV_LEFT + NAV_RIGHT + [("o", "offers/", "Offers"), ("x", "out-about/", "Out &amp; About"), ("c", "contact/", "Contact")])
     return f'''<div class="utility">
   <div class="wrap">
     <span class="u-hide">Main Street, Brandon, near Coventry</span>
     <div class="u-links">
       <a href="tel:{PHONE_HREF}">{PHONE}</a>
       <a class="u-hide" href="{p}offers/">Offers</a>
+      <a class="u-hide" href="{p}out-about/">Out &amp; About</a>
       <a class="u-hide" href="{p}contact/">Contact</a>
     </div>
   </div>
@@ -105,7 +106,8 @@ def footer(p, scripts=()):
         <ul>
           <li><a href="{p}rooms-suites/">Rooms and suites</a></li>
           <li><a href="{p}dining/">The Clarendon</a></li>
-          <li><a href="{p}spa-leisure/">Spa and leisure</a></li>
+          <li><a href="{p}spa-leisure/">Leisure and wellness</a></li>
+          <li><a href="{p}out-about/">Out and about</a></li>
           <li><a href="{p}offers/">Offers</a></li>
           <li><a href="{BOOK}" target="_blank" rel="noopener" data-book>Book direct</a></li>
         </ul>
@@ -139,12 +141,19 @@ def footer(p, scripts=()):
     </div>
   </div>
 </footer>
-<div class="be-panel"></div>
-<script src="https://wis.upperbooking.com/brandonhallhotelspawarwickshire/be-panel?locale=en" defer></script>
 {s}<script src="{p}assets/js/site.js"></script>
 </body>
 </html>
 '''
+
+
+HOTEL_IMG = "https://www.brandonhallhotelandspa.com/wp-content/uploads/"
+
+def rimg(p, local, remote, alt, cls="", extra=""):
+    """Image stored in this repo once the photo-fetch Action has run;
+    until then it loads from the current hotel website."""
+    return (f'<img src="{p}assets/img/site/{local}" alt="{alt}" loading="lazy"{(" class=" + chr(34) + cls + chr(34)) if cls else ""} {extra}'
+            f'data-fallback="{HOTEL_IMG}{remote}" onerror="if(this.dataset.fallback){{this.src=this.dataset.fallback;this.dataset.fallback=\'\'}}">')
 
 
 def dl(p, file, title, sub):
@@ -213,7 +222,7 @@ def home():
       <div><strong>17 acres</strong><span>of gardens and woodland to explore</span></div>
       <div><strong>14</strong><span>event spaces, from boardrooms to the Woodlands Suite</span></div>
       <div><strong>280</strong><span>guests at a standing reception</span></div>
-      <div><strong>Free</strong><span>on-site parking for every guest</span></div>
+      <div><strong>24-hour</strong><span>reception, always here to help</span></div>
     </div>
   </div>
 </section>
@@ -229,7 +238,7 @@ def home():
       <a class="path" href="weddings/"><img src="assets/img/wedding-walk.jpg" alt="A bride and groom walking hand in hand across the lawn towards the hotel" loading="lazy"><div class="t"><h3>Weddings</h3><span>Your day, in our 17 acres</span></div></a>
       <a class="path" href="meetings-events/"><img src="assets/img/suite-cabaret-white.jpg" alt="A function suite laid with round tables, white linen and flowers" loading="lazy"><div class="t"><h3>Meetings and events</h3><span>Fourteen spaces and an online planner</span></div></a>
       <a class="path" href="dining/"><img src="assets/img/table-setting.jpg" alt="A round table laid with white linen, gold chargers and flowers" loading="lazy"><div class="t"><h3>The Clarendon</h3><span>Seasonal menus, lunch and dinner</span></div></a>
-      <a class="path" href="spa-leisure/"><img src="assets/img/pool.jpg" alt="The indoor swimming pool under a glazed roof" loading="lazy"><div class="t"><h3>Spa and leisure</h3><span>Pool, leisure club and treatments</span></div></a>
+      <a class="path" href="spa-leisure/"><img src="assets/img/pool.jpg" alt="The indoor swimming pool under a glazed roof" loading="lazy"><div class="t"><h3>Leisure and wellness</h3><span>Indoor pool, gym and fitness centre</span></div></a>
     </div>
   </div>
 </section>
@@ -692,16 +701,202 @@ def holding(path, active, title, lede, img, alt, downloads=(), extra=""):
     write(path + "/index.html", h + header(p, active) + body + footer(p))
 
 
+
+# ----------------------------------------------------------------
+# ROOMS & SUITES
+# ----------------------------------------------------------------
+def rooms():
+    p = "../"
+    h = head(p, f"Rooms and suites | {HOTEL}",
+             "Classic, Executive and Junior Suite rooms at Brandon Hall Hotel and Spa, a country house hotel near Coventry. Free Wi-Fi, ensuite bathrooms and accessible rooms. Book direct.")
+    def room(title, kicker, img, alt, intro, items, flip=False, note=""):
+        lis = "".join(f"<li>{i}</li>" for i in items)
+        return f'''
+<section class="section{' section--white' if flip else ''}">
+  <div class="wrap split{' split--flip' if flip else ''}">
+    <div class="a"><figure class="mount"><img src="../assets/img/{img}" alt="{alt}" loading="lazy"></figure></div>
+    <div class="b">
+      <span class="kicker">{kicker}</span>
+      <h2>{title}</h2>
+      <p>{intro}</p>
+      <ul class="ticks ticks--one mt-1">{lis}</ul>
+      {f'<p class="small mt-1">{note}</p>' if note else ''}
+      <div class="btn-row"><a class="btn btn--book" href="{BOOK}" target="_blank" rel="noopener">Check availability</a></div>
+    </div>
+  </div>
+</section>'''
+    body = f'''
+<section class="section page-open">
+  <div class="wrap split">
+    <div class="a">
+      <h1 class="h1-page">Rooms and suites</h1>
+      <p class="lede">Rest easy in country comfort.</p>
+      <p>Each room at {HOTEL} is designed with comfort in mind: a quiet space to unwind after a busy day, with soft bedding, modern touches and views that remind you you're in the heart of the countryside.</p>
+      <div class="btn-row">
+        <a class="btn btn--book" href="{BOOK}" target="_blank" rel="noopener">Book direct</a>
+        <a class="btn btn--line" href="../offers/">See our offers</a>
+      </div>
+    </div>
+    <div class="b"><figure class="mount mount--tall"><img src="../assets/img/exterior-terrace.jpg" alt="The hotel's white bay-fronted wing with garden seating on the terrace" fetchpriority="high"></figure></div>
+  </div>
+</section>
+{room("Classic Double and Twin", "Classic rooms", "bedroom-yellow.jpg", "A classic double bedroom", "Cosy and comfortable, with a double bed or two single beds.", ["Cosy, comfortable furnishings", "A double bed, or two twin beds", "Ensuite bathroom with bath or shower", "Accessible Classic rooms available"], True)}
+{room("Executive Double", "Executive rooms", "bedroom-teal.jpg", "A double bedroom with a teal feature wall and a desk by the window", "Upgraded furnishings and a proper desk, ideal if you're staying for work.", ["Upgraded furnishings", "Double bed", "Desk and chair", "Ensuite bathroom with bath or shower", "Accessible Executive rooms available"])}
+{room("Junior Suites", "Suites", "suite-bay.jpg", "A junior suite with a large bed and a bay window", "More space to spread out, with a sofa to relax on at the end of the day.", ["King-size bed", "More generous space and upgraded furnishings", "Seating area with sofa", "Ensuite bathroom with bath or shower"], True)}
+
+<section class="section">
+  <div class="wrap">
+    <div class="intro mb-2">
+      <div class="t"><h2>In every room</h2></div>
+      <div class="c"><ul class="ticks"><li>TV</li><li>Free Wi-Fi</li><li>Tea and coffee making</li><li>Ironing set</li><li>Toiletries and hairdryer</li><li>Ensuite bathroom</li></ul></div>
+    </div>
+    <div class="intro mt-3">
+      <div class="t"><h2>Around the hotel</h2></div>
+      <div class="c">
+        <p>From breakfast to a nightcap in the bar, everything is designed to make your stay easy, whether you're here to unwind, work or explore.</p>
+        <ul class="ticks"><li>24-hour reception</li><li>Breakfast available</li><li>Bar and lounge</li><li>Laundry service</li><li>Accessible rooms</li><li>Pet-friendly rooms on request</li><li>Indoor pool, gym and fitness centre</li><li>17 acres of gardens and woodland</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section--tight section--navy">
+  <div class="wrap cta-band" style="padding-top:56px;padding-bottom:56px">
+    <div><h2>Book direct for the best rate</h2><p>Stay longer and save with our current offers.</p></div>
+    <div class="btn-row" style="margin-top:0"><a class="btn btn--book" href="{BOOK}" target="_blank" rel="noopener">Book direct</a><a class="btn btn--light" href="../offers/">Offers</a></div>
+  </div>
+</section>
+'''
+    write("rooms-suites/index.html", h + header(p, "stay") + body + footer(p))
+
+
+# ----------------------------------------------------------------
+# LEISURE & WELLNESS
+# ----------------------------------------------------------------
+def leisure():
+    p = "../"
+    h = head(p, f"Leisure and wellness | {HOTEL}",
+             "Indoor swimming pool, gym and fitness centre at Brandon Hall Hotel and Spa, near Coventry in Warwickshire.")
+    body = f'''
+<section class="hero hero--page">
+  <img src="../assets/img/pool.jpg" alt="The indoor swimming pool under a glazed roof" fetchpriority="high">
+  <div class="wrap"><h1>Leisure and wellness</h1><p>Swim, train or simply slow down, a few steps from your room.</p></div>
+</section>
+
+<section class="section">
+  <div class="wrap intro">
+    <div class="t"><h2>Time for yourself</h2></div>
+    <div class="c">
+      <p class="lede">Our leisure club gives you space to switch off, or to keep up your routine while you're away.</p>
+      <p>Start the day with a swim under the glass roof, fit in a session in the gym between meetings, or unwind at the end of a day exploring Warwickshire. Our reception team can tell you everything you need to know before your visit.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section--white">
+  <div class="wrap">
+    <div class="features">
+      <article class="feature">
+        <figure class="mount">{rimg(p, "leisure-pool.jpg", "2026/09/17685405-1000x665.jpg", "The swimming pool")}</figure>
+        <h3>Swimming pool</h3>
+        <p>An indoor pool beneath a glazed roof, bright in every season.</p>
+      </article>
+      <article class="feature">
+        <figure class="mount">{rimg(p, "leisure-gym.jpg", "2026/09/96137361-1000x667.jpg", "The gym")}</figure>
+        <h3>Gym</h3>
+        <p>Cardio and resistance equipment to keep your routine going while you stay.</p>
+      </article>
+      <article class="feature">
+        <figure class="mount">{rimg(p, "leisure-fitness.jpg", "2026/09/218517847-1000x750.jpg", "The fitness centre")}</figure>
+        <h3>Fitness centre</h3>
+        <p>Space to stretch, train and reset, whatever your pace.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap split">
+    <div class="a"><figure class="mount"><img src="../assets/img/grounds-lawn.jpg" alt="Wide striped lawns and mature trees in the hotel grounds" loading="lazy"></figure></div>
+    <div class="b">
+      <span class="kicker">In the grounds</span>
+      <h2>Seventeen acres to explore</h2>
+      <p>Beyond the leisure club, our gardens and woodland are made for a morning walk, a run before breakfast or a quiet moment with a book.</p>
+      <div class="btn-row"><a class="btn btn--line" href="../out-about/">Out and about</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="section--tight section--navy">
+  <div class="wrap cta-band" style="padding-top:56px;padding-bottom:56px">
+    <div><h2>Plan your stay</h2><p>For opening times and anything else about the leisure club, call reception on <a href="tel:{PHONE_HREF}" style="color:#fff">{PHONE}</a>.</p></div>
+    <a class="btn btn--book" href="{BOOK}" target="_blank" rel="noopener">Book direct</a>
+  </div>
+</section>
+'''
+    write("spa-leisure/index.html", h + header(p, "spa") + body + footer(p))
+
+
+# ----------------------------------------------------------------
+# OUT & ABOUT
+# ----------------------------------------------------------------
+def out_about():
+    p = "../"
+    h = head(p, f"Things to do in Warwickshire | {HOTEL}",
+             "Warwick Castle, Stratford-upon-Avon, Kenilworth Castle, Compton Verney and the Warwickshire countryside, all within easy reach of Brandon Hall Hotel and Spa.")
+    places = [
+        ("Warwick Castle", "Step into centuries of history and explore its towers, gardens and exhibitions.", "out-warwick-castle.webp", "2025/11/wars-of-the-roses-jousting.webp", "Knights jousting on horseback in front of a crowd at Warwick Castle", "https://www.warwick-castle.com"),
+        ("Stratford-upon-Avon", "Discover Shakespeare's home town, with its theatres, river walks and charming streets.", "out-stratford.jpg", "2025/11/iStock-148521984-1000x669.jpg", "A thatched Tudor cottage in Stratford-upon-Avon", ""),
+        ("Kenilworth Castle and Gardens", "Grand, romantic and full of stories.", "out-kenilworth.jpg", "2025/11/kenilworhero-1000x521.jpg", "The Elizabethan garden at Kenilworth Castle", "https://www.english-heritage.org.uk/visit/places/kenilworth-castle/"),
+        ("Compton Verney Art Gallery and Park", "Art, nature and architecture in perfect balance.", "out-compton-verney.jpg", "2025/11/iStock-184639439-1000x756.jpg", "Compton Verney house across the lake", "https://www.comptonverney.org.uk"),
+        ("The Warwickshire countryside", "Wander scenic walking routes, cycle through villages or simply enjoy the open air.", "out-countryside.jpg", "2025/11/iStock-1456041071-1000x750.jpg", "Green Warwickshire countryside and a river from above", ""),
+    ]
+    cards = "".join(
+        f'''<article class="place">
+          <figure class="place-img">{rimg(p, local, remote, alt)}</figure>
+          <div class="place-t"><h3>{name}</h3><p>{text}</p>{f'<a class="textlink" href="{url}" target="_blank" rel="noopener">Find out more</a>' if url else ''}</div>
+        </article>''' for name, text, local, remote, alt, url in places)
+    body = f'''
+<section class="section page-open">
+  <div class="wrap split">
+    <div class="a">
+      <h1 class="h1-page">Out and about</h1>
+      <p class="lede">Things to do in Warwickshire.</p>
+      <p>When you stay at {HOTEL}, you're perfectly placed to explore some of Warwickshire's best-loved places, from historic towns to hidden countryside trails.</p>
+    </div>
+    <div class="b"><figure class="mount mount--tall"><img src="../assets/img/grounds-lake.jpg" alt="A still lake framed by pine trees" fetchpriority="high"></figure></div>
+  </div>
+</section>
+
+<section class="section section--white">
+  <div class="wrap">
+    <h2 class="mb-2">Explore, discover and enjoy</h2>
+    <div class="places">{cards}</div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap split split--flip">
+    <div class="a"><figure class="mount"><img src="../assets/img/reception.jpg" alt="The hotel reception desk with fresh flowers" loading="lazy"></figure></div>
+    <div class="b">
+      <h2>Tap into our local knowledge</h2>
+      <p>Our team is always happy to recommend places to visit, local restaurants and hidden gems to make your stay extra special. Just ask at reception, day or night.</p>
+      <div class="btn-row"><a class="btn btn--book" href="{BOOK}" target="_blank" rel="noopener">Book your stay</a><a class="btn btn--line" href="{MAPS}" target="_blank" rel="noopener">Find us</a></div>
+    </div>
+  </div>
+</section>
+'''
+    write("out-about/index.html", h + header(p, "") + body + footer(p))
+
+
 if __name__ == "__main__":
-    home(); meetings(); spaces(); planner()
-    holding("rooms-suites", "stay", "Rooms and suites", "Comfortable rooms and suites looking out over our Warwickshire gardens.", "bedroom-yellow.jpg", "A bright double bedroom with yellow accents")
+    home(); meetings(); spaces(); planner(); rooms(); leisure(); out_about()
     holding("dining", "dining", "The Clarendon", "Seasonal menus, relaxed lunches and dinner in the country house.", "restaurant.jpg", "The Clarendon restaurant with arched windows",
             [("clarendon-restaurant-menu.pdf", "Restaurant menu", "PDF, 1.4 MB"), ("clarendon-lunch-menu.pdf", "Lunch menu", "PDF, 0.2 MB"), ("clarendon-dinner-bed-breakfast-menu.pdf", "Dinner, bed and breakfast menu", "PDF, 0.2 MB"), ("clarendon-wine-list.pdf", "Wine list", "PDF, 0.2 MB"), ("clarendon-restaurant-bar-wine-list.pdf", "Restaurant and bar wine list", "PDF, 0.2 MB")])
     holding("weddings", "weddings", "Weddings", "A country house setting, 17 acres of gardens and woodland, for the day you've always imagined.", "wedding-lawn.jpg", "A bride and groom dancing on the lawn in front of the hotel",
             [("wedding-brochure-2026.pdf", "Wedding brochure 2026", "PDF, 2.7 MB"), ("self-catering-wedding-brochure-2026.pdf", "Self-catering weddings 2026", "PDF, 2.9 MB")])
     holding("christmas", "christmas", "Christmas and New Year", "Party nights, Christmas Day lunch and a New Year's Eve gala dinner.", "christmas-party.jpg", "Friends celebrating with sparklers",
             [("christmas-brochure-2026.pdf", "Christmas and New Year brochure 2026", "PDF, 9.6 MB")])
-    holding("spa-leisure", "spa", "Spa and leisure", "An indoor pool, leisure club and treatments to help you unwind.", "pool.jpg", "The indoor swimming pool under a glazed roof")
     holding("offers", "offers", "Offers", "Book direct with us for the best available rate.", "exterior-lawn.jpg", "The hotel across the lawn",
             extra=f'<div class="btn-row"><a class="btn btn--book" href="{BOOK}" target="_blank" rel="noopener" data-book>Check availability</a></div>')
     holding("contact", "contact", "Contact and directions", "Main Street, Brandon, Wolston, Coventry CV8 3FW.", "exterior-dusk.jpg", "The hotel lit up at dusk",

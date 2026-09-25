@@ -1,14 +1,22 @@
 /* Brandon Hall Hotel and Spa — shared behaviour */
 (function () {
-  // Sticky header state
+  // Sticky header: shrink only once the visitor has actually scrolled.
+  // Set the starting state without animation so the logo never "jumps"
+  // when a page opens.
   var header = document.querySelector(".site-header");
-  if (header && "IntersectionObserver" in window) {
-    var sentinel = document.createElement("div");
-    sentinel.style.cssText = "position:absolute;top:0;height:1px;width:1px";
-    document.body.prepend(sentinel);
-    new IntersectionObserver(function (e) {
-      header.classList.toggle("is-stuck", !e[0].isIntersecting);
-    }, { rootMargin: "-40px 0px 0px 0px" }).observe(sentinel);
+  if (header) {
+    var stuck = null;
+    function update() {
+      var s = window.scrollY > 60;
+      if (s !== stuck) { stuck = s; header.classList.toggle("is-stuck", s); }
+    }
+    header.classList.add("no-anim");
+    update();
+    requestAnimationFrame(function () { requestAnimationFrame(function () { header.classList.remove("no-anim"); }); });
+    var ticking = false;
+    window.addEventListener("scroll", function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(function () { update(); ticking = false; }); }
+    }, { passive: true });
   }
 
   // Mobile drawer
