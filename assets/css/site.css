@@ -521,3 +521,22 @@ fieldset.step { min-width: 0; }
   .planner { display: block; }
   .summary { position: static; }
 }
+
+/* ---------- Mobile splash (first open per visit) ---------- */
+.splash-screen { display: none; }
+@media (max-width: 760px) {
+  html.splash, html.splash body { overflow: hidden; }
+  html.splash .splash-screen {
+    display: grid; place-items: center;
+    position: fixed; inset: 0; z-index: 200;
+    background: var(--navy);
+    transition: opacity .7s ease, visibility .7s;
+    /* Safety net: hides itself even if the script never runs */
+    animation: splash-away .7s ease 3.2s forwards;
+  }
+  .splash-screen img { width: 42vw; max-width: 190px; height: auto; animation: splash-in 1s ease both; }
+  html.splash .splash-screen.is-leaving { opacity: 0; visibility: hidden; }
+}
+@keyframes splash-in { from { opacity: 0; transform: scale(.94); } to { opacity: 1; transform: none; } }
+@keyframes splash-away { to { opacity: 0; visibility: hidden; } }
+@media (prefers-reduced-motion: reduce) { .splash-screen img { animation: none; } }

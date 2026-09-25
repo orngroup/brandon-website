@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://www.brandonhallhotelandspa.com/sitemap.xml
+Sitemap: https://orngroup.github.io/brandon-website/sitemap.xml

@@ -1,5 +1,16 @@
 /* Brandon Hall Hotel and Spa — shared behaviour */
 (function () {
+  // Mobile splash: hold the gold logo briefly, then fade to the page.
+  var root = document.documentElement;
+  if (root.classList.contains("splash")) {
+    var sp = document.querySelector(".splash-screen");
+    try { sessionStorage.setItem("bhSplash", "1"); } catch (e) {}
+    setTimeout(function () {
+      if (sp) sp.classList.add("is-leaving");
+      setTimeout(function () { root.classList.remove("splash"); }, 750);
+    }, 1400);
+  }
+
   // Sticky header: shrink only once the visitor has actually scrolled.
   // Set the starting state without animation so the logo never "jumps"
   // when a page opens.

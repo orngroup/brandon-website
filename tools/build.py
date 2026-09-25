@@ -12,7 +12,11 @@ BOOK = "https://booking.profitroom.com/en/brandonhallhotelspawarwickshire/home?n
 MAPS = "https://maps.app.goo.gl/FGjTuhDh8wG2QdVG7"
 IG = "https://www.instagram.com/brandonhallhotelandspa/"
 FB = "https://www.facebook.com/brandonhallhotelandspa"
-SITE_URL = "https://www.brandonhallhotelandspa.com"
+# Where the site is published. Share previews (WhatsApp, Facebook, LinkedIn,
+# iMessage) need full addresses, so change this ONE line when the site moves
+# to the hotel domain, e.g. "https://www.brandonhallhotelandspa.com",
+# then run: python3 tools/build.py
+SITE_URL = "https://orngroup.github.io/brandon-website"
 
 NAV_LEFT = [("stay", "rooms-suites/", "Stay"), ("dining", "dining/", "Dining"), ("spa", "spa-leisure/", "Leisure &amp; Wellness")]
 NAV_RIGHT = [("weddings", "weddings/", "Weddings"), ("meetings", "meetings-events/", "Meetings &amp; Events"), ("christmas", "christmas/", "Christmas")]
@@ -31,15 +35,35 @@ def head(p, title, desc, extra=""):
 <title>{title}</title>
 <meta name="description" content="{desc}">
 <meta name="theme-color" content="#2C3E50">
+<link rel="canonical" href="__PAGEURL__">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{HOTEL}">
+<meta property="og:locale" content="en_GB">
+<meta property="og:url" content="__PAGEURL__">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
-<meta property="og:image" content="{SITE_URL}/assets/img/exterior-summer.jpg">
+<meta property="og:image" content="{SITE_URL}/assets/img/share.jpg">
+<meta property="og:image:secure_url" content="{SITE_URL}/assets/img/share.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{HOTEL}, a white country house across a wide lawn">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{title}">
+<meta name="twitter:description" content="{desc}">
+<meta name="twitter:image" content="{SITE_URL}/assets/img/share.jpg">
+<link rel="apple-touch-icon" href="{p}assets/brand/favicon.png">
+<script>
+/* Mobile splash: decide before the first paint so there's no flash. Once per visit. */
+try {{ if (matchMedia("(max-width: 760px)").matches && !sessionStorage.getItem("bhSplash")) document.documentElement.classList.add("splash"); }} catch (e) {{}}
+</script>
 <link rel="icon" href="{p}assets/brand/favicon.png">
 <link rel="preload" href="{p}assets/fonts/italiana-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{p}assets/fonts/lato-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{p}assets/css/site.css">
 {extra}</head>
 <body>
+<div class="splash-screen" aria-hidden="true"><img src="{p}assets/brand/logo-gold.svg" alt=""></div>
 <a class="skip" href="#main">Skip to main content</a>
 '''
 
@@ -161,6 +185,8 @@ def dl(p, file, title, sub):
 
 
 def write(path, html):
+    page = path[:-len("index.html")] if path.endswith("index.html") else path
+    html = html.replace("__PAGEURL__", SITE_URL + "/" + page)
     full = os.path.join(ROOT, path)
     os.makedirs(os.path.dirname(full), exist_ok=True)
     with open(full, "w", encoding="utf-8") as f:
@@ -177,14 +203,14 @@ def home():
         "@context": "https://schema.org", "@type": "Hotel", "name": HOTEL,
         "description": "A historic country house hotel and spa in 17 acres of Warwickshire gardens and woodland, near Coventry.",
         "url": SITE_URL + "/", "telephone": "+44 24 7710 2555", "email": EMAIL,
-        "image": SITE_URL + "/assets/img/exterior-summer.jpg",
+        "image": SITE_URL + "/assets/img/share.jpg",
         "address": {"@type": "PostalAddress", "streetAddress": "Main Street, Brandon", "addressLocality": "Wolston, Coventry", "postalCode": "CV8 3FW", "addressCountry": "GB"},
         "geo": {"@type": "GeoCoordinates", "latitude": 52.383, "longitude": -1.4061},
         "sameAs": [IG, FB],
         "amenityFeature": [{"@type": "LocationFeatureSpecification", "name": n, "value": True} for n in ["Free on-site parking", "Indoor swimming pool", "Restaurant", "Meeting rooms", "Pet-friendly rooms on request"]]
     }
     h = head(p, f"{HOTEL} | Country house hotel near Coventry, Warwickshire",
-             "A historic country house hotel and spa in 17 acres of Warwickshire gardens and woodland, near Coventry. Rooms, The Clarendon restaurant, weddings, meetings and events.",
+             "A historic country house hotel in 17 acres of Warwickshire gardens and woodland near Coventry. Rooms, dining, weddings, meetings and events.",
              f'<script type="application/ld+json">{json.dumps(schema)}</script>\n')
     body = f'''
 <section class="hero">
@@ -298,7 +324,7 @@ def home():
 def meetings():
     p = "../"
     h = head(p, f"Meetings and events | {HOTEL}",
-             "Meeting rooms and event spaces near Coventry for up to 280 guests. Day delegate packages from £35, 24-hour packages, on-site bedrooms and an online event planner.")
+             "Meeting rooms and event spaces near Coventry for up to 280 guests, with day delegate and 24-hour packages, bedrooms and an online event planner.")
     body = f'''
 <section class="hero hero--page">
   <img src="../assets/img/suite-theatre-2.jpg" alt="A function suite with rows of chairs facing the windows" fetchpriority="high">
@@ -476,7 +502,7 @@ def meetings():
 def spaces():
     p = "../../"
     h = head(p, f"Our event spaces and capacities | {HOTEL}",
-             "Compare all 14 meeting and event rooms at Brandon Hall Hotel and Spa: sizes, capacities for theatre, cabaret, boardroom, U-shape and reception, floor plans and technology.")
+             "Compare our 14 meeting and event rooms: sizes, capacities for every layout, floor plans and the technology in each room.")
     body = f'''
 <section class="section" style="padding-bottom:40px">
   <div class="wrap intro">
@@ -525,7 +551,7 @@ def spaces():
 def planner():
     p = "../../"
     h = head(p, f"Event planner and quote request | {HOTEL}",
-             "Plan your meeting, conference or celebration at Brandon Hall Hotel and Spa. Choose a room and layout drawn to scale, add catering, extras and group bedrooms, and request a quote.")
+             "Plan your meeting, conference or celebration: choose a room and layout drawn to scale, add catering, extras and bedrooms, and request a quote.")
     body = f'''
 <section class="section page-top" style="padding-bottom:36px">
   <div class="wrap intro">
@@ -708,7 +734,7 @@ def holding(path, active, title, lede, img, alt, downloads=(), extra=""):
 def rooms():
     p = "../"
     h = head(p, f"Rooms and suites | {HOTEL}",
-             "Classic, Executive and Junior Suite rooms at Brandon Hall Hotel and Spa, a country house hotel near Coventry. Free Wi-Fi, ensuite bathrooms and accessible rooms. Book direct.")
+             "Classic, Executive and Junior Suite rooms in a country house hotel near Coventry, with free Wi-Fi, ensuite bathrooms and accessible rooms.")
     def room(title, kicker, img, alt, intro, items, flip=False, note=""):
         lis = "".join(f"<li>{i}</li>" for i in items)
         return f'''
@@ -889,8 +915,15 @@ def out_about():
     write("out-about/index.html", h + header(p, "") + body + footer(p))
 
 
+def seo_files():
+    pages = ["", "rooms-suites/", "dining/", "spa-leisure/", "out-about/", "weddings/", "meetings-events/", "meetings-events/spaces/", "meetings-events/planner/", "christmas/", "offers/", "contact/", "privacy/", "accessibility/"]
+    xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"  <url><loc>{SITE_URL}/{u}</loc></url>\n" for u in pages) + "</urlset>\n"
+    open(os.path.join(ROOT, "sitemap.xml"), "w").write(xml)
+    open(os.path.join(ROOT, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\nSitemap: {SITE_URL}/sitemap.xml\n")
+
+
 if __name__ == "__main__":
-    home(); meetings(); spaces(); planner(); rooms(); leisure(); out_about()
+    home(); meetings(); spaces(); planner(); rooms(); leisure(); out_about(); seo_files()
     holding("dining", "dining", "The Clarendon", "Seasonal menus, relaxed lunches and dinner in the country house.", "restaurant.jpg", "The Clarendon restaurant with arched windows",
             [("clarendon-restaurant-menu.pdf", "Restaurant menu", "PDF, 1.4 MB"), ("clarendon-lunch-menu.pdf", "Lunch menu", "PDF, 0.2 MB"), ("clarendon-dinner-bed-breakfast-menu.pdf", "Dinner, bed and breakfast menu", "PDF, 0.2 MB"), ("clarendon-wine-list.pdf", "Wine list", "PDF, 0.2 MB"), ("clarendon-restaurant-bar-wine-list.pdf", "Restaurant and bar wine list", "PDF, 0.2 MB")])
     holding("weddings", "weddings", "Weddings", "A country house setting, 17 acres of gardens and woodland, for the day you've always imagined.", "wedding-lawn.jpg", "A bride and groom dancing on the lawn in front of the hotel",

@@ -8,6 +8,9 @@ Static multi-page site for GitHub Pages. No build step is needed to publish: eve
 3. Preview address: `https://orngroup.github.io/brandon-website/`. All links are relative, so the site works there and on the real domain.
 4. To go live on the hotel domain, add a `CNAME` file containing `www.brandonhallhotelandspa.com`, then point the domain's DNS at GitHub Pages. Do this only when the full site is signed off, as it replaces the current WordPress site.
 
+## Share previews (WhatsApp, Facebook, LinkedIn, iMessage)
+Every page has its own title and description, plus a 1200 x 630 share image (`assets/img/share.jpg`). Share previews need full web addresses, so they point at wherever the site is published. That's set on one line at the top of `tools/build.py` (`SITE_URL`, currently `https://orngroup.github.io/brandon-website`). When the site moves to the hotel domain, change that line, run `python3 tools/build.py`, and re-upload. WhatsApp and Facebook keep old previews for a while; Facebook's Sharing Debugger (developers.facebook.com/tools/debug) refreshes them.
+
 ## Editing
 - **Rooms, capacities, packages, catering, extras, contact settings:** `assets/js/venue-data.js`. The Meetings pages and the Event Planner all read from this one file.
 - **Event Planner access:** visitors give their name, company (optional), email and phone number before the planner opens. That creates a "Planner started" enquiry in HOSPRO straight away, so the team can follow up even if they don't finish. When they send their plan, the same enquiry is updated to "Quote requested" with the full specification. Details are remembered on their device so they can come back.
