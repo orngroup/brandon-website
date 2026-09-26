@@ -74,6 +74,32 @@
     });
   }
 
+  // Accessible tabs (menus)
+  document.querySelectorAll('[role="tablist"]').forEach(function (list) {
+    var tabs = Array.prototype.slice.call(list.querySelectorAll('[role="tab"]'));
+    function select(t, focus) {
+      tabs.forEach(function (x) {
+        var on = x === t;
+        x.setAttribute("aria-selected", on); x.tabIndex = on ? 0 : -1;
+        var panel = document.getElementById(x.getAttribute("aria-controls"));
+        if (panel) panel.hidden = !on;
+      });
+      if (focus) t.focus();
+    }
+    tabs.forEach(function (t, i) {
+      t.addEventListener("click", function () { select(t); });
+      t.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+          e.preventDefault();
+          select(tabs[(i + (e.key === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length], true);
+        }
+      });
+    });
+    document.querySelectorAll("[data-open-tab]").forEach(function (a) {
+      a.addEventListener("click", function () { var t = document.getElementById("tab-" + a.getAttribute("data-open-tab")); if (t) select(t); });
+    });
+  });
+
   var y = document.querySelector("[data-year]");
   if (y) y.textContent = new Date().getFullYear();
 })();

@@ -41,6 +41,20 @@ window.BH_CONFIG = {
      Off: customers choose freely and the events team prices it. */
   showPackagePrices: false,
 
+  /* The Clarendon table booking requests. Sent by email through
+     FormSubmit (formsubmit.co), a free forwarding service, because
+     GitHub Pages can't send email itself. The FIRST request sends an
+     activation email to this address; click "Activate" once and every
+     request after that arrives as a normal email. */
+  tableBooking: {
+    email: "events@brandonhallhotelandspa.com",
+    endpoint: "https://formsubmit.co/ajax/",
+    firstSitting: "18:00",
+    lastSitting: "21:00",
+    slotMinutes: 15,
+    maxOnline: 10
+  },
+
   bookingUrl: "https://booking.profitroom.com/en/brandonhallhotelspawarwickshire/home?no-cache=&currency=GBP"
 };
 
@@ -214,6 +228,7 @@ window.BH_EVENT_TYPES = [
   { id: "meeting",     label: "Meeting",          hospro: "meeting",     layouts: ["boardroom", "ushape", "theatre"], carbonPerHead: 2.1 },
   { id: "conference",  label: "Conference",       hospro: "meeting",     layouts: ["theatre", "cabaret"],             carbonPerHead: 2.1 },
   { id: "training",    label: "Training day",     hospro: "meeting",     layouts: ["ushape", "cabaret", "boardroom"], carbonPerHead: 2.1 },
+  { id: "wedding",     label: "Wedding",          hospro: "wedding",     layouts: ["theatre", "cabaret", "reception"], carbonPerHead: 6.5 },
   { id: "dinner",      label: "Dinner or awards", hospro: "celebration", layouts: ["cabaret"],                        carbonPerHead: 6.0 },
   { id: "celebration", label: "Celebration",      hospro: "celebration", layouts: ["cabaret", "reception"],           carbonPerHead: 4.0 },
   { id: "christmas",   label: "Christmas party",  hospro: "christmas",   layouts: ["cabaret", "reception"],           carbonPerHead: 6.0 },

@@ -36,7 +36,7 @@
   if (q.get("type") && byId(TYPES, q.get("type"))) {
     S.type = q.get("type");
     if (!q.get("layout")) S.layout = byId(TYPES, S.type).layouts[0];
-    if (["dinner", "celebration", "christmas"].indexOf(S.type) > -1) S.pkg = "hire";
+    if (["dinner", "celebration", "christmas", "wedding"].indexOf(S.type) > -1) S.pkg = "hire";
   }
 
   /* ---------- Step 1: event type ---------- */
@@ -223,7 +223,7 @@
     S.type = b.dataset.type;
     var rec = byId(TYPES, S.type).layouts;
     if (rec.indexOf(S.layout) < 0) S.layout = rec[0];
-    if (S.type === "dinner" || S.type === "celebration" || S.type === "christmas") { if (S.pkg !== "hire") S.pkg = "hire"; }
+    if (["dinner", "celebration", "christmas", "wedding"].indexOf(S.type) > -1) { if (S.pkg !== "hire") S.pkg = "hire"; }
     renderAll();
   });
   $("#p-layout").addEventListener("click", function (e) {
