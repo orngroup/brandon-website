@@ -152,6 +152,7 @@ def footer(p, scripts=()):
           <li><a href="tel:{PHONE_HREF}">{PHONE}</a></li>
           <li><a href="mailto:{EMAIL}">{EMAIL}</a></li>
           <li><a href="{p}contact/">Contact and directions</a></li>
+          <li><a href="{REVIEW_FORM}" target="_blank" rel="noopener">Leave us a review</a></li>
         </ul>
         <div class="social">
           <a href="{IG}" target="_blank" rel="noopener" aria-label="Instagram">{IG_SVG}</a>
@@ -178,6 +179,36 @@ def rimg(p, local, remote, alt, cls="", extra=""):
     until then it loads from the current hotel website."""
     return (f'<img src="{p}assets/img/site/{local}" alt="{alt}" loading="lazy"{(" class=" + chr(34) + cls + chr(34)) if cls else ""} {extra}'
             f'data-fallback="{HOTEL_IMG}{remote}" onerror="if(this.dataset.fallback){{this.src=this.dataset.fallback;this.dataset.fallback=\'\'}}">')
+
+
+GOOGLE_REVIEWS = "https://www.google.com/maps/search/?api=1&amp;query=Brandon+Hall+Hotel+and+Spa+Coventry"
+TRIPADVISOR = "https://www.tripadvisor.co.uk/Hotel_Review-g186403-d34327546-Reviews-Brandon_Hall_Hotel_and_Spa-Coventry_West_Midlands_England.html"
+
+# Guest reviews shown on the home page. Add real reviews only, copied from
+# Google or Tripadvisor, with the guest's first name and surname initial.
+# (quote, name, source, stars, type of stay). Keep each one short.
+GOOGLE_RATING = ("4.0", "1,300")   # update from the Google Business Profile now and then
+REVIEW_FORM = "https://g.page/r/CWDf8Eg6xklPEBM/review"
+REVIEWS = [
+    ("I can honestly say I was beyond surprised by the quality of the food in the restaurant. The service was friendly, not too formal or intrusive. It feels real and like they genuinely care about you and your stay.", "James L.", "Google", 5, "Business stay"),
+    ("Great place to stay, helpful staff, large rooms, lovely location and plenty of parking.", "Dan F.", "Google", 4, "Family holiday"),
+    ("Beautiful surroundings, calm, quiet, on top friendly staff.", "Shanmugam S.", "Google", 5, "Holiday with friends"),
+    ("Large hotel with good facilities. Nice bar and good pool with sauna and steam rooms. Bedroom was large and in good condition.", "Chris W.", "Google", 4, "Couple's holiday"),
+    ("Really pleasant work stay at Brandon Hall. Spoke to Alia who was lovely and engaging as a manager.", "Steven L.", "Google", 4, "Work stay"),
+    ("Rooms were very clean, food was great and staff were very friendly.", "Guest review", "Tripadvisor", 5, "Family stay"),
+]
+
+def stars(n):
+    return f'<span class="stars" aria-label="{n} out of 5 stars">' + "".join('<span class="on">★</span>' if i < n else '<span>★</span>' for i in range(5)) + '</span>'
+
+def reviews_html():
+    if not REVIEWS:
+        return ""
+    items = "".join(
+        f'<figure class="review-card">{stars(s)}<blockquote>{q}</blockquote>'
+        f'<figcaption>{who}<span>{ctx}, via {src}</span></figcaption></figure>'
+        for q, who, src, s, ctx in REVIEWS)
+    return f'<div class="reviews">{items}</div>'
 
 
 def dl(p, file, title, sub):
@@ -276,10 +307,10 @@ def home():
       <div class="c"><p>Book direct with us for the best available rate. <a class="textlink" href="offers/">See all offers</a></p></div>
     </div>
     <div class="offers">
-      <a class="offer" href="offers/"><h3>Book 4 nights, receive the 5th free</h3><p>Extend your escape and make the most of the countryside.</p></a>
-      <a class="offer" href="offers/"><h3>Stay 2 nights and save 15%</h3><p>A little longer to unwind, for a little less.</p></a>
-      <a class="offer" href="offers/"><h3>Stay 3 nights and save 20%</h3><p>20% off stays of three nights or more.</p></a>
-      <a class="offer" href="offers/"><h3>Suite Dreams</h3><p>Everything you need for a relaxing countryside escape.</p></a>
+      <a class="offer" href="offers/#suite-dreams"><h3>Suite Dreams</h3><p>Two nights in a Junior Suite with a complimentary dinner for two.</p></a>
+      <a class="offer" href="offers/#stay-longer-5th-night"><h3>Book 4 nights, get the 5th free</h3><p>An extra night on us to explore more of Warwickshire.</p></a>
+      <a class="offer" href="offers/#stay-3-save-20"><h3>Stay 3 nights and save 20%</h3><p>20% off our Best Available Rate for three nights or more.</p></a>
+      <a class="offer" href="offers/#stay-2-save-15"><h3>Stay 2 nights and save 15%</h3><p>15% off our Best Available Rate for two nights or more.</p></a>
     </div>
   </div>
 </section>
@@ -290,11 +321,29 @@ def home():
     <div class="b">
       <span class="kicker">Christmas and New Year 2026</span>
       <h2>Celebrate the season with us</h2>
-      <p>Private and joiner party nights with live entertainment, a traditional Christmas Day lunch and a New Year's Eve gala dinner, all in the warmth of the country house.</p>
+      <p>Christmas Party Nights from £45, Festive Afternoon Tea from £40, a four-course Christmas Day lunch and a New Year's Eve masquerade gala, all in the warmth of the country house.</p>
       <div class="btn-row">
         <a class="btn btn--book" href="christmas/">Christmas and New Year</a>
         <a class="btn btn--light" href="downloads/christmas-brochure-2026.pdf" download>Download the brochure</a>
       </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section section--white">
+  <div class="wrap">
+    <div class="intro mb-2">
+      <div class="t"><h2>What our guests say</h2></div>
+      <div class="c">
+        <p class="rating-line"><strong>{GOOGLE_RATING[0]}</strong> {stars(4)} <span>from over {GOOGLE_RATING[1]} Google reviews</span></p>
+        <p><a class="textlink" href="{GOOGLE_REVIEWS}" target="_blank" rel="noopener">Read our Google reviews</a> &nbsp; <a class="textlink" href="{TRIPADVISOR}" target="_blank" rel="noopener">See us on Tripadvisor</a></p>
+      </div>
+    </div>
+    {reviews_html()}
+    <div class="review-cta">
+      <p>Stayed with us recently? We'd love to hear how it went.</p>
+      <a class="btn btn--navy" href="{REVIEW_FORM}" target="_blank" rel="noopener">Leave us a Google review</a>
     </div>
   </div>
 </section>
@@ -922,16 +971,198 @@ def seo_files():
     open(os.path.join(ROOT, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\nSitemap: {SITE_URL}/sitemap.xml\n")
 
 
+# ----------------------------------------------------------------
+# CHRISTMAS & NEW YEAR (content from the 2026 brochure and posters)
+# ----------------------------------------------------------------
+XMAS_ENQ = "mailto:" + EMAIL + "?subject=" + "Christmas%20and%20New%20Year%20enquiry"
+
+def christmas():
+    p = "../"
+    h = head(p, f"Christmas and New Year 2026 | {HOTEL}",
+             "Christmas party nights from £45, joiner nights, festive dining, afternoon tea, Christmas Day lunch and a New Year's Eve masquerade gala near Coventry.")
+    def block(anchor, kicker, title, img, alt, paras, price_lines, flip=False, white=False, extra=""):
+        ps = "".join(f"<p>{x}</p>" for x in paras)
+        pr = "".join(f"<li><span>{a}</span><strong>{b_}</strong></li>" for a, b_ in price_lines)
+        return f"""
+<section class="section{' section--white' if white else ''}" id="{anchor}">
+  <div class="wrap split{' split--flip' if flip else ''}">
+    <div class="a"><figure class="mount mount--tall"><img src="../assets/img/{img}" alt="{alt}" loading="lazy"></figure></div>
+    <div class="b">
+      <span class="kicker">{kicker}</span>
+      <h2>{title}</h2>
+      {ps}
+      <ul class="pricelist">{pr}</ul>
+      {extra}
+      <div class="btn-row"><a class="btn btn--book" href="{XMAS_ENQ}%3A%20{title.replace(' ', '%20').replace("'", '%27')}">Enquire now</a><a class="btn btn--line" href="tel:{PHONE_HREF}">Call {PHONE}</a></div>
+    </div>
+  </div>
+</section>"""
+    glance = [
+        ("#party-nights", "Christmas Party Nights", "Private parties", "From £45"),
+        ("#joiner-nights", "Joiner Party Nights", "4 and 18 December", "From £55"),
+        ("#festive-dining", "Festive Dining", "Throughout December", "From £40"),
+        ("#afternoon-tea", "Festive Afternoon Tea", "A seasonal treat", "From £40"),
+        ("#christmas-day", "Christmas Day", "Friday 25 December", "£80"),
+        ("#new-years-eve", "New Year's Eve", "Thursday 31 December", "From £85"),
+    ]
+    cards = "".join(f'<a class="glance" href="{h_}"><span class="g-date">{d}</span><strong>{t}</strong><span class="g-price">{pz} <small>per person</small></span></a>' for h_, t, d, pz in glance)
+    body = f"""
+<section class="hero hero--page">
+  <img src="../assets/img/xmas-hero.jpg" alt="Glasses of champagne raised at a festive celebration" fetchpriority="high">
+  <div class="wrap">
+    <span class="kicker" style="color:var(--gold)">Christmas and New Year 2026</span>
+    <h1>Christmas magic at the Hall</h1>
+    <p>Party nights, festive dining, Christmas Day and a New Year's Eve masquerade in 17 acres of Warwickshire grounds.</p>
+    <div class="btn-row"><a class="btn btn--book" href="#at-a-glance">See what's on</a><a class="btn btn--light" href="../downloads/christmas-brochure-2026.pdf" download>Download the brochure</a></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap intro">
+    <div class="t"><h2>Celebrate the magic of the festive season</h2></div>
+    <div class="c">
+      <p class="lede">Timeless charm, warm hospitality and sparkling celebrations come together for an unforgettable Christmas at {HOTEL}.</p>
+      <p>Set in 17 acres of Warwickshire grounds, the hotel becomes a winter wonderland throughout the festive season: the perfect setting to relax, celebrate and make cherished memories with family, friends and colleagues.</p>
+      <p>Whether you're joining us for a joyful gathering, a festive afternoon tea or a peaceful winter escape, our dedicated team will take care of every detail.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section--navy pattern-section" id="at-a-glance">
+  <div class="wrap">
+    <h2 class="mb-2">At a glance</h2>
+    <div class="glances">{cards}</div>
+  </div>
+</section>
+{block("party-nights", "Private parties", "Christmas Party Nights", "xmas-party.jpg", "Friends dancing under festive lights",
+  ["Gather your colleagues, friends or family for an evening of festive cheer, delicious dining and dancing in our beautifully decorated surroundings.",
+   "Begin with a welcome drink before sitting down to a sumptuous three-course festive dinner prepared by our chefs. As the evening goes on, our resident DJ keeps the dance floor full with party classics and Christmas hits until late.",
+   "Whether it's the office celebration or a festive night out with friends, we'll take care of every detail."],
+  [("Welcome drink, three-course dinner, resident DJ and disco", "From £45 per person")], white=True,
+  extra='<p class="small mt-1">Planning a party for your team? <a class="textlink" href="../meetings-events/planner/?type=christmas&amp;layout=cabaret">Use our event planner</a>.</p>')}
+{block("joiner-nights", "Shared party nights", "Christmas Joiner Party Nights", "christmas-party.jpg", "Friends celebrating with sparklers",
+  ["Perfect for smaller groups, friends, colleagues and couples. Enjoy a delicious festive meal, soak up the atmosphere and dance the night away with live entertainment and a fantastic party soundtrack.",
+   "With sparkling decorations, great company and plenty of Christmas cheer, it's the perfect way to celebrate without organising a private event."],
+  [("Friday 4 December 2026", ""), ("Friday 18 December 2026", ""), ("Festive meal and live entertainment", "From £55 per person")], flip=True)}
+{block("festive-dining", "Our restaurant", "Festive Dining", "xmas-dining.jpg", "A festive main course with seasonal garnishes",
+  ["Throughout the Christmas period, our restaurant is the perfect place to relax over seasonal dishes with family, friends or colleagues.",
+   "Our chefs have created a festive menu of traditional Christmas favourites alongside contemporary dishes, from warming starters to indulgent desserts."],
+  [("Festive lunch or evening meal", "From £40 per person")], white=True)}
+{block("afternoon-tea", "A seasonal treat", "Festive Afternoon Tea", "xmas-tea.jpg", "Festive sandwiches, scones and cakes on a tiered stand",
+  ["A much-loved seasonal tradition. Freshly prepared finger sandwiches, warm scones with clotted cream and preserves, and festive cakes and sweet treats, served with your choice of fine teas or freshly brewed coffee."],
+  [("Festive Afternoon Tea", "From £40 per person"), ("Mulled Wine Afternoon Tea", "£45 per person")], flip=True)}
+{block("christmas-day", "Friday 25 December 2026", "Christmas Day", "christmas-table.jpg", "A festive dinner table with candles and crackers",
+  ["Celebrate Christmas Day with a traditional festive feast: a four-course Christmas menu, Buck's Fizz on arrival and Christmas novelties.",
+   "Sit back and let our team take care of everything, so you can simply enjoy the day with the people who matter most."],
+  [("Adults", "£80 per person"), ("Children aged 4 to 12", "£45 per person"), ("Children under 4", "Free")], white=True)}
+{block("new-years-eve", "Thursday 31 December 2026", "New Year's Eve", "xmas-nye.jpg", "A guest celebrating at a party with lights behind",
+  ["Welcome the New Year in style. Arrive and unwind, then celebrate at a spectacular masquerade gala evening with a sumptuous dinner, music, dancing and a midnight countdown.",
+   "Stay the night and enjoy a leisurely brunch on New Year's Day before heading home. Masquerade theme, for guests aged 18 and over."],
+  [("One-night package with dinner, entertainment, room and New Year's Day brunch", "£195 per person"), ("Single supplement", "£40"), ("Dinner and entertainment only", "£85 per person")], flip=True)}
+
+<section class="section section--white">
+  <div class="wrap split" style="align-items:start">
+    <div class="a">
+      <h2>Good to know</h2>
+      <details class="terms">
+        <summary>Key terms for Christmas Party Nights and Joiner Party Nights</summary>
+        <ul class="ticks ticks--one">
+          <li>A non-refundable deposit of £20 per person secures your party night.</li>
+          <li>Full payment and final numbers are due four weeks before the event.</li>
+          <li>Menu pre-orders and all dietary requirements are due two weeks before the event.</li>
+          <li>Deposits and payments are non-refundable and non-transferable if you cancel or numbers go down.</li>
+          <li>We may make minor changes to menus, entertainment or arrangements if necessary.</li>
+          <li>Please drink responsibly. We may refuse service to intoxicated guests.</li>
+          <li>Accommodation rates may be available for party guests, subject to availability.</li>
+        </ul>
+      </details>
+      <p class="mt-2">To book or check availability, email <a class="textlink" href="mailto:{EMAIL}">{EMAIL}</a> or call <a class="textlink" href="tel:{PHONE_HREF}">{PHONE}</a>.</p>
+    </div>
+    <div class="b">
+      <h3>Downloads</h3>
+      {dl(p, "christmas-brochure-2026.pdf", "Christmas and New Year brochure 2026", "PDF, 9.6 MB")}
+      {dl(p, "poster-christmas-new-year.pdf", "Christmas and New Year poster", "A4 PDF, 2.0 MB")}
+      {dl(p, "poster-christmas-parties.pdf", "Christmas Parties poster", "A4 PDF, 1.6 MB")}
+      {dl(p, "poster-festive-dining.pdf", "Festive Dining poster", "A4 PDF, 1.5 MB")}
+      {dl(p, "poster-new-years-eve.pdf", "New Year's Eve poster", "A4 PDF, 1.6 MB")}
+    </div>
+  </div>
+</section>
+"""
+    write("christmas/index.html", h + header(p, "christmas") + body + footer(p))
+
+
+# ----------------------------------------------------------------
+# OFFERS (content from the current website)
+# ----------------------------------------------------------------
+PR = "https://booking.profitroom.com/en/brandonhallhotelspawarwickshire/"
+OFFERS = [
+    ("suite-dreams", "Suite Dreams", "Two nights in a Junior Suite with dinner for two",
+     "Treat yourself to an unforgettable stay. Book two nights in a Junior Suite and enjoy a complimentary dinner for two in our restaurant on one evening of your stay.",
+     ["Two-night stay in a Junior Suite", "Complimentary dinner for two on one evening", "Extra space to relax in the countryside"],
+     "Subject to availability. Dinner is included for two guests on one evening of the stay. Terms and conditions apply.",
+     PR + "details/offer/1129398?no-cache=1&amp;currency=GBP", "suite-bay.jpg", "A junior suite with a large bed and a bay window"),
+    ("stay-longer-5th-night", "Book 4 nights, get the 5th free", "An extra night on us",
+     "Book a four-night stay and enjoy your fifth night completely free. More time for a relaxing retreat, a longer countryside break or a chance to explore more of Warwickshire.",
+     ["Complimentary fifth night when you book four", "Comfortable country house accommodation", "More time to relax and explore"],
+     "Subject to availability. Applies to consecutive-night stays. Terms and conditions apply.",
+     PR + "pricelist/offers/?currency=GBP&amp;r1_adults=2&amp;codes=Stay_More", "grounds-lake.jpg", "A still lake framed by pine trees"),
+    ("stay-3-save-20", "Stay 3 nights and save 20%", "20% off our Best Available Rate",
+     "Book a minimum three-night stay and receive 20% off our Best Available Rate. Perfect for a countryside retreat, a romantic getaway or a longer break to discover Warwickshire.",
+     ["20% off stays of three nights or more", "Charming country house accommodation", "Time to explore the surrounding countryside"],
+     "Subject to availability. Applies to stays of three consecutive nights or more. Terms and conditions apply.",
+     PR + "pricelist/offers/?currency=GBP&amp;r1_adults=2&amp;codes=Stay_More", "exterior-lawn.jpg", "The hotel across the lawn"),
+    ("stay-2-save-15", "Stay 2 nights and save 15%", "15% off our Best Available Rate",
+     "Book a minimum two-night stay and enjoy 15% off our Best Available Rate. Whether it's a countryside escape, a romantic break or a weekend exploring, stay a little longer and save.",
+     ["15% off stays of two nights or more", "Charming country house accommodation", "The perfect base for exploring Warwickshire"],
+     "Subject to availability. Applies to stays of two consecutive nights or more. Terms and conditions apply.",
+     PR + "pricelist/offers/?currency=GBP&amp;r1_adults=2&amp;codes=Stay_More", "bedroom-yellow.jpg", "A bright double bedroom"),
+]
+
+def offers():
+    p = "../"
+    h = head(p, f"Offers | {HOTEL}",
+             "Stay longer and save at Brandon Hall Hotel and Spa: Suite Dreams with dinner for two, your fifth night free, and up to 20% off when you book direct.")
+    blocks = ""
+    for i, (slug, title, kick, intro, items, terms, link, img, alt) in enumerate(OFFERS):
+        lis = "".join(f"<li>{x}</li>" for x in items)
+        flip = i % 2 == 1
+        blocks += f"""
+<section class="section{' section--white' if i % 2 == 0 else ''}" id="{slug}">
+  <div class="wrap split{' split--flip' if flip else ''}">
+    <div class="a"><figure class="mount"><img src="../assets/img/{img}" alt="{alt}" loading="lazy"></figure></div>
+    <div class="b">
+      <span class="kicker">{kick}</span>
+      <h2>{title}</h2>
+      <p>{intro}</p>
+      <ul class="ticks ticks--one mt-1">{lis}</ul>
+      <p class="small mt-1">{terms}</p>
+      <div class="btn-row"><a class="btn btn--book" href="{link}" target="_blank" rel="noopener">Book this offer</a></div>
+    </div>
+  </div>
+</section>"""
+    body = f"""
+<section class="section page-open">
+  <div class="wrap intro">
+    <div class="t"><h1 class="h1-page">Offers</h1></div>
+    <div class="c">
+      <p class="lede">Stay a little longer and save when you book direct with us.</p>
+      <p>Our best rates are always here on our own website, with nothing added for booking through a third party.</p>
+      <div class="btn-row">{''.join(f'<a class="btn btn--line" href="#{o[0]}">{o[1]}</a>' for o in OFFERS)}</div>
+    </div>
+  </div>
+</section>
+{blocks}
+"""
+    write("offers/index.html", h + header(p, "offers") + body + footer(p))
+
+
 if __name__ == "__main__":
-    home(); meetings(); spaces(); planner(); rooms(); leisure(); out_about(); seo_files()
+    home(); meetings(); spaces(); planner(); rooms(); leisure(); out_about(); christmas(); offers(); seo_files()
     holding("dining", "dining", "The Clarendon", "Seasonal menus, relaxed lunches and dinner in the country house.", "restaurant.jpg", "The Clarendon restaurant with arched windows",
             [("clarendon-restaurant-menu.pdf", "Restaurant menu", "PDF, 1.4 MB"), ("clarendon-lunch-menu.pdf", "Lunch menu", "PDF, 0.2 MB"), ("clarendon-dinner-bed-breakfast-menu.pdf", "Dinner, bed and breakfast menu", "PDF, 0.2 MB"), ("clarendon-wine-list.pdf", "Wine list", "PDF, 0.2 MB"), ("clarendon-restaurant-bar-wine-list.pdf", "Restaurant and bar wine list", "PDF, 0.2 MB")])
     holding("weddings", "weddings", "Weddings", "A country house setting, 17 acres of gardens and woodland, for the day you've always imagined.", "wedding-lawn.jpg", "A bride and groom dancing on the lawn in front of the hotel",
             [("wedding-brochure-2026.pdf", "Wedding brochure 2026", "PDF, 2.7 MB"), ("self-catering-wedding-brochure-2026.pdf", "Self-catering weddings 2026", "PDF, 2.9 MB")])
-    holding("christmas", "christmas", "Christmas and New Year", "Party nights, Christmas Day lunch and a New Year's Eve gala dinner.", "christmas-party.jpg", "Friends celebrating with sparklers",
-            [("christmas-brochure-2026.pdf", "Christmas and New Year brochure 2026", "PDF, 9.6 MB")])
-    holding("offers", "offers", "Offers", "Book direct with us for the best available rate.", "exterior-lawn.jpg", "The hotel across the lawn",
-            extra=f'<div class="btn-row"><a class="btn btn--book" href="{BOOK}" target="_blank" rel="noopener" data-book>Check availability</a></div>')
     holding("contact", "contact", "Contact and directions", "Main Street, Brandon, Wolston, Coventry CV8 3FW.", "exterior-dusk.jpg", "The hotel lit up at dusk",
             extra=f'<p><a class="textlink" href="{MAPS}" target="_blank" rel="noopener">Find us on Google Maps</a></p>')
     holding("privacy", "", "Privacy notice", "How we look after your personal information.", "exterior-front.jpg", "The front of the hotel")

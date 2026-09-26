@@ -33,6 +33,11 @@
     name: "", company: "", email: "", phone: "", notes: "", source: ""
   };
   if (!byId(LAYOUTS, S.layout)) S.layout = "boardroom";
+  if (q.get("type") && byId(TYPES, q.get("type"))) {
+    S.type = q.get("type");
+    if (!q.get("layout")) S.layout = byId(TYPES, S.type).layouts[0];
+    if (["dinner", "celebration", "christmas"].indexOf(S.type) > -1) S.pkg = "hire";
+  }
 
   /* ---------- Step 1: event type ---------- */
   function renderTypes() {
