@@ -84,6 +84,7 @@ def header(p, active):
       <a class="u-hide" href="{p}offers/">Offers</a>
       <a class="u-hide" href="{p}out-about/">Out &amp; About</a>
       <a class="u-hide" href="{p}contact/">Contact</a>
+      <a class="u-book" href="{BOOK}" target="_blank" rel="noopener" data-book>Book direct</a>
     </div>
   </div>
 </div>
@@ -96,7 +97,6 @@ def header(p, active):
     <a class="brand-logo" href="{p}index.html" aria-label="{HOTEL} home"><img src="{p}assets/brand/logo-navy.svg" alt="{HOTEL}" width="232" height="151"></a>
     <nav class="nav nav--right" aria-label="Main continued">
       {links(NAV_RIGHT)}
-      <a class="btn btn--book" href="{BOOK}" target="_blank" rel="noopener" data-book>Book direct</a>
     </nav>
     <a class="btn btn--book mobile-book" href="{BOOK}" target="_blank" rel="noopener" data-book>Book</a>
   </div>
