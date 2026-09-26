@@ -30,12 +30,19 @@ The "What our guests say" section on the home page reads from the `REVIEWS` list
 4. Firestore rules: the current rule lets any signed-in user, including an anonymous website visitor, read every enquiry. Replace the enquiries, meta and marketing rules with `docs/firestore.rules.recommended` so the public can only create enquiries and only staff can read them.
 5. Send a test enquiry from the live planner and check it appears in HOSPRO.
 
+## Table bookings at The Clarendon (one-off)
+The "Book a table" form on the Dining page emails each request to the hotel through FormSubmit (formsubmit.co), a free email-forwarding service, because GitHub Pages can't send email itself. The guest's email is set as the reply-to, and they get an automatic "we've received your request" email.
+1. After uploading, send one test booking from the live site.
+2. FormSubmit emails events@brandonhallhotelandspa.com asking you to activate the form. Click **Activate Form** once.
+3. Every booking request after that arrives as a normal email. Reply to confirm the table.
+To send bookings to a different address (a restaurant inbox, say), change `tableBooking.email` in `assets/js/venue-data.js` and activate again. If the service is ever unavailable, the form opens the guest's own email app with the booking filled in instead.
+
 ## Photographs still on the WordPress site (one-off)
 The meeting room, leisure club and Out & About photographs currently live on the WordPress site. Until they're copied here, the site shows them from there. To copy them in: GitHub > Actions > **Fetch hotel photos** > Run workflow. It downloads them into `assets/img/meetings` and `assets/img/site` and commits them. Do this before the WordPress site is switched off.
 
 ## Stage status
-Built: Home, Rooms & Suites, Leisure & Wellness, Out & About, Offers, Christmas & New Year, Meetings & Events, Our event spaces, Event planner.
-Holding pages (with downloads attached): Dining, Weddings, Contact, Privacy, Accessibility.
+All pages built: Home, Rooms & Suites, The Clarendon (dining and bar, with menus as web pages), Leisure & Wellness, Out & About, Offers, Weddings, Christmas & New Year, Meetings & Events, Our event spaces, Event planner, Contact, Privacy, Accessibility.
+The contact form and the event planner both send enquiries into HOSPRO (with an email fallback).
 The Profitroom pop-up booking bar has been removed. "Book direct" buttons go straight to the Profitroom booking engine.
 
 ## To confirm with the hotel
@@ -46,4 +53,7 @@ The Profitroom pop-up booking bar has been removed. "Book direct" buttons go str
 - Which meeting photo shows which room, so each room can carry its own photo.
 - The current Rooms page lists "Charge of £5 over night" under facilities. What is this for (parking?). It's left off the new site until confirmed.
 - Offers: the 5th-night-free, 20% and 15% offers all use the same Profitroom code (Stay_More) on the current site. Check each "Book this offer" button lands on the right rate.
+- Privacy notice: written from how this website handles data. Please have it checked before launch.
+- Dining: lunch serving times, breakfast times and whether you'd like online table booking (the page currently says "call to reserve").
+- Menus on the Dining page are typed from the PDFs. When a menu changes, update both the PDF in /downloads and the menu lists in tools/build.py.
 - Leisure club opening times, and whether treatments are offered. The new page doesn't mention treatments.

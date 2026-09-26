@@ -130,6 +130,7 @@ def footer(p, scripts=()):
         <ul>
           <li><a href="{p}rooms-suites/">Rooms and suites</a></li>
           <li><a href="{p}dining/">The Clarendon</a></li>
+          <li><a href="{p}dining/#book-table">Book a table</a></li>
           <li><a href="{p}spa-leisure/">Leisure and wellness</a></li>
           <li><a href="{p}out-about/">Out and about</a></li>
           <li><a href="{p}offers/">Offers</a></li>
@@ -353,7 +354,7 @@ def home():
     <div class="a">
       <span class="kicker">Getting here</span>
       <h2>In the heart of Warwickshire</h2>
-      <p>We're on Main Street in the village of Brandon, just outside Coventry. Warwick, Kenilworth and Stratford-upon-Avon are all within easy reach, with good links to the M6, M69 and M45.</p>
+      <p>We're on Main Street in the village of Brandon, just outside Coventry. Warwick, Kenilworth and Stratford-upon-Avon are all within easy reach. Use CV8 3FW for sat nav.</p>
       <address class="mt-1" style="font-style:normal">{HOTEL}<br>Main Street, Brandon, Wolston<br>Coventry CV8 3FW</address>
       <div class="btn-row">
         <a class="btn btn--line" href="{MAPS}" target="_blank" rel="noopener">Get directions</a>
@@ -1157,13 +1158,609 @@ def offers():
     write("offers/index.html", h + header(p, "offers") + body + footer(p))
 
 
+# ----------------------------------------------------------------
+# WEDDINGS (content from the 2026 wedding and self-catering brochures)
+# ----------------------------------------------------------------
+WED_ENQ = "mailto:" + EMAIL + "?subject=Wedding%20enquiry%20and%20tour"
+
+def weddings():
+    p = "../"
+    h = head(p, f"Weddings | {HOTEL}",
+             "Country house weddings in 17 acres of Warwickshire gardens and woodland. Ceremonies, receptions for up to 280, wedding packages and self-catering weddings.")
+    pk = [
+        ("Classic", False,
+         ["Private room hire from 7am to 11.59pm", "One arrival drink per guest*", "White linen tablecloths and napkins", "Three-course set wedding breakfast from the Classic menu"],
+         [("High season, May to October", "£70", "£70", "£75"), ("Low season, November to April", "£60", "£60", "£65"), ("Evening guests buffet", "£25", "£25", "£30")]),
+        ("Special", True,
+         ["Private room hire from 7am to 11.59pm", "One arrival drink per guest*", "White linen tablecloths and napkins", "Three-course set wedding breakfast from the Classic menu", "Half a bottle of house wine per guest", "Tea, coffee and mints", "Evening buffet", "Overnight stay for the newlyweds in a standard room, with breakfast"],
+         [("High season, May to October", "£115", "£115", "£120"), ("Low season, November to April", "£107", "£107", "£112"), ("Evening guests buffet", "£25", "£25", "£30")]),
+        ("Extra Special", False,
+         ["Private room hire from 7am to 11.59pm", "One arrival drink per guest*", "Three canapés per guest", "White linen tablecloths and napkins", "Five-course set wedding breakfast from the Extra Special menu", "Half a bottle of upgraded wine per guest", "A glass of Champagne per guest for the toast", "Tea, coffee and mints", "Evening buffet", "Overnight stay for the newlyweds in a honeymoon suite, with breakfast"],
+         [("High season, May to October", "£159", "£159", "£168"), ("Low season, November to April", "£149", "£149", "£154"), ("Evening guests buffet", "£25", "£25", "£30")]),
+    ]
+    def pkg(name, popular, items, prices):
+        lis = "".join(f"<li>{i}</li>" for i in items)
+        rows = "".join(f"<tr><th scope='row'>{a}</th><td>{b_}</td><td>{c}</td><td>{d}</td></tr>" for a, b_, c, d in prices)
+        return f"""<article class="wpkg{' wpkg--pop' if popular else ''}">
+          {'<span class="wpkg-flag">Most popular</span>' if popular else ''}
+          <h3>{name}</h3>
+          <p class="wpkg-from">From <strong>{prices[1][1]}</strong> per guest</p>
+          <ul class="ticks ticks--one">{lis}</ul>
+          <table class="wprice"><caption class="visually-hidden">{name} prices per guest</caption>
+            <thead><tr><th scope="col">Per guest</th><th scope="col">2026</th><th scope="col">2027</th><th scope="col">2028</th></tr></thead>
+            <tbody>{rows}</tbody></table>
+        </article>"""
+    pkgs = "".join(pkg(*x) for x in pk)
+    faq = [
+        ("Final details", "We'd like to meet you and your chosen caterer six to eight weeks before your wedding to go through the finer details of your booking."),
+        ("Minimum and maximum numbers", "Each function suite has a minimum number of guests, although we can be flexible, subject to availability. The Woodlands Suite holds up to 280 guests when no equipment is required, and the Brandon Suite holds up to 100 guests."),
+        ("Candles", "For fire safety reasons, naked flames aren't permitted. LED candelabras may be used instead and are just as effective."),
+        ("Entertainment", "We can arrange entertainment through our preferred suppliers. You're also welcome to book your own, once we've approved the supplier and checked their public liability insurance and PAT testing certificates."),
+        ("Your caterer", "Before confirming your caterer, please ask them to send us evidence of insurance cover, food hygiene certificates, PAT testing certificates for equipment, food handler training certificates, a full menu with a list of dishes, an alcohol licence, details of how the food will be delivered and set up, and a detailed plan for setting up and clearing the event space."),
+        ("Cancellation", "If your wedding is cancelled, a cancellation fee applies in line with the terms and conditions of your contract."),
+    ]
+    faqs = "".join(f'<details class="faq"><summary>{q}</summary><p>{a}</p></details>' for q, a in faq)
+    body = f"""
+<section class="hero">
+  <img src="../assets/img/wedding-lawn.jpg" alt="A bride and groom dancing on the lawn in front of the hotel" fetchpriority="high">
+  <div class="wrap">
+    <span class="kicker" style="color:var(--gold)">Weddings at {HOTEL}</span>
+    <h1>The day you've always imagined</h1>
+    <p>A country house setting in 17 acres of gardens and woodland, with a team who'll look after every detail.</p>
+    <div class="btn-row"><a class="btn btn--book" href="{WED_ENQ}">Book a tour</a><a class="btn btn--light" href="#packages">Wedding packages</a></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap intro">
+    <div class="t"><span class="kicker">Welcome</span><h2>Celebrate in countryside style</h2></div>
+    <div class="c">
+      <p class="lede">As you make your way up the driveway, the beauty of {HOTEL} gradually reveals itself, with charm at every turn.</p>
+      <p>Exchange your vows in 17 acres of gardens and woodland that give the hotel a secluded, romantic atmosphere. Our wedding packages are designed to bring your vision to life, with exclusive, personal touches.</p>
+      <p>Whether you're planning an intimate gathering or a grand celebration, we'll be the backdrop for a day full of joy and lasting memories.</p>
+    </div>
+  </div>
+  <div class="wrap mt-3">
+    <div class="facts">
+      <div><strong>17 acres</strong><span>of gardens and woodland for photographs</span></div>
+      <div><strong>280</strong><span>guests in the Woodlands Suite</span></div>
+      <div><strong>100</strong><span>guests in the Brandon Suite</span></div>
+      <div><strong>7am–midnight</strong><span>private room hire on your day</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--white">
+  <div class="wrap split">
+    <div class="a"><figure class="mount mount--tall"><img src="../assets/img/wed-02.jpg" alt="A function suite set for a ceremony with rows of chairs and an aisle" loading="lazy"></figure></div>
+    <div class="b">
+      <span class="kicker">Your ceremony</span>
+      <h2>The "I do" moment</h2>
+      <p>Wherever you choose to say your vows, you'll find the perfect place here.</p>
+      <p>Celebrate in timeless elegance in the Brandon Suite or the Woodlands Suite, where expansive windows fill the room with natural light and look out over the gardens. Or hold your ceremony outdoors, surrounded by grounds that offer endless options for a stunning backdrop.</p>
+      <p>Saying "I do" is your moment. We'll simply help you choose the space that makes it magical.</p>
+      <p><a class="textlink" href="../meetings-events/spaces/?room=woodlands">See the Woodlands Suite</a> &nbsp; <a class="textlink" href="../meetings-events/spaces/?room=brandon-suite">See the Brandon Suite</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="intro mb-2">
+      <div class="t"><span class="kicker">Our grounds</span><h2>Seventeen acres of settings</h2></div>
+      <div class="c"><p>Gardens and woodland with endless settings for ceremonies, drinks receptions and photographs, from the lawn in front of the house to the shade of the old trees.</p></div>
+    </div>
+    <div class="wgallery">
+      <img src="../assets/img/wed-12.jpg" alt="A couple under a pergola in the garden" loading="lazy">
+      <img src="../assets/img/wedding-tree.jpg" alt="A couple in traditional dress beneath an ancient tree" loading="lazy">
+      <img src="../assets/img/wed-16.jpg" alt="A couple embracing under the trees at golden hour" loading="lazy">
+      <img src="../assets/img/wedding-walk.jpg" alt="A bride and groom walking across the lawn towards the house" loading="lazy">
+      <img src="../assets/img/wed-18.jpg" alt="A couple in the woodland" loading="lazy">
+      <img src="../assets/img/wed-06.jpg" alt="An outdoor ceremony in the garden" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section class="section section--white">
+  <div class="wrap split split--flip">
+    <div class="a"><figure class="mount"><img src="../assets/img/canapes.jpg" alt="Tomato and mozzarella canapés on a slate" loading="lazy"></figure></div>
+    <div class="b">
+      <span class="kicker">Your drinks reception</span>
+      <h2>Time to toast</h2>
+      <p>Take a breath: you're married! Mark those first moments and start celebrating with your loved ones in your exclusive-use suite, styled just for you.</p>
+      <p>Enjoy the manicured gardens for your drinks reception and sip Champagne on the patio with your guests. For your wedding breakfast, choose from our menus, each designed to suit your tastes and the season.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="strip">
+      <img src="../assets/img/wed-21.jpg" alt="The Woodlands Suite dressed for an evening reception with gold chair covers" loading="lazy">
+      <img src="../assets/img/wed-03.jpg" alt="Round tables with pampas grass centrepieces" loading="lazy">
+      <img src="../assets/img/table-setting.jpg" alt="A round table laid with white linen and gold chargers" loading="lazy">
+      <img src="../assets/img/wed-08.jpg" alt="A tall floral centrepiece by the window" loading="lazy">
+      <img src="../assets/img/suite-banquet.jpg" alt="Long banquet tables with pink sashes" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section class="section section--white" id="packages">
+  <div class="wrap">
+    <div class="intro mb-3">
+      <div class="t"><span class="kicker">Your wedding, your way</span><h2>Wedding packages</h2></div>
+      <div class="c">
+        <p>From the moment you say "Yes!" to the moment you wave goodbye to your last guest, our wedding packages, inspiring extras, seasonal menus and dedicated team mean you can design the day you've always dreamt of.</p>
+        <p class="small">Prices per guest, based on 50 guests. Bespoke packages are available and can be discussed during your tour.</p>
+      </div>
+    </div>
+    <div class="wpkgs">{pkgs}</div>
+    <p class="small mt-2">*Choice of Prosecco, bottled beer or a soft drink. If you have any dietary requirements or concerns about food allergies, please ask your wedding coordinator for help when choosing your menu.</p>
+  </div>
+</section>
+
+<section class="section section--navy" id="self-catering">
+  <div class="wrap">
+    <div class="intro mb-3">
+      <div class="t"><span class="kicker">Your venue, your caterer, your way</span><h2>Self-catering weddings</h2></div>
+      <div class="c">
+        <p>Our self-catering packages give you exclusive use of a beautiful event space and the support of our experienced team, while you bring in the caterer who knows your tastes best. Your wedding coordinator can recommend preferred suppliers.</p>
+      </div>
+    </div>
+    <div class="sc-grid">
+      <div class="sc-card">
+        <h3>Room hire for up to 280 guests</h3>
+        <table class="wprice wprice--dark"><thead><tr><th scope="col"></th><th scope="col">High season<br><small>May–October</small></th><th scope="col">Low season<br><small>November–April</small></th></tr></thead>
+          <tbody><tr><th scope="row">2026</th><td>from £6,000</td><td>from £5,500</td></tr><tr><th scope="row">2027</th><td>from £6,500</td><td>from £6,000</td></tr></tbody></table>
+        <h4 class="mt-2">Included</h4>
+        <ul class="ticks ticks--one"><li>Room hire from 7am to 11.59pm</li><li>One hotel food and beverage supervisor for eight hours</li><li>No corkage on soft drinks, including fruit juices</li></ul>
+      </div>
+      <div class="sc-card">
+        <h3>Optional extras</h3>
+        <ul class="pricelist pricelist--dark">
+          <li><span>Day-use bedroom, 10am to 6pm</span><strong>£80 per room</strong></li>
+          <li><span>Room-only accommodation in a standard bedroom</span><strong>from £100 per night</strong></li>
+          <li><span>Hotel bar in your function room, with two bar staff and glassware</span><strong>£500</strong></li>
+          <li><span>Additional waiting staff (minimum eight hours)</span><strong>£15 per hour</strong></li>
+          <li><span>Audiovisual equipment and staging</span><strong>On request</strong></li>
+          <li><span>Additional linen</span><strong>On request</strong></li>
+          <li><span>Alcohol corkage</span><strong>Ask your coordinator</strong></li>
+        </ul>
+      </div>
+    </div>
+    <h3 class="mt-3" style="color:#fff">Planning your day</h3>
+    <div class="faqs faqs--dark">{faqs}</div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap split">
+    <div class="a"><figure class="mount"><img src="../assets/img/bedroom-suite.jpg" alt="A suite with a wedding dress hanging by the window" loading="lazy"></figure></div>
+    <div class="b">
+      <span class="kicker">Stay with us</span>
+      <h2>More than a night's sleep</h2>
+      <p>Make your wedding last longer by staying with us before and after your big day in one of our bedrooms.</p>
+      <p>Unwind in the leisure club, then meet, greet and mingle with your loved ones in a private dining space the night before. The morning after you say "I do", carry on the celebrations over breakfast with your guests, then clear your head with a countryside walk.</p>
+      <p>We cater for everyone, with discounted room rates for your wedding guests.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section--white">
+  <div class="wrap split" style="align-items:start">
+    <div class="a">
+      <span class="kicker">Come and see us</span>
+      <h2>Book a tour</h2>
+      <p class="lede">Our wedding team would love to show you around and start planning your day.</p>
+      <p>Email <a class="textlink" href="mailto:{EMAIL}">{EMAIL}</a> or call <a class="textlink" href="tel:{PHONE_HREF}">{PHONE}</a>. You can also build your plans online, choose your suite and layout, and send them to us in one go.</p>
+      <div class="btn-row"><a class="btn btn--book" href="{WED_ENQ}">Book a tour</a><a class="btn btn--line" href="../meetings-events/planner/?type=wedding">Plan your wedding online</a></div>
+    </div>
+    <div class="b">
+      <h3>Brochures</h3>
+      {dl(p, "wedding-brochure-2026.pdf", "Wedding brochure 2026", "PDF, 2.7 MB")}
+      {dl(p, "self-catering-wedding-brochure-2026.pdf", "Self-catering weddings 2026 and 2027", "PDF, 2.9 MB")}
+    </div>
+  </div>
+</section>
+"""
+    write("weddings/index.html", h + header(p, "weddings") + body + footer(p))
+
+# ----------------------------------------------------------------
+# DINING: The Clarendon and the bar (content from the menus)
+# ----------------------------------------------------------------
+KEY = "V Vegetarian · VE Vegan · GF Gluten-free · GI Gluten · E Egg · M Milk · F Fish · Mo Molluscs · S Soya · Se Sesame"
+ALLERGY = "Please tell a team member about any allergy or intolerance. Our kitchen handles all allergens and cross-contact may occur. Current ingredient and allergen information is available on request."
+
+MENU_DINNER = [
+    ("Starters", "A selection of dishes to begin your meal.", [
+        ("Soup of the day", "", "Served with rustic bread and butter. Ask the team for today's recipe and allergen details.", "£6.50"),
+        ("Pork belly burnt ends", "GI · S", "Pickled red onion, charred corn, spring onion, coriander and soy emulsion.", "£9.95"),
+        ("Crispy calamari", "E · Mo", "Lime mayonnaise, pickled red onion and crispy shallots.", "£12.75"),
+        ("Southern fried chicken", "GI · E · M", "Ranch dressing.", "£9.95"),
+        ("Halloumi fries", "V · M", "Crispy shallots and hot honey.", "£9.95"),
+        ("The Brandon Platter", "", "A generous selection of starters, served for sharing. Ask the team for today's components.", "£29.95"),
+    ]),
+    ("From the grill", "All grill dishes come with fries, roasted tomato, onion and garlic, watercress and Worcestershire dressing.", [
+        ("Sirloin steak, 8oz", "", "", "£25.00"),
+        ("Ribeye steak, 10oz", "", "", "£28.00"),
+        ("Harissa salmon", "F", "", "£24.00"),
+        ("Grilled butterfly chicken", "", "", "£20.00"),
+        ("Add a sauce", "", "Black garlic and red wine · Miso mushroom (S) · Whisky peppercorn (M)", "£3.50"),
+    ]),
+    ("Mains", "", [
+        ("The 1857 House Burger", "GI · E · M", "6oz British beef patty, Monterey Jack cheese, gem lettuce and red pepper relish in a toasted brioche bun, with skin-on fries.", "£20.95"),
+        ("The 1857 Vegan Burger", "VE", "Vegan patty, gem lettuce and red pepper relish, with skin-on fries.", "£17.00"),
+        ("Butter chicken curry", "GI · M", "Basmati rice, warm naan bread, mango chutney and poppadoms.", "£22.00"),
+        ("Vegetable jalfrezi", "V · GI", "Basmati rice, warm naan bread and poppadoms.", "£22.00"),
+        ("Mushroom risotto", "V · M", "Creamy mushroom risotto, truffle and Parmesan.", "£18.00"),
+        ("Roasted beetroot and crispy chickpea salad", "V · Se", "Watercress, mixed leaves, roasted beetroot, charred corn, pickled red onion, crispy chickpeas, toasted seeds and maple-mustard dressing. Add grilled butterfly chicken or harissa salmon for £6.00.", "£16.00"),
+        ("Cumberland sausage ring", "GI · M", "Mash, black garlic and red wine sauce and crispy shallots.", "£22.95"),
+    ]),
+    ("Sides", "", [
+        ("Creamy mash", "V · M", "", "£4.50"),
+        ("Skin-on fries", "", "", "£4.50"),
+        ("Sweet potato fries", "", "", "£5.50"),
+        ("Garden salad", "VE", "", "£4.50"),
+        ("Loaded mac 'n' cheese", "GI · M", "Bacon bits, crispy onions, spring onion and red pepper.", "£4.50"),
+    ]),
+    ("Desserts", "A sweet finish, served with a little indulgence.", [
+        ("Biscoff toffee cheesecake", "V · GI · M", "Toffee popcorn and cream cheese.", "£8.00"),
+        ("Vegan orange chocolate mousse", "VE", "Vanilla plant cream and orange tuile.", "£8.00"),
+        ("Blondie", "V · GI · E · M · S", "Miso caramel and vanilla ice cream.", "£8.00"),
+        ("Sticky toffee pudding", "V · GI · E · M", "Toffee sauce and vanilla ice cream.", "£8.00"),
+    ]),
+]
+MENU_LUNCH = [
+    ("Sandwiches", "All sandwiches are served with salad and crisps.", [
+        ("Tuna mayonnaise and cucumber", "F · E", "Tuna mayonnaise, crisp cucumber and mixed leaves.", "£8.50"),
+        ("Pastrami, mature Cheddar and English mustard mayo", "M", "A generously filled deli-style sandwich.", "£9.50"),
+        ("Egg mayonnaise and chive", "V · E", "Creamy egg mayonnaise with fresh chives.", "£7.50"),
+        ("Mature Cheddar and pickle", "V", "A proper British classic with tangy pickle.", "£7.50"),
+    ]),
+    ("Salads and sides", "", [
+        ("Chicken Caesar salad", "GI · E · F · M", "Grilled chicken, gem lettuce, Parmesan, anchovies, croutons and Caesar dressing.", "£11.95"),
+        ("Skin-on fries", "", "", "£4.50"),
+    ]),
+    ("Cakes, pastries and hot drinks", "", [
+        ("Today's cake and pastry selection", "", "Ask the team for today's selection.", "£4.20"),
+        ("Tea, filter coffee or Americano", "", "", "£3.50"),
+        ("Latte, cappuccino or flat white", "", "", "£3.95"),
+        ("Coffee and croissant", "", "Tea, filter coffee or Americano with a fresh all-butter croissant.", "£6.50"),
+    ]),
+]
+MENU_KIDS = [
+    ("Mains", "Little favourites, generously served.", [
+        ("Southern fried chicken", "GI · E · M", "Ranch dip and fries.", "£10.00"),
+        ("10-inch gluten-free Margherita pizza", "V · GF · M", "Tomato, mozzarella and basil.", "£10.00"),
+        ("10-inch gluten-free pepperoni pizza", "GF · M", "Tomato, mozzarella and pepperoni.", "£10.00"),
+        ("Sausage and mash", "GI · M", "", "£10.00"),
+        ("Mac 'n' cheese", "V · GI · M", "Served with garlic bread.", "£10.00"),
+        ("Grilled chicken and chips", "", "", "£10.00"),
+    ]),
+    ("Desserts", "", [
+        ("Triple chocolate brownie sundae", "V · GI · E · M", "", "£6.00"),
+        ("Blondie and ice cream", "V · GI · E · M · S", "", "£8.00"),
+        ("Waffle", "V · GI · E · M", "Cookies and cream ice cream and chocolate sauce.", "£6.00"),
+    ]),
+]
+MENU_DRINKS = [
+    ("White wines", "175ml · 250ml · bottle", [
+        ("Vito Lucido Pinot Grigio", "Italy", "Light, crisp and easy-drinking, with delicate blossom aromas.", "£5.65 · £8.00 · £24.00"),
+        ("Nyala Sauvignon Blanc", "South Africa", "Fresh and aromatic, with vibrant tropical fruit.", "£6.50 · £9.00 · £27.00"),
+        ("Bello Tramonto Pinot Grigio", "Italy", "Light and refreshing, with green apple and zesty citrus.", "£7.50 · £10.00 · £29.50"),
+        ("Turtle Bay Sauvignon Blanc", "New Zealand", "Vibrant Marlborough acidity, green apple and citrus.", "£10.00 · £13.25 · £39.95"),
+        ("Hay Stack Chardonnay", "South Africa", "Ripe orchard fruit and a soft, buttery finish.", "£9.50 · £13.50 · £40.00"),
+        ("Icauna Petit Chablis", "France", "Classic Burgundy white: crisp, flinty and refined.", "Bottle £38.00"),
+    ]),
+    ("Red wines", "175ml · 250ml · bottle", [
+        ("Corte Vigna Merlot", "Italy", "Soft, smooth and medium-bodied, with plum and cherry.", "£5.65 · £8.00 · £25.00"),
+        ("Nyala Cabernet Sauvignon", "South Africa", "Ripe blackcurrant, dark berries and subtle spice.", "£6.50 · £9.00 · £27.00"),
+        ("St Hallett Faith Shiraz", "Australia", "Dark berries, cracked black pepper and warm spice.", "£9.00 · £12.00 · £32.00"),
+        ("Club de Campo Malbec", "Argentina", "Blackberry, dark plum and velvety tannins.", "£9.50 · £12.50 · £36.95"),
+        ("Carlos Serres Rioja (organic)", "Spain", "Red berries, subtle vanilla and toasted oak.", "£10.95 · £14.50 · £42.95"),
+        ("Nicolis Amarone della Valpolicella", "Italy", "Dried fig, raisin, dark chocolate and spice.", "Bottle £87.00"),
+    ]),
+    ("Rosé, sparkling and Champagne", "", [
+        ("Wicked Lady White Zinfandel", "California", "Medium-sweet, with juicy strawberry and raspberry.", "£5.65 · £8.00 · £24.00"),
+        ("Mirabeau Forever Summer", "Provence", "Dry Provence rosé with crisp red berries.", "£8.80 · £12.00 · £36.00"),
+        ("Galanti Prosecco Extra Dry", "Italy", "Green apple, crisp pear and fine bubbles.", "£6.00 · £8.00 · £30.00"),
+        ("Serenello Prosecco Superiore", "Italy", "Pear, white peach and jasmine.", "£8.50 · £12.00 · £42.00"),
+        ("Taittinger Brut Réserve", "Champagne", "Fine bubbles, peach, white flowers and brioche.", "Bottle £110.00"),
+    ]),
+    ("Beers and soft drinks", "", [
+        ("Corona, Peroni, Peroni 0.0% or Heineken 0.0%", "330ml", "", "£4.80"),
+        ("Folkington's apple or orange juice", "250ml", "", "£4.50"),
+        ("J2O", "", "Orange and passionfruit, apple and raspberry, or apple and mango.", "£4.50"),
+        ("Coca-Cola, Diet Coke or Coke Zero", "330ml", "", "£3.20"),
+        ("Harrogate still or sparkling water", "330ml / 750ml", "", "£2.50 / £4.50"),
+    ]),
+]
+
+def menu_html(sections, note=""):
+    out = ""
+    for title, sub, items in sections:
+        rows = "".join(
+            f'<li><div class="mi-top"><span class="mi-name">{n}</span>{f"<span class=mi-tag>{t}</span>" if t else ""}<span class="mi-dots" aria-hidden="true"></span><span class="mi-price">{pr}</span></div>{f"<p>{d}</p>" if d else ""}</li>'
+            for n, t, d, pr in items)
+        out += f'<div class="menu-sec"><h3>{title}</h3>{f"<p class=menu-sub>{sub}</p>" if sub else ""}<ul class="menu-list">{rows}</ul></div>'
+    return out + (f'<p class="menu-note">{note}</p>' if note else "")
+
+def dining():
+    p = "../"
+    h = head(p, f"The Clarendon restaurant and bar | {HOTEL}",
+             "The Clarendon at Brandon Hall Hotel and Spa: bistro-style country house dining near Coventry. Grill, classics, vegan dishes, lunch and a relaxed bar. Dinner 6pm daily.")
+    tabs = [("dinner", "Restaurant", menu_html(MENU_DINNER, KEY)), ("lunch", "Lunch", menu_html(MENU_LUNCH, KEY)),
+            ("children", "Children", menu_html(MENU_KIDS, KEY)), ("drinks", "Wine and drinks", menu_html(MENU_DRINKS, "Wines contain sulphites. All wines are served subject to availability."))]
+    tabbtns = "".join(f'<button role="tab" id="tab-{i}" aria-controls="panel-{i}" aria-selected="{"true" if k == 0 else "false"}" tabindex="{0 if k == 0 else -1}">{t}</button>' for k, (i, t, _) in enumerate(tabs))
+    panels = "".join(f'<div role="tabpanel" id="panel-{i}" aria-labelledby="tab-{i}" class="menu-panel"{"" if k == 0 else " hidden"}>{c}</div>' for k, (i, _, c) in enumerate(tabs))
+    body = f"""
+<section class="section page-open">
+  <div class="wrap split">
+    <div class="a">
+      <span class="kicker">Dining at {HOTEL}</span>
+      <h1 class="h1-page">The Clarendon</h1>
+      <p class="lede">Bistro-style dining meets the elegance of a country house.</p>
+      <p>Refined yet informal, The Clarendon is for those who want to relax, unwind and be truly looked after. Our kitchen celebrates local produce and the rhythm of the seasons, with honest flavours, classic techniques and a modern twist.</p>
+      <div class="hours"><strong>Dinner</strong><span>6pm to 11pm daily, last table at 9pm</span></div>
+      <div class="btn-row"><a class="btn btn--book" href="#book-table">Book a table</a><a class="btn btn--line" href="#menus">See the menus</a></div>
+    </div>
+    <div class="b"><figure class="mount mount--tall"><img src="../assets/img/restaurant.jpg" alt="The Clarendon restaurant with arched windows and tables laid for dinner" fetchpriority="high"></figure></div>
+  </div>
+</section>
+
+<section class="section section--white">
+  <div class="wrap">
+    <div class="features">
+      <article class="feature"><figure class="mount">{rimg(p, "dine-steak.jpg", "2025/09/809d258c6222a6af236ab8c0521abf6a.jpg", "Steak with fries, mushrooms and greens")}</figure><h3>From the grill</h3><p>Sirloin and ribeye steaks, harissa salmon and butterfly chicken, with your choice of sauce.</p></article>
+      <article class="feature"><figure class="mount">{rimg(p, "dine-restaurant.jpg", "2025/09/68027_18010908440060921672.jpg", "The restaurant with mirrors and warm lighting")}</figure><h3>Country house classics</h3><p>The 1857 House Burger, butter chicken curry, Cumberland sausage ring and plenty for vegetarians and vegans.</p></article>
+      <article class="feature"><figure class="mount">{rimg(p, "dine-cocktail.jpg", "2025/09/fef4bddaeaee390da06b932b53ef4857.jpg", "A gin cocktail with lemon and ice")}</figure><h3>The bar</h3><p>Wines by the glass, Prosecco and Champagne, beers and soft drinks in the relaxed surroundings of our bar and lounge.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="menus">
+  <div class="wrap">
+    <div class="intro mb-2">
+      <div class="t"><h2>Our menus</h2></div>
+      <div class="c"><p>Seasonal dishes, thoughtfully prepared and made to share. Settle in, take your time and let our team look after the rest.</p><p class="small">{ALLERGY}</p></div>
+    </div>
+    <div class="menu-card">
+      <div class="menu-tabs" role="tablist" aria-label="Menus">{tabbtns}</div>
+      {panels}
+    </div>
+    <p class="small mt-1">Staying on dinner, bed and breakfast? Choose from the restaurant menu, with a small supplement for the sirloin, ribeye and salmon. Menus and prices can change with the seasons.</p>
+  </div>
+</section>
+
+<section class="section section--white">
+  <div class="wrap split split--flip">
+    <div class="a"><figure class="mount"><img src="../assets/img/bar-lounge.jpg" alt="The bar with armchairs and a clock above the back bar" loading="lazy"></figure></div>
+    <div class="b">
+      <span class="kicker">The bar and lounge</span>
+      <h2>Sit back and take your time</h2>
+      <p>Meet friends for a glass of wine, wind down after a day of meetings, or start the evening with a Prosecco before dinner. Our bar and lounge is the easy-going heart of the hotel.</p>
+      <p><a class="textlink" href="#menus" data-open-tab="drinks">See the wine and drinks list</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap split">
+    <div class="a"><figure class="mount">{rimg(p, "dine-tea.jpg", "2025/09/38ae6766b4595803c8c492be14d4e6c8.jpg", "Scones, pastries and cakes on a tiered stand")}</figure></div>
+    <div class="b">
+      <span class="kicker">Private dining and celebrations</span>
+      <h2>Dining for groups</h2>
+      <p>Birthday dinners, family celebrations, team nights out and the meal the night before a wedding. Our events team can set a private room just for you, with a menu to match.</p>
+      <div class="btn-row"><a class="btn btn--navy" href="../meetings-events/planner/?type=dinner&amp;layout=cabaret">Plan a private dinner</a><a class="btn btn--line" href="../christmas/#festive-dining">Festive dining</a></div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section section--white" id="book-table">
+  <div class="wrap split split--form" style="align-items:start">
+    <div class="a">
+      <span class="kicker">The Clarendon</span>
+      <h2>Book a table</h2>
+      <p class="lede">Tell us when you'd like to join us and we'll confirm your table by email or phone.</p>
+      <div class="hours"><strong>Dinner</strong><span>6pm to 11pm daily, last table at 9pm</span></div>
+      <p class="small mt-1">Your booking is a request until we confirm it. For tables of more than 10, or anything urgent, call us on <a class="textlink" href="tel:{PHONE_HREF}">{PHONE}</a>.</p>
+      <figure class="mount mt-2 hide-mobile"><img src="../assets/img/table-setting.jpg" alt="A table laid with white linen, gold chargers and flowers" loading="lazy"></figure>
+    </div>
+    <div class="b table-form-wrap">
+      <form id="t-form" class="t-form" novalidate>
+        <div class="grid-3" style="margin-top:0">
+          <label class="field" for="t-date">Date<input id="t-date" type="date" required><span class="err" id="t-date-err"></span></label>
+          <label class="field" for="t-time">Time<select id="t-time" required></select><span class="err" id="t-time-err"></span></label>
+          <label class="field" for="t-guests">Guests<select id="t-guests"></select></label>
+        </div>
+        <p class="notice" id="t-large" hidden>For 11 or more guests, please call us on {PHONE} or <a href="../meetings-events/planner/?type=dinner&amp;layout=cabaret">plan a private dinner</a>.</p>
+        <div class="grid-2 mt-1">
+          <label class="field" for="t-name">Name<input id="t-name" type="text" autocomplete="name" required><span class="err" id="t-name-err"></span></label>
+          <label class="field" for="t-phone">Phone number<input id="t-phone" type="tel" autocomplete="tel" required><span class="err" id="t-phone-err"></span></label>
+        </div>
+        <label class="field mt-1" for="t-email">Email<input id="t-email" type="email" autocomplete="email" required><span class="err" id="t-email-err"></span></label>
+        <div class="grid-2 mt-1">
+          <label class="field" for="t-occasion">Occasion <span class="hint">Optional</span><select id="t-occasion"><option value="">None</option><option>Birthday</option><option>Anniversary</option><option>Celebration</option><option>Business</option><option>Staying at the hotel</option></select></label>
+          <label class="field" for="t-highchair">High chairs <span class="hint">Optional</span><select id="t-highchair"><option value="0">None</option><option>1</option><option>2</option><option>3</option></select></label>
+        </div>
+        <label class="field mt-1" for="t-notes">Dietary needs or requests <span class="hint">Optional</span><textarea id="t-notes" rows="3"></textarea></label>
+        <label class="check mt-1" style="border:0"><input type="checkbox" id="t-consent"><span>I'm happy for {HOTEL} to contact me about my booking. See our <a href="../privacy/">privacy notice</a>.</span></label>
+        <p class="err" id="t-consent-err"></p>
+        <div class="visually-hidden" aria-hidden="true"><label for="t-website">Leave this empty</label><input id="t-website" type="text" tabindex="-1" autocomplete="off"></div>
+        <div class="btn-row"><button class="btn btn--book" type="submit" id="t-submit">Request my table</button></div>
+      </form>
+      <div class="t-done" id="t-done" hidden tabindex="-1">
+        <h3 id="t-done-title"></h3>
+        <p id="t-done-text"></p>
+        <dl id="t-done-list"></dl>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap">
+    <div class="intro">
+      <div class="t"><h2>Printable menus</h2></div>
+      <div class="c">
+      {dl(p, "clarendon-restaurant-menu.pdf", "Restaurant menu", "PDF, 1.4 MB")}
+      {dl(p, "clarendon-lunch-menu.pdf", "Lunch menu", "PDF, 0.2 MB")}
+      {dl(p, "clarendon-dinner-bed-breakfast-menu.pdf", "Dinner, bed and breakfast menu", "PDF, 0.2 MB")}
+      {dl(p, "clarendon-restaurant-bar-wine-list.pdf", "Restaurant and bar wine list", "PDF, 0.2 MB")}
+      {dl(p, "clarendon-wine-list.pdf", "Wine list", "PDF, 0.2 MB")}
+      </div>
+    </div>
+  </div>
+</section>
+"""
+    write("dining/index.html", h + header(p, "dining") + body + footer(p, ["venue-data.js", "table.js"]))
+
+# ----------------------------------------------------------------
+# CONTACT
+# ----------------------------------------------------------------
+MAP_EMBED = "https://www.google.com/maps?q=Brandon+Hall+Hotel+and+Spa,+Main+Street,+Brandon,+Coventry+CV8+3FW&amp;output=embed"
+
+def contact():
+    p = "../"
+    h = head(p, f"Contact and directions | {HOTEL}",
+             "Contact Brandon Hall Hotel and Spa, Main Street, Brandon, Wolston, Coventry CV8 3FW. Call 024 7710 2555 or email events@brandonhallhotelandspa.com.")
+    body = f"""
+<section class="section page-open">
+  <div class="wrap intro">
+    <div class="t"><h1 class="h1-page">Contact us</h1></div>
+    <div class="c">
+      <p class="lede">We're here to help, whether you're booking a stay, planning an event or have a question before you arrive.</p>
+      <p>Our reception is open 24 hours a day.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section--white" style="padding-top:64px">
+  <div class="wrap contact-grid">
+    <div>
+      <div class="c-block"><h3>Call us</h3><p><a class="big-link" href="tel:{PHONE_HREF}">{PHONE}</a></p></div>
+      <div class="c-block"><h3>Email us</h3><p><a class="big-link" href="mailto:{EMAIL}">{EMAIL}</a></p><p class="small">For events, weddings, meetings and general enquiries.</p></div>
+      <div class="c-block"><h3>Find us</h3>
+        <address>{HOTEL}<br>Main Street, Brandon, Wolston<br>Coventry CV8 3FW</address>
+        <p class="small mt-1">Use CV8 3FW for sat nav. On-site parking is available for guests.</p>
+        <p><a class="textlink" href="{MAPS}" target="_blank" rel="noopener">Get directions in Google Maps</a></p>
+      </div>
+      <div class="c-block"><h3>Quick links</h3>
+        <ul class="ticks ticks--one">
+          <li><a href="{BOOK}" target="_blank" rel="noopener">Book a room</a></li>
+          <li><a href="../dining/#book-table">Book a table at The Clarendon</a></li>
+          <li><a href="../meetings-events/planner/">Plan a meeting or event</a></li>
+          <li><a href="../weddings/">Book a wedding tour</a></li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <h2>Send us a message</h2>
+      <form id="c-form" class="c-form" novalidate>
+        <div class="grid-2">
+          <label class="field" for="c-name">Name<input id="c-name" type="text" autocomplete="name" required><span class="err" id="c-name-err"></span></label>
+          <label class="field" for="c-phone">Phone number<input id="c-phone" type="tel" autocomplete="tel"></label>
+        </div>
+        <label class="field mt-1" for="c-email">Email<input id="c-email" type="email" autocomplete="email" required><span class="err" id="c-email-err"></span></label>
+        <label class="field mt-1" for="c-topic">What's it about?<select id="c-topic"><option>A stay</option><option>Dining</option><option>A wedding</option><option>A meeting or event</option><option>Christmas and New Year</option><option>Something else</option></select></label>
+        <label class="field mt-1" for="c-msg">Your message<textarea id="c-msg" rows="6" required></textarea><span class="err" id="c-msg-err"></span></label>
+        <label class="check mt-1" style="border:0"><input type="checkbox" id="c-consent"><span>I'm happy for {HOTEL} to contact me about my message. See our <a href="../privacy/">privacy notice</a>.</span></label>
+        <p class="err" id="c-consent-err"></p>
+        <div class="visually-hidden" aria-hidden="true"><label for="c-website">Leave this empty</label><input id="c-website" type="text" tabindex="-1" autocomplete="off"></div>
+        <div class="btn-row"><button class="btn btn--book" type="submit" id="c-submit">Send message</button></div>
+        <p class="notice" id="c-done" hidden tabindex="-1"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="map-wrap">
+  <iframe title="Map showing {HOTEL}" src="{MAP_EMBED}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</section>
+"""
+    write("contact/index.html", h + header(p, "contact") + body + footer(p, ["venue-data.js", "contact.js"]))
+
+
+# ----------------------------------------------------------------
+# PRIVACY (draft based on how this website handles data; to be
+# checked by the hotel before launch)
+# ----------------------------------------------------------------
+def privacy():
+    p = "../"
+    h = head(p, f"Privacy notice | {HOTEL}", "How Brandon Hall Hotel and Spa collects, uses and protects your personal information when you use this website.")
+    body = f"""
+<section class="section page-open">
+  <div class="wrap prose">
+    <h1 class="h1-page">Privacy notice</h1>
+    <p class="lede">This notice explains how we collect, use and look after your personal information when you use this website or get in touch with us.</p>
+
+    <h2>Who we are</h2>
+    <p>{HOTEL} is operated by 7 Hospitality Management Ltd, which is the controller of your personal information. You can contact us at {HOTEL}, Main Street, Brandon, Wolston, Coventry CV8 3FW, by email at <a href="mailto:{EMAIL}">{EMAIL}</a> or by phone on {PHONE}.</p>
+
+    <h2>What we collect</h2>
+    <p>When you use our event planner, contact form or email us, we collect the details you give us: your name, company or organisation, email address, phone number, and information about your stay, event or enquiry, such as dates, numbers, room choices, catering, accommodation and any notes you add. Please only tell us about dietary or access needs if you want us to take them into account.</p>
+    <p>When you book a room, the booking is handled by our booking partner, Profitroom, and their privacy notice also applies.</p>
+
+    <h2>How we use it</h2>
+    <p>We use your information to reply to your enquiry, prepare quotes and proposals, manage your booking or event, and keep a record of our conversations with you. We rely on our legitimate interest in responding to people who contact us, and on taking steps at your request before entering into a contract. We won't send you marketing unless you've asked us to, and we never sell your information.</p>
+
+    <h2>Where it's stored</h2>
+    <p>Enquiries from this website go into our own enquiry system, which is hosted on Google Cloud (Firebase). Only authorised members of our team can see them. Emails are held in our email system.</p>
+
+    <h2>How long we keep it</h2>
+    <p>We keep enquiry details for as long as we need them to deal with your enquiry and any booking that follows, and for a reasonable time afterwards for our records and to meet legal and accounting requirements. After that we delete them.</p>
+
+    <h2>Cookies and your browser</h2>
+    <p>This website doesn't use advertising or tracking cookies. To save you retyping, the event planner remembers the name and contact details you enter on your own device (in your browser's local storage), and the site notes whether you've already seen the opening screen on your phone. You can clear these at any time by clearing your browser data. Our contact page shows a Google map, and our booking pages are provided by Profitroom; these services may set their own cookies.</p>
+
+    <h2>Your rights</h2>
+    <p>You can ask to see the personal information we hold about you, ask us to correct or delete it, object to how we use it, or ask us to restrict it. Email <a href="mailto:{EMAIL}">{EMAIL}</a> and we'll respond within one month.</p>
+    <p>If you're unhappy with how we've handled your information, please tell us first. You also have the right to complain to the Information Commissioner's Office (ICO) at <a href="https://ico.org.uk" target="_blank" rel="noopener">ico.org.uk</a> or on 0303 123 1113.</p>
+
+    <p class="small mt-3">Last updated: September 2026.</p>
+  </div>
+</section>
+"""
+    write("privacy/index.html", h + header(p, "") + body + footer(p))
+
+
+def accessibility():
+    p = "../"
+    h = head(p, f"Accessibility | {HOTEL}", "Our commitment to making the Brandon Hall Hotel and Spa website easy to use for everyone, and how to get help.")
+    body = f"""
+<section class="section page-open">
+  <div class="wrap prose">
+    <h1 class="h1-page">Accessibility</h1>
+    <p class="lede">We want everyone to be able to use this website and enjoy their visit to {HOTEL}.</p>
+
+    <h2>This website</h2>
+    <p>We've built this site to meet the Web Content Accessibility Guidelines (WCAG) 2.2 at level AA. That means you should be able to:</p>
+    <ul class="ticks ticks--one">
+      <li>zoom in up to 400% without text spilling off the screen</li>
+      <li>move around the site using only a keyboard, with a "Skip to main content" link at the top of every page</li>
+      <li>use the site with a screen reader, with descriptions on our photographs</li>
+      <li>read text with good contrast against its background</li>
+      <li>turn off animations using your device's reduced-motion setting</li>
+    </ul>
+
+    <h2>What we know isn't fully accessible</h2>
+    <ul class="ticks ticks--one">
+      <li>Some of our brochures and printable menus are PDFs, which may not work well with screen readers. The same information is on the website pages themselves, and we're happy to send it in another format.</li>
+      <li>The floor plans in our event planner are pictures. The room sizes and capacities are also shown in text and in the capacity chart.</li>
+      <li>The map on our contact page and our room booking pages are provided by other companies.</li>
+    </ul>
+
+    <h2>At the hotel</h2>
+    <p>We have accessible Classic and Executive rooms. If you or anyone in your party has access needs, please let us know when you book, or call us before you arrive, and we'll do everything we can to help.</p>
+
+    <h2>Tell us about a problem</h2>
+    <p>If you find something on this website hard to use, or need information in a different format, please email <a href="mailto:{EMAIL}">{EMAIL}</a> or call {PHONE}. We'll reply as soon as we can.</p>
+
+    <p class="small mt-3">This statement was prepared in September 2026.</p>
+  </div>
+</section>
+"""
+    write("accessibility/index.html", h + header(p, "") + body + footer(p))
+
 if __name__ == "__main__":
-    home(); meetings(); spaces(); planner(); rooms(); leisure(); out_about(); christmas(); offers(); seo_files()
-    holding("dining", "dining", "The Clarendon", "Seasonal menus, relaxed lunches and dinner in the country house.", "restaurant.jpg", "The Clarendon restaurant with arched windows",
-            [("clarendon-restaurant-menu.pdf", "Restaurant menu", "PDF, 1.4 MB"), ("clarendon-lunch-menu.pdf", "Lunch menu", "PDF, 0.2 MB"), ("clarendon-dinner-bed-breakfast-menu.pdf", "Dinner, bed and breakfast menu", "PDF, 0.2 MB"), ("clarendon-wine-list.pdf", "Wine list", "PDF, 0.2 MB"), ("clarendon-restaurant-bar-wine-list.pdf", "Restaurant and bar wine list", "PDF, 0.2 MB")])
-    holding("weddings", "weddings", "Weddings", "A country house setting, 17 acres of gardens and woodland, for the day you've always imagined.", "wedding-lawn.jpg", "A bride and groom dancing on the lawn in front of the hotel",
-            [("wedding-brochure-2026.pdf", "Wedding brochure 2026", "PDF, 2.7 MB"), ("self-catering-wedding-brochure-2026.pdf", "Self-catering weddings 2026", "PDF, 2.9 MB")])
-    holding("contact", "contact", "Contact and directions", "Main Street, Brandon, Wolston, Coventry CV8 3FW.", "exterior-dusk.jpg", "The hotel lit up at dusk",
-            extra=f'<p><a class="textlink" href="{MAPS}" target="_blank" rel="noopener">Find us on Google Maps</a></p>')
-    holding("privacy", "", "Privacy notice", "How we look after your personal information.", "exterior-front.jpg", "The front of the hotel")
-    holding("accessibility", "", "Accessibility", "Our commitment to making the hotel and this website easy to use for everyone.", "reception.jpg", "The reception desk")
+    home(); meetings(); spaces(); planner(); rooms(); leisure(); out_about(); christmas(); offers(); weddings(); dining(); contact(); privacy(); accessibility(); seo_files()
