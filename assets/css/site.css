@@ -175,7 +175,10 @@ hr.rule { border: 0; border-top: 1px solid var(--rule); margin: 0; }
 .utility .wrap { display: flex; justify-content: space-between; align-items: center; min-height: 38px; gap: 16px; }
 .utility a { text-decoration: none; color: #E8ECEF; }
 .utility a:hover { color: var(--white); text-decoration: underline; }
-.utility .u-links { display: flex; gap: 22px; }
+.utility .u-links { display: flex; gap: 22px; align-items: center; }
+.utility .u-book { background: var(--burnt); color: #fff; font-weight: 700; padding: 0 18px; align-self: stretch; display: flex; align-items: center; margin-right: calc(var(--gutter) * -0); }
+.utility .u-book:hover { background: var(--burnt-dark); text-decoration: none; }
+@media (max-width: 1080px) { .utility .u-book { display: none; } }
 @media (max-width: 700px) { .utility .u-hide { display: none; } }
 
 .site-header {
@@ -186,12 +189,14 @@ hr.rule { border: 0; border-top: 1px solid var(--rule); margin: 0; }
 }
 .site-header.no-anim, .site-header.no-anim * { transition: none !important; }
 .site-header.is-stuck { border-bottom-color: var(--rule); box-shadow: 0 6px 20px -18px rgba(44,62,80,.6); }
-.site-header .wrap { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; min-height: 92px; gap: 24px; }
+.site-header .wrap { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; min-height: 92px; gap: clamp(32px, 4vw, 60px); }
 .site-header.is-stuck .wrap { min-height: 72px; }
 .brand-logo img { width: 112px; height: auto; transition: width .2s; }
 .site-header.is-stuck .brand-logo img { width: 86px; }
 .nav { display: flex; gap: clamp(14px, 2vw, 30px); align-items: center; }
-.nav--right { justify-content: flex-end; }
+/* Menu links gather evenly around the logo so it reads as centred */
+.nav { justify-content: flex-end; }
+.nav--right { justify-content: flex-start; }
 .nav a { text-decoration: none; font-size: .95rem; padding: 6px 0; border-bottom: 1.5px solid transparent; white-space: nowrap; }
 .nav a:hover, .nav a[aria-current="page"] { border-bottom-color: var(--gold); }
 .nav .btn { padding: 12px 20px; border-bottom: 0; }
