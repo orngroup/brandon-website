@@ -81,12 +81,76 @@ try { if (matchMedia("(max-width: 760px)").matches && !sessionStorage.getItem("b
       <h1 class="h1-page">Out and about</h1>
       <p class="lede">Things to do in Warwickshire.</p>
       <p>When you stay at Brandon Hall Hotel and Spa, you're perfectly placed to explore some of Warwickshire's best-loved places, from historic towns to hidden countryside trails.</p>
+      <div class="btn-row"><a class="btn btn--book" href="#walk">A country walk from the hotel</a></div>
     </div>
     <div class="b"><figure class="mount mount--tall"><img src="../assets/img/grounds-lake.jpg" alt="A still lake framed by pine trees" fetchpriority="high"></figure></div>
   </div>
 </section>
 
-<section class="section section--white">
+
+<section class="section section--white" id="walk" data-root="../">
+  <div class="wrap">
+    <div class="intro mb-2">
+      <div class="t"><span class="kicker">A circular walk from the hotel</span><h2>A country walk from Brandon Hall</h2><p class="walk-route">Brandon Hall → Coombe Abbey → Heron's Way → Brandon Hall</p></div>
+      <div class="c">
+        <p class="lede">Step outside and discover one of Warwickshire's most beautiful walks.</p>
+        <p>Follow countryside paths to Coombe Abbey, enjoy Heron's Way, a 2-mile lakeside trail, then return to the hotel. Hover over (or tap) the numbers on the map to see the scenery at each stop, with links to Google Maps and Street View. Or take the virtual walk below.</p>
+        <div class="walk-stats"><div><strong>9–10 km</strong><span>approx. round trip</span></div><div><strong>2.5–3.5 hours</strong><span>allow for the walk</span></div></div>
+      </div>
+    </div>
+
+    <div class="walk-grid">
+      <div class="walk-map">
+        <img src="../assets/img/walk-map.jpg" alt="Illustrated map of a country walk from Brandon Hall along the Twelve O'Clock Ride to Coombe Abbey Country Park, around Coombe Pool on Heron's Way, and back to the hotel" width="1280" height="1600" loading="lazy">
+        <div class="walk-pins"></div>
+      </div>
+      <div class="walk-side">
+        <div class="walk-panel" aria-live="polite"></div>
+        <ol class="walk-steps">
+          <li data-stop="hall"><button type="button"><span class="ws-n">1</span><span><strong>Brandon Hall</strong><em>Your starting point · Main Street, Brandon, CV8 3FW</em></span></button></li>
+          <li data-stop="ride"><button type="button"><span class="ws-n">2</span><span><strong>The Twelve O'Clock Ride</strong><em>Scenic bridleway (Centenary Way) linking Brandon to Coombe Abbey. Take care crossing the Brinklow Road (B4428)</em></span></button></li>
+          <li data-stop="coombe"><button type="button"><span class="ws-n">3</span><span><strong>Coombe Abbey Country Park</strong><em>Approx. 4.5 km via countryside footpaths and the Twelve O'Clock Ride</em></span></button></li>
+          <li data-stop="herons"><button type="button"><span class="ws-n">4</span><span><strong>Heron's Way</strong><em>2-mile lakeside trail around Coombe Pool, through woodland and past the bird hide</em></span></button></li>
+          <li data-stop="return"><button type="button"><span class="ws-n">5</span><span><strong>Return to Brandon Hall</strong><em>Complete your circular walk</em></span></button></li>
+        </ol>
+        <div class="btn-row">
+          <a class="btn btn--book" href="https://www.google.com/maps/dir/?api=1&amp;origin=52.38326,-1.40643&amp;destination=52.41200,-1.40906&amp;travelmode=walking" target="_blank" rel="noopener">Walking route in Google Maps</a>
+          <a class="btn btn--line" href="../assets/img/walk-map.jpg" target="_blank" rel="noopener">View full-size map</a>
+          <a class="btn btn--line" href="../downloads/brandon-hall-country-walk-map.jpg" download>Download the map</a>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="walk-tour" id="walk-tour" tabindex="0" aria-label="Virtual walk: use the arrow keys to move between stops">
+      <div class="tour-head">
+        <div><span class="kicker">Before you set off</span><h3>Walk it virtually</h3></div>
+        <div class="tour-controls">
+          <button type="button" class="btn btn--line" data-tour="prev">Back</button>
+          <button type="button" class="btn btn--navy" data-tour="play" aria-pressed="false">Play</button>
+          <button type="button" class="btn btn--book" data-tour="next">Next</button>
+        </div>
+      </div>
+      <div class="tour-bar" aria-hidden="true"><span></span></div>
+      <div class="tour-body">
+        <div class="tour-stage"></div>
+        <div class="tour-side">
+          <div class="tour-cap" aria-live="polite"></div>
+          <div class="tour-dots"></div>
+          <p class="tour-count small"></p>
+        </div>
+      </div>
+    </div>
+    <div class="walk-notes">
+      <div><h4>Good to know</h4><p>Walking boots recommended, particularly after wet weather.</p></div>
+      <div><h4>Please note</h4><p>The route crosses the Brinklow Road (B4428). Please take care when crossing.</p></div>
+      <div><h4>Leave the car behind</h4><p>Enjoy fresh air, scenic countryside and a relaxing return to the hotel for lunch, afternoon tea or the leisure club.</p></div>
+    </div>
+    <p class="walk-tag">Relax · Explore · Enjoy</p>
+    <p class="small center mt-2">Scenery photographs of the route are from Geograph and Wikimedia Commons, shared under the Creative Commons Attribution-ShareAlike 2.0 licence. Tap a photo credit to see the original and its photographer.</p>
+  </div>
+</section>
+<section class="section">
   <div class="wrap">
     <h2 class="mb-2">Explore, discover and enjoy</h2>
     <div class="places"><article class="place">
@@ -170,6 +234,7 @@ try { if (matchMedia("(max-width: 760px)").matches && !sessionStorage.getItem("b
     </div>
   </div>
 </footer>
+<script src="../assets/js/walk.js"></script>
 <script src="../assets/js/site.js"></script>
 </body>
 </html>

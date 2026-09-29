@@ -37,6 +37,9 @@ The "Book a table" form on the Dining page emails each request to the hotel thro
 3. Every booking request after that arrives as a normal email. Reply to confirm the table.
 To send bookings to a different address (a restaurant inbox, say), change `tableBooking.email` in `assets/js/venue-data.js` and activate again. If the service is ever unavailable, the form opens the guest's own email app with the booking filled in instead.
 
+## Country walk (Out & About)
+The walk map pins use checked coordinates: the hotel from the address register (52.38326, -1.40643), the Brinklow Road crossing from Geograph's record of the Twelve O'Clock Ride (52.40590, -1.40757) and the Coombe Abbey Visitor Centre from Coventry City Council's directions link (52.41200, -1.40906). The scenery photos of the route come from Geograph and Wikimedia Commons under the Creative Commons Attribution-ShareAlike 2.0 licence, and each one is credited on the page. The "Fetch hotel photos" Action also copies these into `assets/img/walk`.
+
 ## Photographs still on the WordPress site (one-off)
 The meeting room, leisure club and Out & About photographs currently live on the WordPress site. Until they're copied here, the site shows them from there. To copy them in: GitHub > Actions > **Fetch hotel photos** > Run workflow. It downloads them into `assets/img/meetings` and `assets/img/site` and commits them. Do this before the WordPress site is switched off.
 
