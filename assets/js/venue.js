@@ -44,7 +44,7 @@
     var nFit = ROOMS.filter(fits).length;
     countEl.textContent = state.guests
       ? nFit + (nFit === 1 ? " room fits " : " rooms fit ") + state.guests + " guests in " + label(state.layout).toLowerCase()
-      : "Showing all " + ROOMS.length + " rooms";
+      : "Showing every room and suite";
     cardsEl.innerHTML = list.map(function (r) {
       var ok = fits(r), cap = r.cap[state.layout] || 0;
       var show = cap ? (state.guests ? Math.min(state.guests, cap) : cap) : 0;

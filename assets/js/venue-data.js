@@ -9,6 +9,8 @@
    Meetings at Brandon Hall Hotel and Spa brochure (rates inc VAT).
    Rooms flagged "not ready to sell" in HOSPRO (Beech, Hunt,
    Warwick) are left out on purpose. Add them back when ready.
+   The Brandon Suite and Wolston Suite are each sold as one room
+   only, so Brandon 1-2 and Wolston 1-3 are not listed.
    ========================================================== */
 
 window.BH_CONFIG = {
@@ -99,22 +101,8 @@ window.BH_ROOMS = [
     id: "brandon-suite", name: "Brandon Suite", group: "Brandon",
     m2: 130, length: null, width: null,
     cap: { theatre: 40, cabaret: 90, boardroom: 36, ushape: 30, reception: 100 },
-    summary: "Brandon 1 and Brandon 2 opened into one light-filled suite, with large windows over the gardens. A favourite for ceremonies, celebrations and presentations.",
+    summary: "A light-filled suite with large windows over the gardens. A favourite for ceremonies, celebrations and presentations.",
     tech: ["Two 98\" 4K smart screens", "ClickShare wireless screen sharing", "HDMI and USB-C connections", "Set up for Teams and Zoom calls", "PA system", "Complimentary Wi-Fi", "Natural daylight"]
-  },
-  {
-    id: "brandon-1", name: "Brandon 1", group: "Brandon",
-    m2: 54, length: 13.26, width: 6.55,
-    cap: { theatre: 26, cabaret: 30, boardroom: 26, ushape: 26, reception: 60 },
-    summary: "A bright, flexible room with its own refreshment area. The screen tucks away when the room is set for a social event.",
-    tech: ["98\" 4K smart screen on a height-adjustable stand", "ClickShare wireless screen sharing", "HDMI and USB-C connections", "Set up for Teams and Zoom calls", "Complimentary Wi-Fi", "Flipchart with pads and pens"]
-  },
-  {
-    id: "brandon-2", name: "Brandon 2", group: "Brandon",
-    m2: 76, length: 9.23, width: 6.08,
-    cap: { theatre: 40, cabaret: 60, boardroom: 36, ushape: 30, reception: 100 },
-    summary: "The larger half of the Brandon Suite, equally at home as a training room or a private dining space.",
-    tech: ["98\" 4K smart screen on a height-adjustable stand", "ClickShare wireless screen sharing", "HDMI and USB-C connections", "Set up for Teams and Zoom calls", "Complimentary Wi-Fi", "Flipchart with pads and pens"]
   },
   {
     id: "wolston-suite", name: "Wolston Suite", group: "Wolston",
@@ -122,27 +110,6 @@ window.BH_ROOMS = [
     cap: { theatre: 35, cabaret: 50, boardroom: 30, ushape: 28, reception: 80 },
     summary: "A long, elegant room with a second screen halfway down so everyone has a clear view of the presentation.",
     tech: ["75\" 4K smart screen plus a second screen", "ClickShare wireless screen sharing", "HDMI and USB-C connections", "Set up for Teams and Zoom calls", "PA system", "Complimentary Wi-Fi", "Flipchart with pads and pens"]
-  },
-  {
-    id: "wolston-1", name: "Wolston 1", group: "Wolston",
-    m2: 37, length: 7.91, width: 4.75,
-    cap: { theatre: 12, cabaret: 20, boardroom: 14, ushape: 12, reception: 30 },
-    summary: "A quiet meeting room for small teams, interviews and training.",
-    tech: ["Screen and HDMI connection", "Complimentary Wi-Fi", "Flipchart with pads and pens"]
-  },
-  {
-    id: "wolston-2", name: "Wolston 2", group: "Wolston",
-    m2: 38, length: 5.75, width: 5.0,
-    cap: { theatre: 12, cabaret: 20, boardroom: 14, ushape: 12, reception: 30 },
-    summary: "A square, comfortable room that suits workshops and syndicate groups.",
-    tech: ["Screen and HDMI connection", "Complimentary Wi-Fi", "Flipchart with pads and pens"]
-  },
-  {
-    id: "wolston-3", name: "Wolston 3", group: "Wolston",
-    m2: 24, length: 5.3, width: 4.75,
-    cap: { theatre: 12, cabaret: 10, boardroom: 10, ushape: 10, reception: 24 },
-    summary: "An intimate room for one-to-ones, interviews and small board meetings.",
-    tech: ["Screen and HDMI connection", "Complimentary Wi-Fi", "Flipchart with pads and pens"]
   },
   {
     id: "allkins", name: "Allkins", group: "Meeting rooms",
@@ -230,7 +197,10 @@ window.BH_EVENT_TYPES = [
   { id: "training",    label: "Training day",     hospro: "meeting",     layouts: ["ushape", "cabaret", "boardroom"], carbonPerHead: 2.1 },
   { id: "wedding",     label: "Wedding",          hospro: "wedding",     layouts: ["theatre", "cabaret", "reception"], carbonPerHead: 6.5 },
   { id: "dinner",      label: "Dinner or awards", hospro: "celebration", layouts: ["cabaret"],                        carbonPerHead: 6.0 },
-  { id: "celebration", label: "Celebration",      hospro: "celebration", layouts: ["cabaret", "reception"],           carbonPerHead: 4.0 },
+  { id: "celebration", label: "Party or celebration", hospro: "celebration", layouts: ["cabaret", "reception"],       carbonPerHead: 4.0 },
+  { id: "baby-shower", label: "Baby shower",      hospro: "baby-shower", layouts: ["cabaret", "reception"],           carbonPerHead: 3.0 },
+  { id: "celebration-of-life", label: "Celebration of life", hospro: "funeral", layouts: ["cabaret", "reception"],    carbonPerHead: 3.0 },
+  { id: "masonic",     label: "Masonic event",    hospro: "celebration", layouts: ["cabaret", "boardroom", "theatre"], carbonPerHead: 6.0 },
   { id: "christmas",   label: "Christmas party",  hospro: "christmas",   layouts: ["cabaret", "reception"],           carbonPerHead: 6.0 },
   { id: "other",       label: "Something else",   hospro: "celebration", layouts: ["theatre", "cabaret", "reception"],carbonPerHead: 3.0 }
 ];
