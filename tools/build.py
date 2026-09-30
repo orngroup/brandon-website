@@ -19,7 +19,7 @@ FB = "https://www.facebook.com/brandonhallhotelandspa"
 SITE_URL = "https://orngroup.github.io/brandon-website"
 
 NAV_LEFT = [("stay", "rooms-suites/", "Stay"), ("dining", "dining/", "Dining"), ("spa", "spa-leisure/", "Leisure &amp; Wellness")]
-NAV_RIGHT = [("weddings", "weddings/", "Weddings"), ("meetings", "meetings-events/", "Meetings &amp; Events"), ("christmas", "christmas/", "Christmas")]
+NAV_RIGHT = [("weddings", "weddings/", "Weddings"), ("meetings", "meetings-events/", "Meetings &amp; Events"), ("christmas", "celebrations/", "Christmas &amp; Celebrations")]
 
 IG_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1.1.4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1.1.4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1.1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1.1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.1 0-3.5 0-4.7.1-1.1.1-1.7.2-2.1.4-.5.2-.9.4-1.3.8-.4.4-.6.8-.8 1.3-.2.4-.3 1-.4 2.1C2.6 9.9 2.6 10.3 2.6 12s0 2.1.1 3.3c.1 1.1.2 1.7.4 2.1.2.5.4.9.8 1.3.4.4.8.6 1.3.8.4.2 1 .3 2.1.4 1.2.1 1.6.1 4.7.1s3.5 0 4.7-.1c1.1-.1 1.7-.2 2.1-.4.5-.2.9-.4 1.3-.8.4-.4.6-.8.8-1.3.2-.4.3-1 .4-2.1.1-1.2.1-1.6.1-3.3s0-2.1-.1-3.3c-.1-1.1-.2-1.7-.4-2.1-.2-.5-.4-.9-.8-1.3-.4-.4-.8-.6-1.3-.8-.4-.2-1-.3-2.1-.4C15.5 4 15.1 4 12 4zm0 3.1a4.9 4.9 0 1 1 0 9.8 4.9 4.9 0 0 1 0-9.8zm0 8.1a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4zm6.2-8.3a1.1 1.1 0 1 1-2.3 0 1.1 1.1 0 0 1 2.3 0z"/></svg>'
 FB_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21.9v-8.2h2.8l.4-3.2h-3.2V8.4c0-.9.3-1.6 1.6-1.6h1.7V4c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.4H7.3v3.2h2.8v8.2h3.4z"/></svg>'
@@ -144,6 +144,7 @@ def footer(p, scripts=()):
           <li><a href="{p}meetings-events/">Meetings and events</a></li>
           <li><a href="{p}meetings-events/spaces/">Our event spaces</a></li>
           <li><a href="{p}meetings-events/planner/">Event planner</a></li>
+          <li><a href="{p}celebrations/">Christmas and celebrations</a></li>
           <li><a href="{p}christmas/">Christmas and New Year</a></li>
         </ul>
       </div>
@@ -278,7 +279,7 @@ def home():
   <div class="wrap">
     <div class="facts">
       <div><strong>17 acres</strong><span>of gardens and woodland to explore</span></div>
-      <div><strong>14</strong><span>event spaces, from boardrooms to the Woodlands Suite</span></div>
+      <div><strong>10</strong><span>event spaces, from boardrooms to the Woodlands Suite</span></div>
       <div><strong>280</strong><span>guests at a standing reception</span></div>
       <div><strong>24-hour</strong><span>reception, always here to help</span></div>
     </div>
@@ -294,8 +295,8 @@ def home():
     <div class="paths">
       <a class="path path--tall" href="rooms-suites/"><img src="assets/img/bedroom-suite.jpg" alt="A suite with a grey upholstered headboard and a wedding dress hanging by the window" loading="lazy"><div class="t"><h3>Stay</h3><span>Rooms and suites overlooking the grounds</span></div></a>
       <a class="path" href="weddings/"><img src="assets/img/wedding-walk.jpg" alt="A bride and groom walking hand in hand across the lawn towards the hotel" loading="lazy"><div class="t"><h3>Weddings</h3><span>Your day, in our 17 acres</span></div></a>
-      <a class="path" href="meetings-events/"><img src="assets/img/suite-cabaret-white.jpg" alt="A function suite laid with round tables, white linen and flowers" loading="lazy"><div class="t"><h3>Meetings and events</h3><span>Fourteen spaces and an online planner</span></div></a>
-      <a class="path" href="dining/"><img src="assets/img/table-setting.jpg" alt="A round table laid with white linen, gold chargers and flowers" loading="lazy"><div class="t"><h3>The Clarendon</h3><span>Seasonal menus, lunch and dinner</span></div></a>
+      <a class="path" href="meetings-events/"><img src="assets/img/suite-cabaret-white.jpg" alt="A function suite laid with round tables, white linen and flowers" loading="lazy"><div class="t"><h3>Meetings and events</h3><span>Ten event spaces and an online planner</span></div></a>
+      <a class="path" href="dining/"><img src="assets/img/restaurant.jpg" alt="The Clarendon restaurant with arched windows and tables laid for dinner" loading="lazy"><div class="t"><h3>The Clarendon</h3><span>Seasonal menus, lunch and dinner</span></div></a>
       <a class="path" href="spa-leisure/"><img src="assets/img/pool.jpg" alt="The indoor swimming pool under a glazed roof" loading="lazy"><div class="t"><h3>Leisure and wellness</h3><span>Indoor pool, gym and fitness centre</span></div></a>
     </div>
   </div>
@@ -377,7 +378,7 @@ def meetings():
              "Meeting rooms and event spaces near Coventry for up to 280 guests, with day delegate and 24-hour packages, bedrooms and an online event planner.")
     body = f'''
 <section class="hero hero--page">
-  <img src="../assets/img/suite-theatre-2.jpg" alt="A function suite with rows of chairs facing the windows" fetchpriority="high">
+  <img src="../assets/img/meetings/meeting-2.png" data-fallback="https://www.brandonhallhotelandspa.com/wp-content/uploads/2025/09/1758893782-1000x757.png" onerror="if(this.dataset.fallback){{this.src=this.dataset.fallback;this.dataset.fallback=''}}" alt="A conference room with round tables, presentation boards and natural light" fetchpriority="high">
   <div class="wrap">
     <h1>Meetings and events</h1>
     <p>From a board meeting for six to a conference for 120 and a gala dinner for 200, in a calm country house setting.</p>
@@ -401,7 +402,7 @@ def meetings():
   </div>
   <div class="wrap mt-3">
     <div class="facts">
-      <div><strong>14</strong><span>meeting and event spaces</span></div>
+      <div><strong>10</strong><span>meeting and event spaces</span></div>
       <div><strong>280</strong><span>guests at a standing reception</span></div>
       <div><strong>On site</strong><span>bedrooms for residential events</span></div>
       <div><strong>Free</strong><span>parking and Wi-Fi for every delegate</span></div>
@@ -458,7 +459,7 @@ def meetings():
   <div class="wrap">
     <div class="intro mb-3">
       <div class="t"><h2>Our main event spaces</h2></div>
-      <div class="c"><p>Three suites that open up or divide to suit your numbers, plus quieter rooms for smaller meetings. Every plan below is drawn to the room's measurements.</p><p><a class="textlink" href="spaces/">Compare all 14 rooms</a></p></div>
+      <div class="c"><p>Three suites for larger events, with the Woodlands Suite dividing in two, plus quieter rooms for smaller meetings. Every plan below is drawn to the room's measurements.</p><p><a class="textlink" href="spaces/">Compare all our spaces</a></p></div>
     </div>
     <div class="rooms" id="suite-cards"></div>
   </div>
@@ -486,7 +487,7 @@ def meetings():
 
 <section class="section">
   <div class="wrap split split--flip">
-    <div class="a"><figure class="mount"><img src="../assets/img/bar-lounge.jpg" alt="The hotel bar with armchairs, a clock above the back bar and framed prints" loading="lazy"></figure></div>
+    <div class="a"><figure class="mount"><img src="../assets/img/meetings/meeting-1.png" data-fallback="https://www.brandonhallhotelandspa.com/wp-content/uploads/2025/09/1758893100-1000x667.png" onerror="if(this.dataset.fallback){{this.src=this.dataset.fallback;this.dataset.fallback=''}}" alt="A meeting room set with seating and a presentation screen" loading="lazy"></figure></div>
     <div class="b">
       <h2>Technology that just works</h2>
       <p>Every room has a screen, HDMI connection, flipchart and fast, complimentary Wi-Fi.</p>
@@ -552,7 +553,7 @@ def meetings():
 def spaces():
     p = "../../"
     h = head(p, f"Our event spaces and capacities | {HOTEL}",
-             "Compare our 14 meeting and event rooms: sizes, capacities for every layout, floor plans and the technology in each room.")
+             "Compare our meeting and event spaces: sizes, capacities for every layout, floor plans and the technology in each room.")
     body = f'''
 <section class="section" style="padding-bottom:40px">
   <div class="wrap intro">
@@ -561,7 +562,7 @@ def spaces():
       <h1 style="font-size:clamp(2.6rem,5.6vw,4.4rem)">Our event spaces</h1>
     </div>
     <div class="c">
-      <p class="lede">Fourteen rooms, from an intimate boardroom for ten to the Woodlands Suite for 280.</p>
+      <p class="lede">Ten event spaces, from an intimate boardroom for ten to the Woodlands Suite for 280.</p>
       <p>Enter your numbers and choose a layout to see which rooms fit. Select any room for its floor plan, measurements and the technology in the room.</p>
     </div>
   </div>
@@ -584,7 +585,7 @@ def spaces():
     <h2 class="mt-3" style="padding-top:40px">Capacity chart</h2>
     <p>Maximum guests per layout. Select a room to see its plan.</p>
     <div class="table-scroll mt-1"><table class="cap" id="cap-table"></table></div>
-    <p class="small mt-1">Capacities are the most each room holds comfortably. Some rooms combine: the Woodlands Suite is Woodlands 1 and 2, and the Brandon Suite is Brandon 1 and 2.</p>
+    <p class="small mt-1">Capacities are the most each room holds comfortably. The Woodlands Suite divides into Woodlands 1 and Woodlands 2.</p>
     <div class="mt-3" style="max-width:560px">
       {dl(p, "meetings-and-events.pdf", "Meetings at " + HOTEL, "Brochure and package rates, PDF, 0.7 MB")}
     </div>
@@ -1030,7 +1031,7 @@ def out_about():
 
 
 def seo_files():
-    pages = ["", "rooms-suites/", "dining/", "spa-leisure/", "out-about/", "weddings/", "meetings-events/", "meetings-events/spaces/", "meetings-events/planner/", "christmas/", "offers/", "contact/", "privacy/", "accessibility/"]
+    pages = ["", "rooms-suites/", "dining/", "spa-leisure/", "out-about/", "weddings/", "meetings-events/", "meetings-events/spaces/", "meetings-events/planner/", "christmas/", "celebrations/", "celebrations/parties/", "celebrations/baby-showers/", "celebrations/celebration-of-life/", "celebrations/masonic/", "offers/", "contact/", "privacy/", "accessibility/"]
     xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"  <url><loc>{SITE_URL}/{u}</loc></url>\n" for u in pages) + "</urlset>\n"
     open(os.path.join(ROOT, "sitemap.xml"), "w").write(xml)
     open(os.path.join(ROOT, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\nSitemap: {SITE_URL}/sitemap.xml\n")
@@ -1075,7 +1076,7 @@ def christmas():
 <section class="hero hero--page">
   <img src="../assets/img/xmas-hero.jpg" alt="Glasses of champagne raised at a festive celebration" fetchpriority="high">
   <div class="wrap">
-    <span class="kicker" style="color:var(--gold)">Christmas and New Year 2026</span>
+    <span class="kicker" style="color:var(--gold)"><a href="../celebrations/" style="color:inherit;text-decoration:none">Christmas and celebrations</a> · 2026</span>
     <h1>Christmas magic at the Hall</h1>
     <p>Party nights, festive dining, Christmas Day and a New Year's Eve masquerade in 17 acres of Warwickshire grounds.</p>
     <div class="btn-row"><a class="btn btn--book" href="#at-a-glance">See what's on</a><a class="btn btn--light" href="../downloads/christmas-brochure-2026.pdf" download>Download the brochure</a></div>
@@ -1826,5 +1827,175 @@ def accessibility():
 """
     write("accessibility/index.html", h + header(p, "") + body + footer(p))
 
+# ----------------------------------------------------------------
+# CHRISTMAS & CELEBRATIONS (social packages from Nicola Cartwright, 2026)
+# ----------------------------------------------------------------
+CELEB_FACTS = '''<div class="facts">
+      <div><strong>120</strong><span>bedrooms, with executive rooms and suites</span></div>
+      <div><strong>10</strong><span>event spaces to choose from</span></div>
+      <div><strong>280</strong><span>guests at our largest events</span></div>
+      <div><strong>Free</strong><span>on-site parking for your guests</span></div>
+    </div>'''
+CELEB_INCLUDES_COMMON = ["Private room hire", "Unlimited tea and coffee", "Tables dressed with white tablecloths and napkins"]
+
+CELEB = {
+  "parties": dict(
+    title="Party packages", h1="Get ready to <span style=\"white-space:nowrap\">P&#8209;A&#8209;R&#8209;T&#8209;Y!</span>", kicker="Birthdays, anniversaries and every reason to celebrate",
+    img="wed-21.jpg", alt="A function suite dressed for an evening party with warm lighting and gold chair covers",
+    intro=["For those special moments in life, get ready to P-A-R-T-Y! Throw the ultimate celebration with our exclusive party packages, designed for everything from intimate gatherings to extravagant soirées.",
+           "Every package is designed around the individual finer touches that make it feel picked just for you."],
+    packages=[
+      ("P&#8209;A&#8209;R&#8209;T&#8209;Y! Classic", "£35.00", ["Private room hire", "Two-course sit-down meal or buffet", "Tables dressed with white tablecloths and napkins"], False),
+      ("P&#8209;A&#8209;R&#8209;T&#8209;Y! Special", "£53.00", ["Private room hire", "One arrival drink per guest", "Three-course sit-down Classic menu", "Tea and coffee", "Tables dressed with white tablecloths and napkins"], True),
+      ("P&#8209;A&#8209;R&#8209;T&#8209;Y! Extra Special", "£75.00", ["Private room hire", "One arrival drink per guest", "Five-course sit-down Classic menu", "Half a bottle of wine per guest", "Tables dressed with white tablecloths and napkins"], False),
+    ],
+    includes=None, planner="celebration", pdf="party-packages-2026.pdf", tone="party"),
+  "baby-showers": dict(
+    title="Baby showers", h1="Baby showers", kicker="Celebrate the arrival of a little one",
+    img="celebration-drinks.jpg", alt="Glass drinks dispensers with fruit and flowers set out in the garden",
+    intro=["Celebrate the arrival of a little one at Brandon Hall Hotel and Spa, where beautiful surroundings and warm hospitality create the perfect setting for a special baby shower.",
+           "Whether you're planning an intimate gathering or a larger celebration with family and friends, our dedicated team will help create a memorable occasion filled with delicious food, beautiful touches and treasured moments."],
+    packages=[("Special", "£29.00", ["Food from our limited menu", "Plus everything listed below"], False), ("Extra Special", "£37.50", ["Six-item buffet", "Plus everything listed below"], True)],
+    includes=CELEB_INCLUDES_COMMON, planner="baby-shower", pdf="baby-shower-packages-2026.pdf", tone="party"),
+  "celebration-of-life": dict(
+    title="Celebration of life", h1="Celebration of life", kicker="Remembering someone special",
+    img="lounge-fireplace.jpg", alt="A quiet lounge with sofas beside an open fireplace",
+    intro=["Brandon Hall Hotel and Spa offers a warm and peaceful setting to gather with family and friends and celebrate the life of a loved one.",
+           "Our dedicated team understands that this is a difficult time. We'll provide a caring, respectful and personal service, helping to create a meaningful occasion where memories can be shared, stories remembered and loved ones brought together."],
+    packages=[("Special", "£27.50", ["Food from our limited menu", "Plus everything listed below"], False), ("Extra Special", "£33.00", ["Six-item buffet", "Plus everything listed below"], False)],
+    includes=CELEB_INCLUDES_COMMON, planner="celebration-of-life", pdf="celebration-of-life-packages-2026.pdf", tone="calm"),
+  "masonic": dict(
+    title="Masonic events", h1="Masonic events", kicker="Lodge meetings, festive boards and ladies' nights",
+    img="suite-banquet.jpg", alt="Long banquet tables laid for a formal dinner",
+    intro=["Celebrate your Masonic gathering in style at Brandon Hall Hotel and Spa, with bespoke packages designed to make your event both memorable and effortless: from welcome drinks and elegant dining to comfortable accommodation and dedicated event support.",
+           "Set in beautiful surroundings, Brandon Hall Hotel and Spa is the perfect setting for a distinguished and enjoyable Masonic occasion, whether you're planning a formal event, a private dinner or an overnight stay."],
+    packages=[("Two-night package", "From £200.00", ["Informal dining on Friday night", "Two nights' bed and breakfast", "Pre-dinner drinks reception on Saturday night", "Three-course gala dinner", "Half a bottle of wine per person"], True)],
+    includes=None, planner="masonic", pdf="masonic-packages-2026.pdf", tone="formal",
+    note="Single supplement rates apply."),
+}
+CELEB_ORDER = [("parties", "Parties"), ("baby-showers", "Baby showers"), ("celebration-of-life", "Celebration of life"), ("masonic", "Masonic events")]
+
+def celeb_pkg_cards(pkgs, includes):
+    out = ""
+    for name, price, items, pop in pkgs:
+        if items:
+            body = '<ul class="ticks ticks--one">' + "".join(f"<li>{i}</li>" for i in items) + "</ul>"
+        elif includes:
+            body = '<p class="small">Includes everything listed below.</p>'
+        else:
+            body = '<p class="small">Ask our events team for the full details of this package.</p>'
+        out += f'''<article class="wpkg{' wpkg--pop' if pop else ''}">
+          {'<span class="wpkg-flag">Most popular</span>' if pop else ''}
+          <h3>{name}</h3>
+          <p class="wpkg-from"><strong>{price}</strong> per person · 2026</p>
+          {body}
+        </article>'''
+    return out
+
+def celebrations_hub():
+    p = "../"
+    h = head(p, f"Christmas and celebrations | {HOTEL}",
+             "Christmas and New Year, party packages, baby showers, celebrations of life and Masonic events at Brandon Hall Hotel and Spa, for 10 to 250 guests.")
+    cards = [("../christmas/", "xmas-hero.jpg", "Christmas and New Year", "Party nights, festive dining, Christmas Day and New Year's Eve")]
+    for slug, label in CELEB_ORDER:
+        c = CELEB[slug]
+        cards.append((f"{slug}/", c["img"], label, c["kicker"]))
+    cards.append(("../weddings/", "wedding-lawn.jpg", "Weddings", "Your day, in our 17 acres"))
+    tiles = "".join(f'<a class="path" href="{href}"><img src="../assets/img/{img}" alt="" loading="lazy"><div class="t"><h3>{t}</h3><span>{s}</span></div></a>' for href, img, t, s in cards)
+    body = f'''
+<section class="hero hero--page">
+  <img src="../assets/img/suite-cabaret-white.jpg" alt="A function suite laid with round tables, white linen and flowers" fetchpriority="high">
+  <div class="wrap"><span class="kicker" style="color:var(--gold)">Christmas and celebrations</span><h1>Life is a collection of special moments</h1>
+  <p>Here at {HOTEL}, our wish is to make each one unforgettable.</p></div>
+</section>
+
+<section class="section">
+  <div class="wrap intro">
+    <div class="t"><h2>You name it, we can celebrate it</h2></div>
+    <div class="c">
+      <p class="lede">Weddings, birthday parties, anniversaries: you name it, we can celebrate it.</p>
+      <p>However small or large your guest list, from an intimate 10 to an impressive 250, we have the perfect backdrop for your celebration.</p>
+      <ul class="ticks mt-1"><li>Set within beautiful Warwickshire countryside</li><li>Views over our gardens</li><li>A range of adaptable spaces to choose from</li><li>Preferential bedroom rates for your guests</li></ul>
+    </div>
+  </div>
+  <div class="wrap mt-3">{CELEB_FACTS}</div>
+</section>
+
+<section class="section section--white">
+  <div class="wrap">
+    <h2 class="mb-2">Choose your celebration</h2>
+    <div class="celeb-grid">{tiles}</div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap split">
+    <div class="a"><figure class="mount"><img src="../assets/img/table-setting.jpg" alt="A round table laid with white linen and gold chargers" loading="lazy"></figure></div>
+    <div class="b">
+      <span class="kicker">Personalised packages</span>
+      <h2>It's your special occasion</h2>
+      <p>That's why we create fully customisable packages, designed to be tailored to you and your celebration and to bring your unique vision to life.</p>
+      <div class="btn-row"><a class="btn btn--book" href="../meetings-events/planner/?type=celebration&amp;layout=cabaret">Plan your celebration</a><a class="btn btn--line" href="tel:{PHONE_HREF}">Call {PHONE}</a></div>
+    </div>
+  </div>
+</section>
+'''
+    write("celebrations/index.html", h + header(p, "christmas") + body + footer(p))
+
+def celebration_page(slug):
+    c = CELEB[slug]; p = "../../"
+    h = head(p, f"{c['title']} | {HOTEL}", " ".join(c["intro"])[:155].rsplit(" ", 1)[0] + ".")
+    intro = "".join(f"<p>{x}</p>" for x in c["intro"][1:])
+    inc = ""
+    if c.get("includes"):
+        inc = '<div class="celeb-inc"><h3>Every package includes</h3><ul class="ticks">' + "".join(f"<li>{i}</li>" for i in c["includes"]) + "</ul></div>"
+    note = f'<p class="small mt-1">{c["note"]}</p>' if c.get("note") else ""
+    sibling = "".join(f'<a class="btn btn--line" href="../{s}/">{l}</a>' for s, l in CELEB_ORDER if s != slug)
+    enquire_label = "Talk to our team" if c["tone"] == "calm" else "Enquire now"
+    body = f'''
+<section class="section page-open">
+  <div class="wrap split">
+    <div class="a">
+      <span class="kicker"><a href="../" style="text-decoration:none">Christmas and celebrations</a> · {c["kicker"]}</span>
+      <h1 class="h1-page">{c["h1"]}</h1>
+      <p class="lede">{c["intro"][0]}</p>
+      {intro}
+      <div class="btn-row"><a class="btn btn--book" href="#packages">See the packages</a><a class="btn btn--line" href="{p}downloads/{c["pdf"]}" download>Download the PDF</a></div>
+    </div>
+    <div class="b"><figure class="mount mount--tall"><img src="{p}assets/img/{c["img"]}" alt="{c["alt"]}" fetchpriority="high"></figure></div>
+  </div>
+</section>
+
+<section class="section section--white" id="packages">
+  <div class="wrap">
+    <div class="intro mb-3">
+      <div class="t"><span class="kicker">2026 packages</span><h2>{c["title"]}</h2></div>
+      <div class="c"><p>Prices are per person for 2026. Every package can be tailored to you, so talk to our events team about the finer touches you have in mind.</p>{note}</div>
+    </div>
+    <div class="wpkgs wpkgs--{len(c["packages"])}">{celeb_pkg_cards(c["packages"], c.get("includes"))}</div>
+    {inc}
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">{CELEB_FACTS}
+    <ul class="ticks mt-2"><li>Executive rooms and suites available</li><li>Leisure and spa facilities</li><li>Preferential bedroom rates for your guests</li><li>On-site complimentary car parking</li></ul>
+  </div>
+</section>
+
+<section class="section section--navy">
+  <div class="wrap cta-band">
+    <div><span class="kicker">Your countryside retreat in the heart of the Midlands</span><h2>{"We're here to help" if c["tone"] == "calm" else "Let's start planning"}</h2>
+    <p>Call us on <a href="tel:{PHONE_HREF}" style="color:#fff">{PHONE}</a> or email <a href="mailto:{EMAIL}" style="color:#fff">{EMAIL}</a>.</p></div>
+    <div class="btn-row" style="margin-top:0"><a class="btn btn--book" href="{p}meetings-events/planner/?type={c["planner"]}&amp;layout=cabaret">{enquire_label}</a><a class="btn btn--light" href="{p}downloads/{c["pdf"]}" download>Download the PDF</a></div>
+  </div>
+</section>
+
+<section class="section--tight"><div class="wrap" style="padding-top:48px;padding-bottom:48px">
+  <p class="small">More celebrations</p><div class="btn-row" style="margin-top:10px">{sibling}<a class="btn btn--line" href="{p}christmas/">Christmas and New Year</a></div>
+</div></section>
+'''
+    write(f"celebrations/{slug}/index.html", h + header(p, "christmas") + body + footer(p))
+
 if __name__ == "__main__":
-    home(); meetings(); spaces(); planner(); rooms(); leisure(); out_about(); christmas(); offers(); weddings(); dining(); contact(); privacy(); accessibility(); seo_files()
+    home(); meetings(); spaces(); planner(); rooms(); leisure(); out_about(); christmas(); offers(); weddings(); dining(); contact(); privacy(); accessibility(); celebrations_hub(); [celebration_page(s) for s, _ in CELEB_ORDER]; seo_files()
