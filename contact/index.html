@@ -119,6 +119,7 @@ try { if (matchMedia("(max-width: 760px)").matches && !sessionStorage.getItem("b
         <p class="err" id="c-consent-err"></p>
         <div class="visually-hidden" aria-hidden="true"><label for="c-website">Leave this empty</label><input id="c-website" type="text" tabindex="-1" autocomplete="off"></div>
         <div class="btn-row"><button class="btn btn--book" type="submit" id="c-submit">Send message</button></div>
+        <p class="err" id="c-send-err" aria-live="polite"></p>
         <p class="notice" id="c-done" hidden tabindex="-1"></p>
       </form>
     </div>
@@ -183,6 +184,7 @@ try { if (matchMedia("(max-width: 760px)").matches && !sessionStorage.getItem("b
   </div>
 </footer>
 <script src="../assets/js/venue-data.js"></script>
+<script src="../assets/js/forms.js"></script>
 <script src="../assets/js/contact.js"></script>
 <script src="../assets/js/site.js"></script>
 </body>

@@ -44,14 +44,28 @@ window.BH_CONFIG = {
      Off: customers choose freely and the events team prices it. */
   showPackagePrices: false,
 
+  /* ----------------------------------------------------------
+     WHERE THE WEBSITE FORMS SEND THEIR EMAILS
+     TESTING: everything goes to aj@ykawa.com.
+     GOING LIVE: change the two addresses below to
+       reservations: "reservations@brandonhallhotelandspa.com"
+       events:       "events@brandonhallhotelandspa.com"
+     Each new address must be activated once with FormSubmit:
+     the first message to it triggers an "Activate Form" email.
+     ---------------------------------------------------------- */
+  formEmails: {
+    reservations: "aj@ykawa.com",   // contact form (stays, dining, other) and table bookings
+    events: "aj@ykawa.com"          // event planner, weddings, meetings, Christmas and celebrations
+  },
+  formEndpoint: "https://formsubmit.co/ajax/",
+
   /* The Clarendon table booking requests. Sent by email through
      FormSubmit (formsubmit.co), a free forwarding service, because
      GitHub Pages can't send email itself. The FIRST request sends an
      activation email to this address; click "Activate" once and every
      request after that arrives as a normal email. */
   tableBooking: {
-    email: "reservations@brandonhallhotelandspa.com",
-    endpoint: "https://formsubmit.co/ajax/",
+    // sends to formEmails.reservations (set above)
     firstSitting: "18:00",
     lastSitting: "20:30",   // dinner is served 6pm to 9pm
     slotMinutes: 15,

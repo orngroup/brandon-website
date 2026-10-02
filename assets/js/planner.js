@@ -386,20 +386,36 @@
     $("#p-send-err").textContent = "";
     if ($("#p-website").value) { showDone(true); return; } // spam trap
 
-    sendToHospro(body).then(function () { showDone(true); })
-      .catch(function (err) {
-        console.warn("HOSPRO unavailable, using email:", err && err.message);
-        var subject = "Event enquiry: " + byId(TYPES, S.type).label + ", " + S.guests + " guests" + (S.date ? ", " + S.date : "");
-        location.href = "mailto:" + C.eventsEmail + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
-        showDone(false);
-      })
-      .then(function () { btn.disabled = false; btn.textContent = "Request my quote"; });
+    // Email the full specification to the events team and save it to HOSPRO.
+    // Success if either gets through; never opens the visitor's email program.
+    var t = byId(TYPES, S.type), room = byId(ROOMS, S.room), lay = byId(LAYOUTS, S.layout), c = carbon();
+    var fields = {
+      "Event": t.label,
+      "Date": dateText(),
+      "Guests": String(S.guests),
+      "Room": (room ? room.name : "To advise") + ", " + lay.label + " layout",
+      "Package": byId(PKGS, S.pkg).name,
+      "Food and drink": S.catering.length ? names(window.BH_CATERING, S.catering).join(", ") : "None selected",
+      "Extras": S.extras.length ? names(window.BH_EXTRAS, S.extras).join(", ") + (S.extras.indexOf("breakout") > -1 && byId(ROOMS, S.breakoutRoom) ? " (breakout: " + byId(ROOMS, S.breakoutRoom).name + ")" : "") : "None selected",
+      "Bedrooms": S.stay ? S.bedrooms + " rooms × " + S.nights + (S.nights > 1 ? " nights" : " night") + (S.arrival ? " from " + S.arrival : "") + "; " + S.singles + " single, " + S.doubles + " double, " + S.twins + " twin; " + (S.board === "dbb" ? "dinner, bed and breakfast" : "bed and breakfast") : (S.pkg === "24hr" ? "Included in 24-hour package" : "Not required"),
+      "Name": S.name, "Company": S.company || "–", "Email": S.email, "Phone": S.phone || "–",
+      "Notes": S.notes || "–", "Heard about us": S.source || "–",
+      "Estimated footprint": c ? c.total + " kg CO2e" : "–"
+    };
+    var subject = "Event enquiry: " + t.label + ", " + S.guests + " guests" + (S.date ? ", " + S.date : "") + " (" + S.name + ")";
+    var auto = "Thank you for your enquiry to " + C.hotelName + ". Our events team has your specification and will be in touch with a tailored proposal.";
+    var results = [
+      window.bhSendForm("events", subject, S.email, fields, auto).then(function () { return true; }, function () { return false; }),
+      sendToHospro(body).then(function () { return true; }, function (err) { console.warn("HOSPRO not reached:", err && err.message); return false; })
+    ];
+    Promise.all(results).then(function (r) {
+      if (r[0] || r[1]) showDone(true);
+      else $("#p-send-err").textContent = window.bhSendError(C);
+    }).then(function () { btn.disabled = false; btn.textContent = "Request my quote"; });
 
     function showDone(sent) {
-      $("#p-done-title").textContent = sent ? "Thank you, your request has been sent" : "Your email is ready to send";
-      $("#p-done-text").textContent = sent
-        ? "It's with our events team now, and they'll be in touch with a tailored proposal. A copy of your specification is below for your records."
-        : "We've opened your email app with your full specification addressed to our events team. Press send and we'll come back to you with a tailored proposal. If nothing opened, copy the details below into an email to " + C.eventsEmail + ".";
+      $("#p-done-title").textContent = "Thank you, your request has been sent";
+      $("#p-done-text").textContent = "It's with our events team now, and they'll be in touch with a tailored proposal. A copy of your specification is below for your records.";
       $("#p-done-copy").textContent = body;
       done.hidden = false; done.scrollIntoView({ behavior: "smooth", block: "start" });
     }

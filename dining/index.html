@@ -170,6 +170,7 @@ try { if (matchMedia("(max-width: 760px)").matches && !sessionStorage.getItem("b
         <p class="err" id="t-consent-err"></p>
         <div class="visually-hidden" aria-hidden="true"><label for="t-website">Leave this empty</label><input id="t-website" type="text" tabindex="-1" autocomplete="off"></div>
         <div class="btn-row"><button class="btn btn--book" type="submit" id="t-submit">Request my table</button></div>
+        <p class="err" id="t-send-err" aria-live="polite"></p>
       </form>
       <div class="t-done" id="t-done" hidden tabindex="-1">
         <h3 id="t-done-title"></h3>
@@ -248,6 +249,7 @@ try { if (matchMedia("(max-width: 760px)").matches && !sessionStorage.getItem("b
   </div>
 </footer>
 <script src="../assets/js/venue-data.js"></script>
+<script src="../assets/js/forms.js"></script>
 <script src="../assets/js/table.js"></script>
 <script src="../assets/js/site.js"></script>
 </body>

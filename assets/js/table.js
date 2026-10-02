@@ -62,31 +62,19 @@
       "Dietary needs or requests": v("t-notes") || "None"
     };
     var subject = "Table request: " + guests + " at " + time + ", " + d.Date + " (" + d.Name + ")";
-    var payload = Object.assign({
-      _subject: subject,
-      _replyto: d.Email,
-      _template: "table",
-      _captcha: "false",
-      _autoresponse: "Thank you for your table request at The Clarendon at " + C.hotelName + ". This is not yet a confirmed booking: our team will be in touch to confirm. " + d.Guests + " guests, " + d.Time + ", " + d.Date + "."
-    }, d);
-
+    var auto = "Thank you for your table request at The Clarendon at " + C.hotelName + ". This is not yet a confirmed booking: our team will be in touch to confirm. " + d.Guests + " guests, " + d.Time + ", " + d.Date + ".";
     var btn = $("t-submit"); btn.disabled = true; btn.textContent = "Sending…";
-    fetch(T.endpoint + encodeURIComponent(T.email), {
-      method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(payload)
-    })
-      .then(function (r) { return r.json().then(function (j) { if (!r.ok || String(j.success) !== "true") throw new Error(j.message || r.status); }); })
-      .then(function () { done(true); })
+    $("t-send-err").textContent = "";
+    window.bhSendForm("reservations", subject, d.Email, d, auto)
+      .then(function () { done(); })
       .catch(function () {
-        var body = Object.keys(d).map(function (k) { return k + ": " + d[k]; }).join("\n");
-        location.href = "mailto:" + T.email + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent("Please could I book a table at The Clarendon.\n\n" + body);
-        done(false);
+        $("t-send-err").textContent = window.bhSendError(C);
+        btn.disabled = false; btn.textContent = "Request my table";
       });
 
-    function done(sent) {
-      $("t-done-title").textContent = sent ? "Thank you, " + d.Name.split(" ")[0] + ". Your request is with us." : "Your email is ready to send";
-      $("t-done-text").textContent = sent
-        ? "We'll confirm your table by email or phone shortly. Your table isn't booked until we've confirmed it."
-        : "We've opened your email app with your booking request addressed to us. Press send and we'll confirm your table. If nothing opened, call us on " + C.phone + ".";
+    function done() {
+      $("t-done-title").textContent = "Thank you, " + d.Name.split(" ")[0] + ". Your request is with us.";
+      $("t-done-text").textContent = "We'll confirm your table by email or phone shortly. Your table isn't booked until we've confirmed it.";
       $("t-done-list").innerHTML = ["Date", "Time", "Guests", "Occasion"].filter(function (k) { return k !== "Occasion" || d.Occasion !== "None"; })
         .map(function (k) { return "<div><dt>" + k + "</dt><dd>" + d[k] + "</dd></div>"; }).join("");
       f.hidden = true; $("t-done").hidden = false; $("t-done").focus();

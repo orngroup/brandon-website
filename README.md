@@ -30,6 +30,13 @@ The "What our guests say" section on the home page reads from the `REVIEWS` list
 4. Firestore rules: the current rule lets any signed-in user, including an anonymous website visitor, read every enquiry. Replace the enquiries, meta and marketing rules with `docs/firestore.rules.recommended` so the public can only create enquiries and only staff can read them.
 5. Send a test enquiry from the live planner and check it appears in HOSPRO.
 
+## Website form emails (testing and going live)
+All forms (contact form, table booking and the event planner) email the hotel directly through FormSubmit. They never open the visitor's email program.
+- TESTING: every form currently sends to aj@ykawa.com (`formEmails` in `assets/js/venue-data.js`).
+- The first message to an address triggers an "Activate Form" email from FormSubmit. Click it once; until then the visitor sees a polite "please call us" message.
+- GOING LIVE: change `formEmails.reservations` to reservations@brandonhallhotelandspa.com and `formEmails.events` to events@brandonhallhotelandspa.com, upload, then send one test to each and activate both.
+- Stays, dining, table bookings and general messages go to reservations. Weddings, meetings, Christmas, celebrations and the event planner go to events (and the planner and events topics also go into HOSPRO).
+
 ## Table bookings at The Clarendon (one-off)
 The "Book a table" form on the Dining page emails each request to the hotel through FormSubmit (formsubmit.co), a free email-forwarding service, because GitHub Pages can't send email itself. The guest's email is set as the reply-to, and they get an automatic "we've received your request" email.
 1. After uploading, send one test booking from the live site.
