@@ -18,6 +18,7 @@ window.BH_CONFIG = {
   phone: "024 7710 2555",
   phoneHref: "+442477102555",
   eventsEmail: "events@brandonhallhotelandspa.com",
+  reservationsEmail: "reservations@brandonhallhotelandspa.com",
 
   /* Enquiries go straight into HOSPRO (Firestore "enquiries"
      collection, project brandonhall-7bdef). They appear in the
@@ -49,10 +50,10 @@ window.BH_CONFIG = {
      activation email to this address; click "Activate" once and every
      request after that arrives as a normal email. */
   tableBooking: {
-    email: "events@brandonhallhotelandspa.com",
+    email: "reservations@brandonhallhotelandspa.com",
     endpoint: "https://formsubmit.co/ajax/",
     firstSitting: "18:00",
-    lastSitting: "21:00",
+    lastSitting: "20:30",   // dinner is served 6pm to 9pm
     slotMinutes: 15,
     maxOnline: 10
   },
@@ -101,7 +102,7 @@ window.BH_ROOMS = [
     id: "brandon-suite", name: "Brandon Suite", group: "Brandon",
     m2: 130, length: null, width: null,
     cap: { theatre: 40, cabaret: 90, boardroom: 36, ushape: 30, reception: 100 },
-    summary: "A light-filled suite with large windows over the gardens. A favourite for ceremonies, celebrations and presentations.",
+    summary: "A light-filled suite with large windows overlooking the gardens. It is a favourite for ceremonies, celebrations and presentations.",
     tech: ["Two 98\" 4K smart screens", "ClickShare wireless screen sharing", "HDMI and USB-C connections", "Set up for Teams and Zoom calls", "PA system", "Complimentary Wi-Fi", "Natural daylight"]
   },
   {

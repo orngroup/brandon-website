@@ -32,16 +32,25 @@
     if ($("c-website").value) { done.hidden = false; done.textContent = "Thank you."; return; }
     btn.disabled = true; btn.textContent = "Sending…";
     var map = { "A wedding": "wedding", "A meeting or event": "meeting", "Christmas and New Year": "christmas" };
-    toHospro({ name: name, email: email, phone: phone, event: map[topic] || "other", eventLabel: topic,
-      notes: "Website contact form: " + topic + " · " + msg, summary: msg, source: "Website contact form",
-      stage: "Contact form", status: "new", pax: null, date: "", room: "", created: new Date().toISOString() })
-      .then(function () {
-        done.textContent = "Thank you, " + name.split(" ")[0] + ". Your message is with our team and we'll be in touch soon.";
-      })
-      .catch(function () {
-        location.href = "mailto:" + C.eventsEmail + "?subject=" + encodeURIComponent("Website enquiry: " + topic) + "&body=" + encodeURIComponent(msg + "\n\n" + name + (phone ? "\n" + phone : "") + "\n" + email);
-        done.textContent = "We've opened your email app with your message ready to send to " + C.eventsEmail + ". Press send and we'll be in touch soon.";
-      })
+    var isEvent = !!map[topic];
+    var toEmail = isEvent ? C.eventsEmail : (C.reservationsEmail || C.eventsEmail);
+    var mailFallback = function () {
+      location.href = "mailto:" + toEmail + "?subject=" + encodeURIComponent("Website enquiry: " + topic) + "&body=" + encodeURIComponent(msg + "\n\n" + name + (phone ? "\n" + phone : "") + "\n" + email);
+      done.textContent = "We've opened your email app with your message ready to send to " + toEmail + ". Press send and we'll be in touch soon.";
+    };
+    var thanks = function () { done.textContent = "Thank you, " + name.split(" ")[0] + ". Your message is with our team and we'll be in touch soon."; };
+    var send = isEvent
+      // Events, weddings and Christmas go into HOSPRO for the events team
+      ? toHospro({ name: name, email: email, phone: phone, event: map[topic], eventLabel: topic,
+          notes: "Website contact form: " + topic + " · " + msg, summary: msg, source: "Website contact form",
+          stage: "Contact form", status: "new", pax: null, date: "", room: "", created: new Date().toISOString() })
+      // Stays, dining and anything else are emailed to reservations
+      : fetch((C.tableBooking ? C.tableBooking.endpoint : "https://formsubmit.co/ajax/") + encodeURIComponent(toEmail), {
+          method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" },
+          body: JSON.stringify({ _subject: "Website enquiry: " + topic + " (" + name + ")", _replyto: email, _template: "table", _captcha: "false",
+            Topic: topic, Name: name, Email: email, Phone: phone || "–", Message: msg })
+        }).then(function (r) { return r.json().then(function (j) { if (!r.ok || String(j.success) !== "true") throw new Error("send failed"); }); });
+    send.then(thanks).catch(mailFallback)
       .then(function () { done.hidden = false; done.focus(); btn.disabled = false; btn.textContent = "Send message"; f.reset(); });
   });
 })();

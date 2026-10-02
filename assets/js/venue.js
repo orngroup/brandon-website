@@ -43,7 +43,7 @@
     var list = ROOMS.slice().sort(function (a, b) { return (fits(b) - fits(a)); });
     var nFit = ROOMS.filter(fits).length;
     countEl.textContent = state.guests
-      ? nFit + (nFit === 1 ? " room fits " : " rooms fit ") + state.guests + " guests in " + label(state.layout).toLowerCase()
+      ? nFit + (nFit === 1 ? " room fits " : " rooms fit ") + state.guests + (state.guests === 1 ? " guest" : " guests") + " in " + label(state.layout).toLowerCase()
       : "Showing every room and suite";
     cardsEl.innerHTML = list.map(function (r) {
       var ok = fits(r), cap = r.cap[state.layout] || 0;
@@ -52,7 +52,7 @@
       return '<article class="room-card' + (ok ? '' : ' is-out') + '">' +
         '<div class="plan">' + plan + '</div>' +
         '<div class="body">' +
-          (state.guests ? '<div class="fit-note ' + (ok ? 'ok">Fits your ' + state.guests + ' guests' : 'no">Seats ' + (cap || 0) + ' in this layout') + '</div>' : '') +
+          (state.guests ? '<div class="fit-note ' + (ok ? 'ok">Fits your ' + state.guests + (state.guests === 1 ? ' guest' : ' guests') : 'no">Seats ' + (cap || 0) + ' in this layout') + '</div>' : '') +
           '<h3>' + r.name + '</h3>' +
           '<div class="meta">' + r.m2 + ' m²' + (r.length ? ', ' + window.bhRoomDims(r).L + ' × ' + window.bhRoomDims(r).W + ' m' : '') + '</div>' +
           '<dl>' + LAYOUTS.map(function (l) { var v = r.cap[l.id]; return '<div><dt>' + l.label + '</dt><dd class="' + (v ? '' : 'na') + '">' + capCell(v) + '</dd></div>'; }).join("") + '</dl>' +
