@@ -8,6 +8,7 @@ ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 HOTEL = "Brandon Hall Hotel and Spa"
 PHONE, PHONE_HREF = "024 7710 2555", "+442477102555"
 EMAIL = "events@brandonhallhotelandspa.com"
+RES_EMAIL = "reservations@brandonhallhotelandspa.com"
 BOOK = "https://booking.profitroom.com/en/brandonhallhotelspawarwickshire/home?no-cache=&amp;currency=GBP"
 MAPS = "https://maps.app.goo.gl/FGjTuhDh8wG2QdVG7"
 IG = "https://www.instagram.com/brandonhallhotelandspa/"
@@ -84,7 +85,7 @@ def header(p, active):
       <a class="u-hide" href="{p}offers/">Offers</a>
       <a class="u-hide" href="{p}out-about/">Out &amp; About</a>
       <a class="u-hide" href="{p}contact/">Contact</a>
-      <a class="u-book" href="{BOOK}" target="_blank" rel="noopener" data-book>Book direct</a>
+      <a class="u-book" href="{BOOK}" target="_blank" rel="noopener" data-book>Book direct<span class="visually-hidden"> (opens in a new tab)</span></a>
     </div>
   </div>
 </div>
@@ -98,7 +99,7 @@ def header(p, active):
     <nav class="nav nav--right" aria-label="Main continued">
       {links(NAV_RIGHT)}
     </nav>
-    <a class="btn btn--book mobile-book" href="{BOOK}" target="_blank" rel="noopener" data-book>Book</a>
+    <a class="btn btn--book mobile-book" href="{BOOK}" target="_blank" rel="noopener" data-book>Book<span class="visually-hidden"> (opens in a new tab)</span></a>
   </div>
 </header>
 <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Menu">
@@ -106,7 +107,7 @@ def header(p, active):
   <nav aria-label="Mobile">{drawer_links}</nav>
   <div class="drawer-meta">
     <p><a href="tel:{PHONE_HREF}">{PHONE}</a><br><a href="mailto:{EMAIL}">{EMAIL}</a></p>
-    <a class="btn btn--book mt-1" href="{BOOK}" target="_blank" rel="noopener" data-book>Book direct</a>
+    <a class="btn btn--book mt-1" href="{BOOK}" target="_blank" rel="noopener" data-book>Book direct<span class="visually-hidden"> (opens in a new tab)</span></a>
   </div>
 </div>
 <main id="main">
@@ -121,7 +122,7 @@ def footer(p, scripts=()):
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <img class="flogo" src="{p}assets/brand/logo-gold.svg" alt="{HOTEL}">
+        <img class="flogo" src="{p}assets/brand/logo-gold.svg" alt="">
         <address>{HOTEL}<br>Main Street, Brandon, Wolston<br>Coventry CV8 3FW</address>
         <p class="mt-1"><a href="{MAPS}" target="_blank" rel="noopener">Find us on Google Maps</a></p>
       </div>
@@ -131,20 +132,20 @@ def footer(p, scripts=()):
           <li><a href="{p}rooms-suites/">Rooms and suites</a></li>
           <li><a href="{p}dining/">The Clarendon</a></li>
           <li><a href="{p}dining/#book-table">Book a table</a></li>
-          <li><a href="{p}spa-leisure/">Leisure and wellness</a></li>
-          <li><a href="{p}out-about/">Out and about</a></li>
+          <li><a href="{p}spa-leisure/">Leisure &amp; Wellness</a></li>
+          <li><a href="{p}out-about/">Out &amp; About</a></li>
           <li><a href="{p}offers/">Offers</a></li>
-          <li><a href="{BOOK}" target="_blank" rel="noopener" data-book>Book direct</a></li>
+          <li><a href="{BOOK}" target="_blank" rel="noopener" data-book>Book direct<span class="visually-hidden"> (opens in a new tab)</span></a></li>
         </ul>
       </div>
       <div>
         <h4>Celebrate and meet</h4>
         <ul>
           <li><a href="{p}weddings/">Weddings</a></li>
-          <li><a href="{p}meetings-events/">Meetings and events</a></li>
+          <li><a href="{p}meetings-events/">Meetings &amp; Events</a></li>
           <li><a href="{p}meetings-events/spaces/">Our event spaces</a></li>
           <li><a href="{p}meetings-events/planner/">Event planner</a></li>
-          <li><a href="{p}celebrations/">Christmas and celebrations</a></li>
+          <li><a href="{p}celebrations/">Christmas &amp; Celebrations</a></li>
           <li><a href="{p}christmas/">Christmas and New Year</a></li>
         </ul>
       </div>
@@ -152,7 +153,8 @@ def footer(p, scripts=()):
         <h4>Talk to us</h4>
         <ul>
           <li><a href="tel:{PHONE_HREF}">{PHONE}</a></li>
-          <li><a href="mailto:{EMAIL}">{EMAIL}</a></li>
+          <li>Reservations: <a href="mailto:{RES_EMAIL}">{RES_EMAIL}</a></li>
+          <li>Events: <a href="mailto:{EMAIL}">{EMAIL}</a></li>
           <li><a href="{p}contact/">Contact and directions</a></li>
           <li><a href="{REVIEW_FORM}" target="_blank" rel="noopener">Leave us a review</a></li>
         </ul>
@@ -252,7 +254,7 @@ def home():
     <h1>Your countryside escape in Warwickshire</h1>
     <p>A historic country house in 17 acres of gardens and woodland, a short drive from Coventry, Warwick and Stratford-upon-Avon.</p>
     <div class="btn-row">
-      <a class="btn btn--book" href="{BOOK}" target="_blank" rel="noopener" data-book>Book direct</a>
+      <a class="btn btn--book" href="{BOOK}" target="_blank" rel="noopener" data-book>Book direct<span class="visually-hidden"> (opens in a new tab)</span></a>
       <a class="btn btn--light" href="meetings-events/planner/">Plan an event</a>
     </div>
   </div>
@@ -296,7 +298,7 @@ def home():
       <a class="path path--tall" href="rooms-suites/"><img src="assets/img/bedroom-suite.jpg" alt="A suite with a grey upholstered headboard and a wedding dress hanging by the window" loading="lazy"><div class="t"><h3>Stay</h3><span>Rooms and suites overlooking the grounds</span></div></a>
       <a class="path" href="weddings/"><img src="assets/img/wedding-walk.jpg" alt="A bride and groom walking hand in hand across the lawn towards the hotel" loading="lazy"><div class="t"><h3>Weddings</h3><span>Your day, in our 17 acres</span></div></a>
       <a class="path" href="meetings-events/"><img src="assets/img/suite-cabaret-white.jpg" alt="A function suite laid with round tables, white linen and flowers" loading="lazy"><div class="t"><h3>Meetings and events</h3><span>Ten event spaces and an online planner</span></div></a>
-      <a class="path" href="dining/"><img src="assets/img/restaurant.jpg" alt="The Clarendon restaurant with arched windows and tables laid for dinner" loading="lazy"><div class="t"><h3>The Clarendon</h3><span>Seasonal menus, lunch and dinner</span></div></a>
+      <a class="path" href="dining/"><img src="assets/img/site/dine-restaurant.jpg" data-fallback="https://www.brandonhallhotelandspa.com/wp-content/uploads/2025/09/68027_18010908440060921672.jpg" onerror="if(this.dataset.fallback){{this.src=this.dataset.fallback;this.dataset.fallback=''}}" alt="The Clarendon restaurant with mirrors and warm, ambient lighting" loading="lazy"><div class="t"><h3>The Clarendon</h3><span>Seasonal menus, lunch and dinner</span></div></a>
       <a class="path" href="spa-leisure/"><img src="assets/img/pool.jpg" alt="The indoor swimming pool under a glazed roof" loading="lazy"><div class="t"><h3>Leisure and wellness</h3><span>Indoor pool, gym and fitness centre</span></div></a>
     </div>
   </div>
@@ -404,7 +406,7 @@ def meetings():
     <div class="facts">
       <div><strong>10</strong><span>meeting and event spaces</span></div>
       <div><strong>280</strong><span>guests at a standing reception</span></div>
-      <div><strong>On site</strong><span>bedrooms for residential events</span></div>
+      <div><strong>On-site</strong><span>bedrooms for residential events</span></div>
       <div><strong>Free</strong><span>parking and Wi-Fi for every delegate</span></div>
     </div>
   </div>
@@ -501,7 +503,7 @@ def meetings():
   <div class="wrap split">
     <div class="a">
       <h2>Bringing a team to stay?</h2>
-      <p>Residential conferences, retreats and training programmes run smoothly when everyone's under one roof. We'll hold a block of bedrooms for your group, on bed and breakfast or dinner, bed and breakfast, with private dining for the evenings.</p>
+      <p>Residential conferences, retreats and training programmes run smoothly when everyone's under one roof. We'll hold a block of bedrooms for your group on a bed-and-breakfast or dinner, bed-and-breakfast basis, with private dining in the evenings.</p>
       <p>Add bedrooms in the event planner and we'll include them in your proposal.</p>
       <div class="btn-row"><a class="btn btn--navy" href="planner/#step-6">Add bedrooms to your event</a></div>
     </div>
@@ -798,7 +800,7 @@ def rooms():
       <p>{intro}</p>
       <ul class="ticks ticks--one mt-1">{lis}</ul>
       {f'<p class="small mt-1">{note}</p>' if note else ''}
-      <div class="btn-row"><a class="btn btn--book" href="{BOOK}" target="_blank" rel="noopener">Check availability</a></div>
+      <div class="btn-row"><a class="btn btn--book" href="{BOOK}" target="_blank" rel="noopener">Check availability for {title}<span class="visually-hidden"> (opens in a new tab)</span></a></div>
     </div>
   </div>
 </section>'''
@@ -821,17 +823,33 @@ def rooms():
 {room("Executive Double", "Executive rooms", "bedroom-teal.jpg", "A double bedroom with a teal feature wall and a desk by the window", "Upgraded furnishings and a proper desk, ideal if you're staying for work.", ["Upgraded furnishings", "Double bed", "Desk and chair", "Ensuite bathroom with bath or shower", "Accessible Executive rooms available"])}
 {room("Junior Suites", "Suites", "suite-bay.jpg", "A junior suite with a large bed and a bay window", "More space to spread out, with a sofa to relax on at the end of the day.", ["King-size bed", "More generous space and upgraded furnishings", "Seating area with sofa", "Ensuite bathroom with bath or shower"], True)}
 
+<section class="section section--beige">
+  <div class="wrap">
+    <div class="intro mb-2">
+      <div class="t"><span class="kicker">More room types</span><h2>Privilege and Executive Triple rooms</h2></div>
+      <div class="c"><p>Looking for a little more, or travelling as three? Ask our reservations team about these rooms when you book.</p></div>
+    </div>
+    <div class="more-rooms">
+      <article class="more-room"><h3>Privilege rooms</h3><p>An upgraded room type with added touches for a special stay. Our reservations team will talk you through everything that's included.</p>
+        <div class="btn-row"><a class="btn btn--book" href="{BOOK}" target="_blank" rel="noopener">Check availability for Privilege rooms<span class="visually-hidden"> (opens in a new tab)</span></a></div></article>
+      <article class="more-room"><h3>Executive Triple rooms</h3><p>An Executive room with space for three guests, ideal for families or friends travelling together.</p>
+        <div class="btn-row"><a class="btn btn--book" href="{BOOK}" target="_blank" rel="noopener">Check availability for Executive Triple rooms<span class="visually-hidden"> (opens in a new tab)</span></a></div></article>
+    </div>
+    <p class="small mt-1">Questions about a room? Email <a class="textlink" href="mailto:{RES_EMAIL}">{RES_EMAIL}</a> or call <a class="textlink" href="tel:{PHONE_HREF}">{PHONE}</a>.</p>
+  </div>
+</section>
+
 <section class="section">
   <div class="wrap">
     <div class="intro mb-2">
       <div class="t"><h2>In every room</h2></div>
-      <div class="c"><ul class="ticks"><li>TV</li><li>Free Wi-Fi</li><li>Tea and coffee making</li><li>Ironing set</li><li>Toiletries and hairdryer</li><li>Ensuite bathroom</li></ul></div>
+      <div class="c"><ul class="ticks"><li>TV</li><li>Free Wi-Fi</li><li>Tea and coffee-making facilities</li><li>Ironing set</li><li>Toiletries and hairdryer</li><li>Ensuite bathroom</li></ul></div>
     </div>
     <div class="intro mt-3">
       <div class="t"><h2>Around the hotel</h2></div>
       <div class="c">
         <p>From breakfast to a nightcap in the bar, everything is designed to make your stay easy, whether you're here to unwind, work or explore.</p>
-        <ul class="ticks"><li>24-hour reception</li><li>Breakfast available</li><li>Bar and lounge</li><li>Laundry service</li><li>Accessible rooms</li><li>Pet-friendly rooms on request</li><li>Indoor pool, gym and fitness centre</li><li>17 acres of gardens and woodland</li></ul>
+        <ul class="ticks"><li>24-hour reception</li><li>Breakfast available</li><li>Bar and lounge</li><li>Accessible rooms</li><li>Pet-friendly rooms on request</li><li>Indoor pool, gym and fitness centre</li><li>17 acres of gardens and woodland</li></ul>
       </div>
     </div>
   </div>
@@ -926,12 +944,12 @@ def out_about():
         ("Stratford-upon-Avon", "Discover Shakespeare's home town, with its theatres, river walks and charming streets.", "out-stratford.jpg", "2025/11/iStock-148521984-1000x669.jpg", "A thatched Tudor cottage in Stratford-upon-Avon", ""),
         ("Kenilworth Castle and Gardens", "Grand, romantic and full of stories.", "out-kenilworth.jpg", "2025/11/kenilworhero-1000x521.jpg", "The Elizabethan garden at Kenilworth Castle", "https://www.english-heritage.org.uk/visit/places/kenilworth-castle/"),
         ("Compton Verney Art Gallery and Park", "Art, nature and architecture in perfect balance.", "out-compton-verney.jpg", "2025/11/iStock-184639439-1000x756.jpg", "Compton Verney house across the lake", "https://www.comptonverney.org.uk"),
-        ("The Warwickshire countryside", "Wander scenic walking routes, cycle through villages or simply enjoy the open air.", "out-countryside.jpg", "2025/11/iStock-1456041071-1000x750.jpg", "Green Warwickshire countryside and a river from above", ""),
+        ("The Warwickshire countryside", "Wander along scenic walking routes, cycle through villages or simply enjoy the open air.", "out-countryside.jpg", "2025/11/iStock-1456041071-1000x750.jpg", "Green Warwickshire countryside and a river from above", ""),
     ]
     cards = "".join(
         f'''<article class="place">
           <figure class="place-img">{rimg(p, local, remote, alt)}</figure>
-          <div class="place-t"><h3>{name}</h3><p>{text}</p>{f'<a class="textlink" href="{url}" target="_blank" rel="noopener">Find out more</a>' if url else ''}</div>
+          <div class="place-t"><h3>{name}</h3><p>{text}</p>{f'<a class="textlink" href="{url}" target="_blank" rel="noopener">Find out more about {name}<span class="visually-hidden"> (opens in a new tab)</span></a>' if url else ''}</div>
         </article>''' for name, text, local, remote, alt, url in places)
     body = f'''
 <section class="section page-open">
@@ -1123,7 +1141,7 @@ def christmas():
   [("Adults", "£80 per person"), ("Children aged 4 to 12", "£45 per person"), ("Children under 4", "Free")], white=True)}
 {block("new-years-eve", "Thursday 31 December 2026", "New Year's Eve", "xmas-nye.jpg", "A guest celebrating at a party with lights behind",
   ["Welcome the New Year in style. Arrive and unwind, then celebrate at a spectacular masquerade gala evening with a sumptuous dinner, music, dancing and a midnight countdown.",
-   "Stay the night and enjoy a leisurely brunch on New Year's Day before heading home. Masquerade theme, for guests aged 18 and over."],
+   "Stay the night and enjoy a leisurely brunch on New Year's Day before heading home. This masquerade-themed event is for guests aged 18 and over."],
   [("One-night package with dinner, entertainment, room and New Year's Day brunch", "£195 per person"), ("Single supplement", "£40"), ("Dinner and entertainment only", "£85 per person")], flip=True)}
 
 <section class="section section--white">
@@ -1136,7 +1154,7 @@ def christmas():
           <li>A non-refundable deposit of £20 per person secures your party night.</li>
           <li>Full payment and final numbers are due four weeks before the event.</li>
           <li>Menu pre-orders and all dietary requirements are due two weeks before the event.</li>
-          <li>Deposits and payments are non-refundable and non-transferable if you cancel or numbers go down.</li>
+          <li>Deposits and payments are non-refundable and non-transferable if you cancel or the number of guests in your party decreases.</li>
           <li>We may make minor changes to menus, entertainment or arrangements if necessary.</li>
           <li>Please drink responsibly. We may refuse service to intoxicated guests.</li>
           <li>Accommodation rates may be available for party guests, subject to availability.</li>
@@ -1185,6 +1203,9 @@ OFFERS = [
      PR + "pricelist/offers/?currency=GBP&amp;r1_adults=2&amp;codes=Stay_More", "bedroom-yellow.jpg", "A bright double bedroom"),
 ]
 
+OFFER_CTA = {"suite-dreams": "Book Suite Dreams", "stay-longer-5th-night": "Book 4 nights, get the 5th free",
+             "stay-3-save-20": "Book 3 nights and save 20%", "stay-2-save-15": "Book 2 nights and save 15%"}
+
 def offers():
     p = "../"
     h = head(p, f"Offers | {HOTEL}",
@@ -1203,7 +1224,7 @@ def offers():
       <p>{intro}</p>
       <ul class="ticks ticks--one mt-1">{lis}</ul>
       <p class="small mt-1">{terms}</p>
-      <div class="btn-row"><a class="btn btn--book" href="{link}" target="_blank" rel="noopener">Book this offer</a></div>
+      <div class="btn-row"><a class="btn btn--book" href="{link}" target="_blank" rel="noopener">{OFFER_CTA.get(slug, "Book this offer")}<span class="visually-hidden"> (opens in a new tab)</span></a></div>
     </div>
   </div>
 </section>"""
@@ -1235,13 +1256,13 @@ def weddings():
     pk = [
         ("Classic", False,
          ["Private room hire from 7am to 11.59pm", "One arrival drink per guest*", "White linen tablecloths and napkins", "Three-course set wedding breakfast from the Classic menu"],
-         [("High season, May to October", "£70", "£70", "£75"), ("Low season, November to April", "£60", "£60", "£65"), ("Evening guests buffet", "£25", "£25", "£30")]),
+         [("High season, May to October", "£70", "£70", "£75"), ("Low season, November to April", "£60", "£60", "£65"), ("Evening guests’ buffet", "£25", "£25", "£30")]),
         ("Special", True,
          ["Private room hire from 7am to 11.59pm", "One arrival drink per guest*", "White linen tablecloths and napkins", "Three-course set wedding breakfast from the Classic menu", "Half a bottle of house wine per guest", "Tea, coffee and mints", "Evening buffet", "Overnight stay for the newlyweds in a standard room, with breakfast"],
-         [("High season, May to October", "£115", "£115", "£120"), ("Low season, November to April", "£107", "£107", "£112"), ("Evening guests buffet", "£25", "£25", "£30")]),
+         [("High season, May to October", "£115", "£115", "£120"), ("Low season, November to April", "£107", "£107", "£112"), ("Evening guests’ buffet", "£25", "£25", "£30")]),
         ("Extra Special", False,
          ["Private room hire from 7am to 11.59pm", "One arrival drink per guest*", "Three canapés per guest", "White linen tablecloths and napkins", "Five-course set wedding breakfast from the Extra Special menu", "Half a bottle of upgraded wine per guest", "A glass of Champagne per guest for the toast", "Tea, coffee and mints", "Evening buffet", "Overnight stay for the newlyweds in a honeymoon suite, with breakfast"],
-         [("High season, May to October", "£159", "£159", "£168"), ("Low season, November to April", "£149", "£149", "£154"), ("Evening guests buffet", "£25", "£25", "£30")]),
+         [("High season, May to October", "£159", "£159", "£168"), ("Low season, November to April", "£149", "£149", "£154"), ("Evening guests’ buffet", "£25", "£25", "£30")]),
     ]
     def pkg(name, popular, items, prices):
         lis = "".join(f"<li>{i}</li>" for i in items)
@@ -1258,7 +1279,7 @@ def weddings():
     pkgs = "".join(pkg(*x) for x in pk)
     faq = [
         ("Final details", "We'd like to meet you and your chosen caterer six to eight weeks before your wedding to go through the finer details of your booking."),
-        ("Minimum and maximum numbers", "Each function suite has a minimum number of guests, although we can be flexible, subject to availability. The Woodlands Suite holds up to 280 guests when no equipment is required, and the Brandon Suite holds up to 100 guests."),
+        ("Minimum and maximum numbers", "Each function suite has a minimum guest number; please ask your wedding coordinator for details. We can be flexible, subject to availability. The Woodlands Suite holds up to 280 guests when no equipment is required, and the Brandon Suite holds up to 100 guests."),
         ("Candles", "For fire safety reasons, naked flames aren't permitted. LED candelabras may be used instead and are just as effective."),
         ("Entertainment", "We can arrange entertainment through our preferred suppliers. You're also welcome to book your own, once we've approved the supplier and checked their public liability insurance and PAT testing certificates."),
         ("Your caterer", "Before confirming your caterer, please ask them to send us evidence of insurance cover, food hygiene certificates, PAT testing certificates for equipment, food handler training certificates, a full menu with a list of dishes, an alcohol licence, details of how the food will be delivered and set up, and a detailed plan for setting up and clearing the event space."),
@@ -1490,7 +1511,7 @@ MENU_LUNCH = [
         ("Today's cake and pastry selection", "", "Ask the team for today's selection.", "£4.20"),
         ("Tea, filter coffee or Americano", "", "", "£3.50"),
         ("Latte, cappuccino or flat white", "", "", "£3.95"),
-        ("Coffee and croissant", "", "Tea, filter coffee or Americano with a fresh all-butter croissant.", "£6.50"),
+        ("Tea or coffee with a croissant", "", "Tea, filter coffee or Americano with a fresh all-butter croissant.", "£6.50"),
     ]),
 ]
 MENU_KIDS = [
@@ -1553,7 +1574,7 @@ def menu_html(sections, note=""):
 def dining():
     p = "../"
     h = head(p, f"The Clarendon restaurant and bar | {HOTEL}",
-             "The Clarendon at Brandon Hall Hotel and Spa: bistro-style country house dining near Coventry. Grill, classics, vegan dishes, lunch and a relaxed bar. Dinner 6pm daily.")
+             "The Clarendon at Brandon Hall Hotel and Spa: bistro-style country house dining near Coventry. Lunch from 12pm and dinner from 6pm daily, with grill dishes, classics and vegan options.")
     tabs = [("dinner", "Restaurant", menu_html(MENU_DINNER, KEY)), ("lunch", "Lunch", menu_html(MENU_LUNCH, KEY)),
             ("children", "Children", menu_html(MENU_KIDS, KEY)), ("drinks", "Wine and drinks", menu_html(MENU_DRINKS, "Wines contain sulphites. All wines are served subject to availability."))]
     tabbtns = "".join(f'<button role="tab" id="tab-{i}" aria-controls="panel-{i}" aria-selected="{"true" if k == 0 else "false"}" tabindex="{0 if k == 0 else -1}">{t}</button>' for k, (i, t, _) in enumerate(tabs))
@@ -1566,10 +1587,10 @@ def dining():
       <h1 class="h1-page">The Clarendon</h1>
       <p class="lede">Bistro-style dining meets the elegance of a country house.</p>
       <p>Refined yet informal, The Clarendon is for those who want to relax, unwind and be truly looked after. Our kitchen celebrates local produce and the rhythm of the seasons, with honest flavours, classic techniques and a modern twist.</p>
-      <div class="hours"><strong>Dinner</strong><span>6pm to 11pm daily, last table at 9pm</span></div>
+      <div class="hours"><strong>Lunch</strong><span>12pm to 6pm daily</span><strong style="margin-left:14px">Dinner</strong><span>6pm to 9pm daily</span></div>
       <div class="btn-row"><a class="btn btn--book" href="#book-table">Book a table</a><a class="btn btn--line" href="#menus">See the menus</a></div>
     </div>
-    <div class="b"><figure class="mount mount--tall"><img src="../assets/img/restaurant.jpg" alt="The Clarendon restaurant with arched windows and tables laid for dinner" fetchpriority="high"></figure></div>
+    <div class="b"><figure class="mount mount--tall"><img src="../assets/img/site/dine-restaurant.jpg" data-fallback="https://www.brandonhallhotelandspa.com/wp-content/uploads/2025/09/68027_18010908440060921672.jpg" onerror="if(this.dataset.fallback){{this.src=this.dataset.fallback;this.dataset.fallback=''}}" alt="The Clarendon restaurant with mirrors and warm, ambient lighting" fetchpriority="high"></figure></div>
   </div>
 </section>
 
@@ -1577,7 +1598,7 @@ def dining():
   <div class="wrap">
     <div class="features">
       <article class="feature"><figure class="mount">{rimg(p, "dine-steak.jpg", "2025/09/809d258c6222a6af236ab8c0521abf6a.jpg", "Steak with fries, mushrooms and greens")}</figure><h3>From the grill</h3><p>Sirloin and ribeye steaks, harissa salmon and butterfly chicken, with your choice of sauce.</p></article>
-      <article class="feature"><figure class="mount">{rimg(p, "dine-restaurant.jpg", "2025/09/68027_18010908440060921672.jpg", "The restaurant with mirrors and warm lighting")}</figure><h3>Country house classics</h3><p>The 1857 House Burger, butter chicken curry, Cumberland sausage ring and plenty for vegetarians and vegans.</p></article>
+      <article class="feature"><figure class="mount"><img src="../assets/img/canapes.jpg" alt="Tomato and mozzarella bites on a slate" loading="lazy"></figure><h3>Country house classics</h3><p>The 1857 House Burger, butter chicken curry, Cumberland sausage ring and plenty for vegetarians and vegans.</p></article>
       <article class="feature"><figure class="mount">{rimg(p, "dine-cocktail.jpg", "2025/09/fef4bddaeaee390da06b932b53ef4857.jpg", "A gin cocktail with lemon and ice")}</figure><h3>The bar</h3><p>Wines by the glass, Prosecco and Champagne, beers and soft drinks in the relaxed surroundings of our bar and lounge.</p></article>
     </div>
   </div>
@@ -1628,7 +1649,7 @@ def dining():
       <span class="kicker">The Clarendon</span>
       <h2>Book a table</h2>
       <p class="lede">Tell us when you'd like to join us and we'll confirm your table by email or phone.</p>
-      <div class="hours"><strong>Dinner</strong><span>6pm to 11pm daily, last table at 9pm</span></div>
+      <div class="hours"><strong>Dinner</strong><span>6pm to 9pm daily</span></div>
       <p class="small mt-1">Your booking is a request until we confirm it. For tables of more than 10, or anything urgent, call us on <a class="textlink" href="tel:{PHONE_HREF}">{PHONE}</a>.</p>
       <figure class="mount mt-2 hide-mobile"><img src="../assets/img/table-setting.jpg" alt="A table laid with white linen, gold chargers and flowers" loading="lazy"></figure>
     </div>
@@ -1688,7 +1709,7 @@ MAP_EMBED = "https://www.google.com/maps?q=Brandon+Hall+Hotel+and+Spa,+Main+Stre
 def contact():
     p = "../"
     h = head(p, f"Contact and directions | {HOTEL}",
-             "Contact Brandon Hall Hotel and Spa, Main Street, Brandon, Wolston, Coventry CV8 3FW. Call 024 7710 2555 or email events@brandonhallhotelandspa.com.")
+             "Contact Brandon Hall Hotel and Spa, Main Street, Brandon, Wolston, Coventry CV8 3FW. Call 024 7710 2555, or email our reservations or events team.")
     body = f"""
 <section class="section page-open">
   <div class="wrap intro">
@@ -1704,7 +1725,8 @@ def contact():
   <div class="wrap contact-grid">
     <div>
       <div class="c-block"><h3>Call us</h3><p><a class="big-link" href="tel:{PHONE_HREF}">{PHONE}</a></p></div>
-      <div class="c-block"><h3>Email us</h3><p><a class="big-link" href="mailto:{EMAIL}">{EMAIL}</a></p><p class="small">For events, weddings, meetings and general enquiries.</p></div>
+      <div class="c-block"><h3>Reservations and reception</h3><p><a class="big-link" href="mailto:{RES_EMAIL}">{RES_EMAIL}</a></p><p class="small">Bedroom bookings, table reservations and general questions.</p></div>
+      <div class="c-block"><h3>Events, weddings and meetings</h3><p><a class="big-link" href="mailto:{EMAIL}">{EMAIL}</a></p><p class="small">Meetings, conferences, weddings, parties and celebrations.</p></div>
       <div class="c-block"><h3>Find us</h3>
         <address>{HOTEL}<br>Main Street, Brandon, Wolston<br>Coventry CV8 3FW</address>
         <p class="small mt-1">Use CV8 3FW for sat nav. On-site parking is available for guests.</p>
@@ -1776,7 +1798,7 @@ def privacy():
     <p>We keep enquiry details for as long as we need them to deal with your enquiry and any booking that follows, and for a reasonable time afterwards for our records and to meet legal and accounting requirements. After that we delete them.</p>
 
     <h2>Cookies and your browser</h2>
-    <p>This website doesn't use advertising or tracking cookies. To save you retyping, the event planner remembers the name and contact details you enter on your own device (in your browser's local storage), and the site notes whether you've already seen the opening screen on your phone. You can clear these at any time by clearing your browser data. Our contact page shows a Google map, and our booking pages are provided by Profitroom; these services may set their own cookies.</p>
+    <p>This website doesn't use advertising or tracking cookies. To save you retyping, the event planner remembers the name and contact details you enter on your own device (in your browser's local storage), and the site notes whether you've already seen the opening screen on your phone. You can clear these at any time by clearing your browser data. Our contact page includes a map from Google Maps, and our booking pages are provided by Profitroom; these services may set their own cookies.</p>
 
     <h2>Your rights</h2>
     <p>You can ask to see the personal information we hold about you, ask us to correct or delete it, object to how we use it, or ask us to restrict it. Email <a href="mailto:{EMAIL}">{EMAIL}</a> and we'll respond within one month.</p>
