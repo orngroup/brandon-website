@@ -67,13 +67,14 @@ try { if (matchMedia("(max-width: 760px)").matches && !sessionStorage.getItem("b
 </header>
 <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Menu">
   <div class="drawer-top"><img src="../assets/brand/logo-white.svg" alt=""><button class="close">Close</button></div>
-  <nav aria-label="Mobile"><a href="../rooms-suites/">Stay</a><a href="../dining/">Dining</a><a href="../spa-leisure/">Leisure &amp; Wellness</a><a href="../weddings/">Weddings</a><a href="../meetings-events/">Meetings &amp; Events</a><a href="../celebrations/">Christmas &amp; Celebrations</a><a href="../offers/">Offers</a><a href="../out-about/">Out &amp; About</a><a href="../contact/">Contact</a></nav>
+  <nav aria-label="Mobile"><a href="../rooms-suites/">Stay</a><a href="../dining/">Dining</a><a href="../spa-leisure/">Leisure &amp; Wellness</a><a href="../weddings/">Weddings</a><a href="../meetings-events/">Meetings &amp; Events</a><a href="../celebrations/">Christmas &amp; Celebrations</a><a href="../corporate-stays/">Corporate stays</a><a href="../group-tours/">Group tours</a><a href="../offers/">Offers</a><a href="../out-about/">Out &amp; About</a><a href="../contact/">Contact</a></nav>
   <div class="drawer-meta">
     <p><a href="tel:+442477102555">024 7710 2555</a><br><a href="mailto:events@brandonhallhotelandspa.com">events@brandonhallhotelandspa.com</a></p>
     <a class="btn btn--book mt-1" href="https://booking.profitroom.com/en/brandonhallhotelspawarwickshire/home?no-cache=&amp;currency=GBP" target="_blank" rel="noopener" data-book>Book direct<span class="visually-hidden"> (opens in a new tab)</span></a>
   </div>
 </div>
 <main id="main">
+<nav class="subnav" aria-label="Meetings and events"><div class="wrap"><a href="../meetings-events/" aria-current="page">Overview</a><a href="../meetings-events/spaces/">Event spaces</a><a href="../meetings-events/planner/">Event planner</a><a href="../corporate-stays/">Corporate stays</a><a href="../group-tours/">Group tours</a></div></nav>
 
 <section class="hero hero--page">
   <img src="../assets/img/meetings/meeting-2.png" data-fallback="https://www.brandonhallhotelandspa.com/wp-content/uploads/2025/09/1758893782-1000x757.png" onerror="if(this.dataset.fallback){this.src=this.dataset.fallback;this.dataset.fallback=''}" alt="A conference room with round tables, presentation boards and natural light" fetchpriority="high">
@@ -100,7 +101,7 @@ try { if (matchMedia("(max-width: 760px)").matches && !sessionStorage.getItem("b
   </div>
   <div class="wrap mt-3">
     <div class="facts">
-      <div><strong>10</strong><span>meeting and event spaces</span></div>
+      <div><strong>10</strong><span>event spaces, from a boardroom for ten to the Woodlands Suite for up to 280</span></div>
       <div><strong>280</strong><span>guests at a standing reception</span></div>
       <div><strong>On-site</strong><span>bedrooms for residential events</span></div>
       <div><strong>Free</strong><span>parking and Wi-Fi for every delegate</span></div>
@@ -112,22 +113,22 @@ try { if (matchMedia("(max-width: 760px)").matches && !sessionStorage.getItem("b
   <div class="wrap">
     <div class="intro mb-3">
       <div class="t"><h2>Meeting packages</h2></div>
-      <div class="c"><p>Simple per-person packages that cover the essentials, so you can focus on the agenda. Rates include VAT.</p></div>
+      <div class="c"><p>Simple per-person packages that cover the essentials, so you can focus on the agenda.</p><p>Prices vary by date and numbers. <a class="textlink" href="planner/">Use the Event Planner to request a tailored quote</a>.</p></div>
     </div>
     <div class="rates">
       <div class="rate">
-        <h3>Day Delegate</h3>
-        <div class="price">£35</div><div class="per">per person, midweek. From £30 at weekends</div>
-        <ul><li>Meeting room hire</li><li>Refreshments mid-morning and mid-afternoon</li><li>Hot and cold lunch options</li></ul>
+        <h3>Day delegate package</h3>
+        <div class="price-block"><span class="price-tag" data-price="dayDelegate" data-suffix="per person, including VAT">from <b>£35</b> per person, including VAT</span></div>
+        <ul><li>Meeting room for the day</li><li>Tea and coffee on arrival, and all day</li><li>Mid-morning and afternoon refreshments</li><li>Working lunch, with hot and cold options</li><li>Screen with HDMI, and a flipchart</li><li>Free Wi-Fi</li></ul>
       </div>
       <div class="rate">
-        <h3>24-Hour</h3>
-        <div class="price">£155</div><div class="per">per person, midweek and weekends</div>
-        <ul><li>Everything in the Day Delegate package</li><li>One night's accommodation</li><li>Breakfast the next morning</li></ul>
+        <h3>24-hour package</h3>
+        <div class="price-block"><span class="price-tag" data-price="twentyFourHour" data-suffix="per person, including VAT">from <b>£155</b> per person, including VAT</span></div>
+        <ul><li>Everything in the day delegate package</li><li>An overnight bedroom</li><li>Full breakfast the next morning</li></ul>
       </div>
       <div class="rate">
         <h3>Room hire</h3>
-        <div class="price" style="font-size:2rem;padding-top:.6rem">Tailored</div><div class="per">quoted for your event</div>
+        <div class="price-block"><span class="price-tag">Prices on request, please contact us</span></div>
         <ul><li>Your room, set to your layout</li><li>Choose catering à la carte</li><li>Add bedrooms, dinner and extras</li></ul>
       </div>
     </div>
@@ -147,7 +148,25 @@ try { if (matchMedia("(max-width: 760px)").matches && !sessionStorage.getItem("b
       </div>
       <div class="b">
         <a class="download" href="../downloads/meetings-and-events.pdf" download><span class="doc" aria-hidden="true"></span><span><strong>Meetings at Brandon Hall Hotel and Spa</strong><span>Brochure and package rates, PDF, 0.7 MB</span></span></a>
+        <a class="download" href="../downloads/meetings-and-conferences.pdf" download><span class="doc" aria-hidden="true"></span><span><strong>Meetings and Conferences fact sheet</strong><span>PDF</span></span></a>
         <p class="small mt-1">Prices are a guide. Your quote is confirmed by our events team.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--beige">
+  <div class="wrap split">
+    <div class="a">
+      <span class="kicker">Recurring meetings</span>
+      <h2>Same room, same team, every time</h2>
+      <p>Book six or twelve dates a year with the same inclusions, the same room and one contact. Ideal for training courses, monthly management meetings and quarterly team days.</p>
+      <div class="btn-row"><a class="btn btn--navy" href="../contact/?topic=meeting&amp;about=Recurring%20meetings%3A%20I%27d%20like%20to%20talk%20about%20booking%20regular%20dates.">Talk to us about recurring dates</a></div>
+    </div>
+    <div class="b">
+      <div class="xcards">
+        <a class="xcard" href="../corporate-stays/"><span class="kicker">Staying overnight?</span><strong>Corporate stays</strong><span>Corporate rates and one contact for visiting colleagues</span></a>
+        <a class="xcard" href="../group-tours/"><span class="kicker">Bringing a group?</span><strong>Group tours</strong><span>Two and three-night dinner, bed and breakfast stays</span></a>
       </div>
     </div>
   </div>
@@ -255,6 +274,8 @@ try { if (matchMedia("(max-width: 760px)").matches && !sessionStorage.getItem("b
           <li><a href="../meetings-events/">Meetings &amp; Events</a></li>
           <li><a href="../meetings-events/spaces/">Our event spaces</a></li>
           <li><a href="../meetings-events/planner/">Event planner</a></li>
+          <li><a href="../corporate-stays/">Corporate stays</a></li>
+          <li><a href="../group-tours/">Group tours</a></li>
           <li><a href="../celebrations/">Christmas &amp; Celebrations</a></li>
           <li><a href="../christmas/">Christmas and New Year</a></li>
         </ul>
