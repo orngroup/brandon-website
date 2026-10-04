@@ -30,6 +30,9 @@ The "What our guests say" section on the home page reads from the `REVIEWS` list
 4. Firestore rules: the current rule lets any signed-in user, including an anonymous website visitor, read every enquiry. Replace the enquiries, meta and marketing rules with `docs/firestore.rules.recommended` so the public can only create enquiries and only staff can read them.
 5. Send a test enquiry from the live planner and check it appears in HOSPRO.
 
+## Prices ("from" prices on package pages)
+All "from" prices live in one place: `fromPrices` in `assets/js/venue-data.js`. Type a price as it should appear (for example "£89"); leave it as "" to show "Prices on request, please contact us". Pages update as soon as the file is uploaded. The four fact sheet PDFs in /downloads need regenerating when prices change. The Event Planner never shows prices.
+
 ## Website form emails (testing and going live)
 All forms (contact form, table booking and the event planner) email the hotel directly through FormSubmit. They never open the visitor's email program.
 - TESTING: every form currently sends to aj@ykawa.com (`formEmails` in `assets/js/venue-data.js`).

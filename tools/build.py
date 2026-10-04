@@ -76,7 +76,7 @@ def header(p, active):
             cur = ' aria-current="page"' if key == active else ""
             out.append(f'<a href="{p}{href}"{cur}>{label}</a>')
         return "\n      ".join(out)
-    drawer_links = "".join(f'<a href="{p}{h}">{l}</a>' for _, h, l in NAV_LEFT + NAV_RIGHT + [("o", "offers/", "Offers"), ("x", "out-about/", "Out &amp; About"), ("c", "contact/", "Contact")])
+    drawer_links = "".join(f'<a href="{p}{h}">{l}</a>' for _, h, l in NAV_LEFT + NAV_RIGHT + [("cs", "corporate-stays/", "Corporate stays"), ("gt", "group-tours/", "Group tours"), ("o", "offers/", "Offers"), ("x", "out-about/", "Out &amp; About"), ("c", "contact/", "Contact")])
     return f'''<div class="utility">
   <div class="wrap">
     <span class="u-hide">Main Street, Brandon, near Coventry</span>
@@ -115,6 +115,7 @@ def header(p, active):
 
 
 def footer(p, scripts=()):
+    scripts = ["venue-data.js"] + [x for x in scripts if x != "venue-data.js"]
     s = "".join(f'<script src="{p}assets/js/{x}"></script>\n' for x in scripts)
     return f'''</main>
 <div class="pattern-band" aria-hidden="true"></div>
@@ -145,6 +146,8 @@ def footer(p, scripts=()):
           <li><a href="{p}meetings-events/">Meetings &amp; Events</a></li>
           <li><a href="{p}meetings-events/spaces/">Our event spaces</a></li>
           <li><a href="{p}meetings-events/planner/">Event planner</a></li>
+          <li><a href="{p}corporate-stays/">Corporate stays</a></li>
+          <li><a href="{p}group-tours/">Group tours</a></li>
           <li><a href="{p}celebrations/">Christmas &amp; Celebrations</a></li>
           <li><a href="{p}christmas/">Christmas and New Year</a></li>
         </ul>
@@ -281,7 +284,7 @@ def home():
   <div class="wrap">
     <div class="facts">
       <div><strong>17 acres</strong><span>of gardens and woodland to explore</span></div>
-      <div><strong>10</strong><span>event spaces, from boardrooms to the Woodlands Suite</span></div>
+      <div><strong>10</strong><span>event spaces, from a boardroom for ten to the Woodlands Suite for up to 280</span></div>
       <div><strong>280</strong><span>guests at a standing reception</span></div>
       <div><strong>24-hour</strong><span>reception, always here to help</span></div>
     </div>
@@ -297,9 +300,24 @@ def home():
     <div class="paths">
       <a class="path path--tall" href="rooms-suites/"><img src="assets/img/bedroom-suite.jpg" alt="A suite with a grey upholstered headboard and a wedding dress hanging by the window" loading="lazy"><div class="t"><h3>Stay</h3><span>Rooms and suites overlooking the grounds</span></div></a>
       <a class="path" href="weddings/"><img src="assets/img/wedding-walk.jpg" alt="A bride and groom walking hand in hand across the lawn towards the hotel" loading="lazy"><div class="t"><h3>Weddings</h3><span>Your day, in our 17 acres</span></div></a>
-      <a class="path" href="meetings-events/"><img src="assets/img/suite-cabaret-white.jpg" alt="A function suite laid with round tables, white linen and flowers" loading="lazy"><div class="t"><h3>Meetings and events</h3><span>Ten event spaces and an online planner</span></div></a>
+      <a class="path" href="meetings-events/"><img src="assets/img/meetings/meeting-4.jpeg" data-fallback="https://www.brandonhallhotelandspa.com/wp-content/uploads/2025/09/brandon-hall-hotel-spa-warwickshire-brandon-warwickshire-pic-4-1000x750.jpeg" onerror="if(this.dataset.fallback){{this.src=this.dataset.fallback;this.dataset.fallback=''}}" alt="A conference room with round tables and a presentation screen" loading="lazy"><div class="t"><h3>Meetings and events</h3><span>Ten event spaces and an online planner</span></div></a>
       <a class="path" href="dining/"><img src="assets/img/site/dine-restaurant.jpg" data-fallback="https://www.brandonhallhotelandspa.com/wp-content/uploads/2025/09/68027_18010908440060921672.jpg" onerror="if(this.dataset.fallback){{this.src=this.dataset.fallback;this.dataset.fallback=''}}" alt="The Clarendon restaurant with mirrors and warm, ambient lighting" loading="lazy"><div class="t"><h3>The Clarendon</h3><span>Seasonal menus, lunch and dinner</span></div></a>
       <a class="path" href="spa-leisure/"><img src="assets/img/pool.jpg" alt="The indoor swimming pool under a glazed roof" loading="lazy"><div class="t"><h3>Leisure and wellness</h3><span>Indoor pool, gym and fitness centre</span></div></a>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="intro mb-2">
+      <div class="t"><span class="kicker">For businesses and groups</span><h2>Work and groups</h2></div>
+      <div class="c"><p>Corporate rates for visiting colleagues, ten event spaces, group tour stays and private events, each with one contact from enquiry to invoice.</p></div>
+    </div>
+    <div class="work-grid">
+      <a class="path" href="corporate-stays/"><img src="assets/img/bedroom-teal.jpg" alt="" loading="lazy"><div class="t"><h3>Corporate stays</h3><span>Corporate rates and one named contact</span></div></a>
+      <a class="path" href="meetings-events/"><img src="assets/img/exterior-front.jpg" alt="" loading="lazy"><div class="t"><h3>Meetings and conferences</h3><span>Ten event spaces and an online planner</span></div></a>
+      <a class="path" href="group-tours/"><img src="assets/img/exterior-summer.jpg" alt="" loading="lazy"><div class="t"><h3>Group tours</h3><span>Dinner, bed and breakfast stays for groups</span></div></a>
+      <a class="path" href="celebrations/"><img src="assets/img/table-setting.jpg" alt="" loading="lazy"><div class="t"><h3>Private events</h3><span>Parties, dinners and celebrations</span></div></a>
     </div>
   </div>
 </section>
@@ -404,7 +422,7 @@ def meetings():
   </div>
   <div class="wrap mt-3">
     <div class="facts">
-      <div><strong>10</strong><span>meeting and event spaces</span></div>
+      <div><strong>10</strong><span>event spaces, from a boardroom for ten to the Woodlands Suite for up to 280</span></div>
       <div><strong>280</strong><span>guests at a standing reception</span></div>
       <div><strong>On-site</strong><span>bedrooms for residential events</span></div>
       <div><strong>Free</strong><span>parking and Wi-Fi for every delegate</span></div>
@@ -416,22 +434,22 @@ def meetings():
   <div class="wrap">
     <div class="intro mb-3">
       <div class="t"><h2>Meeting packages</h2></div>
-      <div class="c"><p>Simple per-person packages that cover the essentials, so you can focus on the agenda. Rates include VAT.</p></div>
+      <div class="c"><p>Simple per-person packages that cover the essentials, so you can focus on the agenda.</p><p>Prices vary by date and numbers. <a class="textlink" href="planner/">Use the Event Planner to request a tailored quote</a>.</p></div>
     </div>
     <div class="rates">
       <div class="rate">
-        <h3>Day Delegate</h3>
-        <div class="price">£35</div><div class="per">per person, midweek. From £30 at weekends</div>
-        <ul><li>Meeting room hire</li><li>Refreshments mid-morning and mid-afternoon</li><li>Hot and cold lunch options</li></ul>
+        <h3>Day delegate package</h3>
+        <div class="price-block">{price("dayDelegate", "per person, including VAT")}</div>
+        <ul><li>Meeting room for the day</li><li>Tea and coffee on arrival, and all day</li><li>Mid-morning and afternoon refreshments</li><li>Working lunch, with hot and cold options</li><li>Screen with HDMI, and a flipchart</li><li>Free Wi-Fi</li></ul>
       </div>
       <div class="rate">
-        <h3>24-Hour</h3>
-        <div class="price">£155</div><div class="per">per person, midweek and weekends</div>
-        <ul><li>Everything in the Day Delegate package</li><li>One night's accommodation</li><li>Breakfast the next morning</li></ul>
+        <h3>24-hour package</h3>
+        <div class="price-block">{price("twentyFourHour", "per person, including VAT")}</div>
+        <ul><li>Everything in the day delegate package</li><li>An overnight bedroom</li><li>Full breakfast the next morning</li></ul>
       </div>
       <div class="rate">
         <h3>Room hire</h3>
-        <div class="price" style="font-size:2rem;padding-top:.6rem">Tailored</div><div class="per">quoted for your event</div>
+        <div class="price-block"><span class="price-tag">{ON_REQUEST}</span></div>
         <ul><li>Your room, set to your layout</li><li>Choose catering à la carte</li><li>Add bedrooms, dinner and extras</li></ul>
       </div>
     </div>
@@ -451,7 +469,25 @@ def meetings():
       </div>
       <div class="b">
         {dl(p, "meetings-and-events.pdf", "Meetings at " + HOTEL, "Brochure and package rates, PDF, 0.7 MB")}
+        {dl(p, "meetings-and-conferences.pdf", "Meetings and Conferences fact sheet", "PDF")}
         <p class="small mt-1">Prices are a guide. Your quote is confirmed by our events team.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--beige">
+  <div class="wrap split">
+    <div class="a">
+      <span class="kicker">Recurring meetings</span>
+      <h2>Same room, same team, every time</h2>
+      <p>Book six or twelve dates a year with the same inclusions, the same room and one contact. Ideal for training courses, monthly management meetings and quarterly team days.</p>
+      <div class="btn-row"><a class="btn btn--navy" href="../contact/?topic=meeting&amp;about=Recurring%20meetings%3A%20I%27d%20like%20to%20talk%20about%20booking%20regular%20dates.">Talk to us about recurring dates</a></div>
+    </div>
+    <div class="b">
+      <div class="xcards">
+        <a class="xcard" href="../corporate-stays/"><span class="kicker">Staying overnight?</span><strong>Corporate stays</strong><span>Corporate rates and one contact for visiting colleagues</span></a>
+        <a class="xcard" href="../group-tours/"><span class="kicker">Bringing a group?</span><strong>Group tours</strong><span>Two and three-night dinner, bed and breakfast stays</span></a>
       </div>
     </div>
   </div>
@@ -546,7 +582,7 @@ def meetings():
 })();
 </script>
 '''
-    write("meetings-events/index.html", h + header(p, "meetings") + body + footer(p, ["venue-data.js", "floorplan.js"]).replace("</body>", script + "</body>"))
+    write("meetings-events/index.html", h + header(p, "meetings") + meet_subnav(p, "overview") + body + footer(p, ["venue-data.js", "floorplan.js"]).replace("</body>", script + "</body>"))
 
 
 # ----------------------------------------------------------------
@@ -564,7 +600,7 @@ def spaces():
       <h1 style="font-size:clamp(2.6rem,5.6vw,4.4rem)">Our event spaces</h1>
     </div>
     <div class="c">
-      <p class="lede">Ten event spaces, from an intimate boardroom for ten to the Woodlands Suite for 280.</p>
+      <p class="lede">Ten event spaces, from a boardroom for ten to the Woodlands Suite for up to 280.</p>
       <p>Enter your numbers and choose a layout to see which rooms fit. Select any room for its floor plan, measurements and the technology in the room.</p>
     </div>
   </div>
@@ -595,7 +631,7 @@ def spaces():
 </section>
 <dialog class="room-dialog" id="room-dialog" aria-label="Room details"></dialog>
 '''
-    write("meetings-events/spaces/index.html", h + header(p, "meetings") + body + footer(p, ["venue-data.js", "floorplan.js", "venue.js"]))
+    write("meetings-events/spaces/index.html", h + header(p, "meetings") + meet_subnav(p, "spaces") + body + footer(p, ["venue-data.js", "floorplan.js", "venue.js"]))
 
 
 # ----------------------------------------------------------------
@@ -750,7 +786,7 @@ def planner():
   </div>
 </section>
 '''
-    write("meetings-events/planner/index.html", h + header(p, "meetings") + body + footer(p, ["venue-data.js", "floorplan.js", "planner.js"]))
+    write("meetings-events/planner/index.html", h + header(p, "meetings") + meet_subnav(p, "planner") + body + footer(p, ["venue-data.js", "floorplan.js", "forms.js", "planner.js"]))
 
 
 # ----------------------------------------------------------------
@@ -1049,7 +1085,7 @@ def out_about():
 
 
 def seo_files():
-    pages = ["", "rooms-suites/", "dining/", "spa-leisure/", "out-about/", "weddings/", "meetings-events/", "meetings-events/spaces/", "meetings-events/planner/", "christmas/", "celebrations/", "celebrations/parties/", "celebrations/baby-showers/", "celebrations/celebration-of-life/", "celebrations/masonic/", "offers/", "contact/", "privacy/", "accessibility/"]
+    pages = ["", "rooms-suites/", "dining/", "spa-leisure/", "out-about/", "weddings/", "meetings-events/", "meetings-events/spaces/", "meetings-events/planner/", "christmas/", "celebrations/", "celebrations/parties/", "celebrations/baby-showers/", "celebrations/celebration-of-life/", "celebrations/masonic/", "corporate-stays/", "group-tours/", "offers/", "contact/", "privacy/", "accessibility/"]
     xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"  <url><loc>{SITE_URL}/{u}</loc></url>\n" for u in pages) + "</urlset>\n"
     open(os.path.join(ROOT, "sitemap.xml"), "w").write(xml)
     open(os.path.join(ROOT, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\nSitemap: {SITE_URL}/sitemap.xml\n")
@@ -1058,7 +1094,7 @@ def seo_files():
 # ----------------------------------------------------------------
 # CHRISTMAS & NEW YEAR (content from the 2026 brochure and posters)
 # ----------------------------------------------------------------
-XMAS_ENQ = "mailto:" + EMAIL + "?subject=" + "Christmas%20and%20New%20Year%20enquiry"
+XMAS_ENQ = "../contact/?topic=christmas&amp;about=Enquiry"
 
 def christmas():
     p = "../"
@@ -1247,7 +1283,7 @@ def offers():
 # ----------------------------------------------------------------
 # WEDDINGS (content from the 2026 wedding and self-catering brochures)
 # ----------------------------------------------------------------
-WED_ENQ = "mailto:" + EMAIL + "?subject=Wedding%20enquiry%20and%20tour"
+WED_ENQ = "../contact/?topic=wedding&amp;about=I%27d%20like%20to%20book%20a%20wedding%20tour."
 
 def weddings():
     p = "../"
@@ -1675,6 +1711,7 @@ def dining():
         <p class="err" id="t-consent-err"></p>
         <div class="visually-hidden" aria-hidden="true"><label for="t-website">Leave this empty</label><input id="t-website" type="text" tabindex="-1" autocomplete="off"></div>
         <div class="btn-row"><button class="btn btn--book" type="submit" id="t-submit">Request my table</button></div>
+        <p class="err" id="t-send-err" aria-live="polite"></p>
       </form>
       <div class="t-done" id="t-done" hidden tabindex="-1">
         <h3 id="t-done-title"></h3>
@@ -1699,7 +1736,7 @@ def dining():
   </div>
 </section>
 """
-    write("dining/index.html", h + header(p, "dining") + body + footer(p, ["venue-data.js", "table.js"]))
+    write("dining/index.html", h + header(p, "dining") + body + footer(p, ["venue-data.js", "forms.js", "table.js"]))
 
 # ----------------------------------------------------------------
 # CONTACT
@@ -1755,6 +1792,7 @@ def contact():
         <p class="err" id="c-consent-err"></p>
         <div class="visually-hidden" aria-hidden="true"><label for="c-website">Leave this empty</label><input id="c-website" type="text" tabindex="-1" autocomplete="off"></div>
         <div class="btn-row"><button class="btn btn--book" type="submit" id="c-submit">Send message</button></div>
+        <p class="err" id="c-send-err" aria-live="polite"></p>
         <p class="notice" id="c-done" hidden tabindex="-1"></p>
       </form>
     </div>
@@ -1765,7 +1803,7 @@ def contact():
   <iframe title="Map showing {HOTEL}" src="{MAP_EMBED}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 </section>
 """
-    write("contact/index.html", h + header(p, "contact") + body + footer(p, ["venue-data.js", "contact.js"]))
+    write("contact/index.html", h + header(p, "contact") + body + footer(p, ["venue-data.js", "forms.js", "contact.js"]))
 
 
 # ----------------------------------------------------------------
@@ -1918,12 +1956,16 @@ def celebrations_hub():
     p = "../"
     h = head(p, f"Christmas and celebrations | {HOTEL}",
              "Christmas and New Year, party packages, baby showers, celebrations of life and Masonic events at Brandon Hall Hotel and Spa, for 10 to 250 guests.")
-    cards = [("../christmas/", "xmas-hero.jpg", "Christmas and New Year", "Party nights, festive dining, Christmas Day and New Year's Eve")]
+    PKEY = {"parties": ("party", "per person"), "baby-showers": ("babyShower", "per person"),
+            "celebration-of-life": ("celebrationOfLife", "per person"), "masonic": ("masonic", "per person, two nights")}
+    cards = [("../christmas/", "xmas-hero.jpg", "Christmas and New Year", "Party nights, festive dining, Christmas Day and New Year's Eve", price("christmasParty", "per person for party nights"))]
     for slug, label in CELEB_ORDER:
-        c = CELEB[slug]
-        cards.append((f"{slug}/", c["img"], label, c["kicker"]))
-    cards.append(("../weddings/", "wedding-lawn.jpg", "Weddings", "Your day, in our 17 acres"))
-    tiles = "".join(f'<a class="path" href="{href}"><img src="../assets/img/{img}" alt="" loading="lazy"><div class="t"><h3>{t}</h3><span>{s}</span></div></a>' for href, img, t, s in cards)
+        c = CELEB[slug]; k, sfx = PKEY[slug]
+        cards.append((f"{slug}/", c["img"], label, c["kicker"], price(k, sfx)))
+    cards.append(("../meetings-events/planner/?type=awards&amp;layout=cabaret", "suite-dinner.jpg", "Awards evenings and association dinners",
+                  "Formal dinners and presentations for clubs, associations and businesses, with a private suite, set menu and one coordinator", price("awardsDinner", "per person")))
+    cards.append(("../weddings/", "wedding-lawn.jpg", "Weddings", "Your day, in our 17 acres", ""))
+    tiles = "".join(f'<a class="path" href="{href}"><img src="../assets/img/{img}" alt="" loading="lazy"><div class="t"><h3>{t}</h3><span>{s}</span>{f"<span class=tile-price>{pr}</span>" if pr else ""}</div></a>' for href, img, t, s, pr in cards)
     body = f'''
 <section class="hero hero--page">
   <img src="../assets/img/suite-cabaret-white.jpg" alt="A function suite laid with round tables, white linen and flowers" fetchpriority="high">
@@ -1937,6 +1979,7 @@ def celebrations_hub():
     <div class="c">
       <p class="lede">Weddings, birthday parties, anniversaries: you name it, we can celebrate it.</p>
       <p>However small or large your guest list, from an intimate 10 to an impressive 250, we have the perfect backdrop for your celebration.</p>
+      <p>Private rooms for every size of gathering, from an intimate private dining room to the Woodlands Suite for up to 280.</p>
       <ul class="ticks mt-1"><li>Set within beautiful Warwickshire countryside</li><li>Views over our gardens</li><li>A range of adaptable spaces to choose from</li><li>Preferential bedroom rates for your guests</li></ul>
     </div>
   </div>
@@ -1958,6 +2001,7 @@ def celebrations_hub():
       <h2>It's your special occasion</h2>
       <p>That's why we create fully customisable packages, designed to be tailored to you and your celebration and to bring your unique vision to life.</p>
       <div class="btn-row"><a class="btn btn--book" href="../meetings-events/planner/?type=celebration&amp;layout=cabaret">Plan your celebration</a><a class="btn btn--line" href="tel:{PHONE_HREF}">Call {PHONE}</a></div>
+      <div class="mt-2">{dl(p, "private-events.pdf", "Private Events fact sheet", "PDF")}</div>
     </div>
   </div>
 </section>
@@ -2019,5 +2063,205 @@ def celebration_page(slug):
 '''
     write(f"celebrations/{slug}/index.html", h + header(p, "christmas") + body + footer(p))
 
+# ----------------------------------------------------------------
+# PRICES (single source: fromPrices in assets/js/venue-data.js)
+# ----------------------------------------------------------------
+import re as _re
+def _load_prices():
+    try:
+        s = open(os.path.join(ROOT, "assets/js/venue-data.js"), encoding="utf-8").read()
+        return json.loads(_re.search(r"/\*PRICES\*/(.*?)/\*END PRICES\*/", s, _re.S).group(1))
+    except Exception:
+        return {}
+PRICES = _load_prices()
+ON_REQUEST = "Prices on request, please contact us"
+def price(key, suffix=""):
+    v = PRICES.get(key, "")
+    txt = f"from <b>{v}</b>" + (f" {suffix}" if suffix else "") if v else ON_REQUEST
+    return f'<span class="price-tag" data-price="{key}" data-suffix="{suffix}">{txt}</span>'
+
+# ----------------------------------------------------------------
+# MEETINGS & EVENTS sub-menu (under the main "Meetings & Events" item)
+# ----------------------------------------------------------------
+def meet_subnav(p, active):
+    items = [("overview", "meetings-events/", "Overview"), ("spaces", "meetings-events/spaces/", "Event spaces"),
+             ("planner", "meetings-events/planner/", "Event planner"), ("corporate", "corporate-stays/", "Corporate stays"),
+             ("groups", "group-tours/", "Group tours")]
+    links = "".join(f'<a href="{p}{h}"{" aria-current=\"page\"" if k == active else ""}>{t}</a>' for k, h, t in items)
+    return f'<nav class="subnav" aria-label="Meetings and events"><div class="wrap">{links}</div></nav>\n'
+
+def lead_field(fid, label, kind="text", required=False, hint="", options=None, attrs=""):
+    req = " required" if required else ""
+    opt = f' <span class="hint">{hint}</span>' if hint else (' <span class="hint">Optional</span>' if not required else "")
+    if kind == "select":
+        ctl = f'<select id="{fid}"{req}{attrs}>' + "".join(f"<option>{o}</option>" for o in options) + "</select>"
+    elif kind == "textarea":
+        ctl = f'<textarea id="{fid}" rows="4"{req}{attrs}></textarea>'
+    else:
+        ctl = f'<input id="{fid}" type="{kind}"{req}{attrs}>'
+    return f'<label class="field" for="{fid}">{label}{opt}{ctl}<span class="err" id="{fid}-err"></span></label>'
+
+LEAD_TAIL = '''<label class="check mt-1" style="border:0"><input type="checkbox" id="{id}-consent" required><span>I'm happy for {hotel} to contact me about this enquiry. See our <a href="../privacy/">privacy notice</a>.</span></label>
+        <p class="err" id="{id}-consent-err"></p>
+        <div class="visually-hidden" aria-hidden="true"><label for="{id}-hp">Leave this empty</label><input id="{id}-hp" name="_hp" type="text" tabindex="-1" autocomplete="off"></div>
+        <div class="btn-row"><button class="btn btn--book" type="submit">{button}</button></div>
+        <p class="err lead-err" aria-live="polite"></p>'''
+
+THANKS = '<div class="lead-done notice" hidden tabindex="-1"><strong>Thank you.</strong> Our team will reply within one working hour.</div>'
+
+# ----------------------------------------------------------------
+# CORPORATE STAYS
+# ----------------------------------------------------------------
+def corporate_stays():
+    p = "../"
+    h = head(p, f"Corporate hotel rates near Coventry | {HOTEL}",
+             "Corporate rates near Coventry, Rugby and Warwick: bed and full breakfast, free Wi-Fi, on-site parking and one named contact from enquiry to invoice.")
+    days = "".join(f'<label class="day"><input type="checkbox" data-group="Usual nights of the week" value="{d}"><span>{d}</span></label>' for d in ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"])
+    form = f'''<form data-leadform data-team="corporate" data-tag="Corporate" data-subject="Corporate rate request" novalidate>
+        <div class="grid-2">
+          {lead_field("cs-company", "Company name", required=True, attrs=' autocomplete="organization"')}
+          {lead_field("cs-name", "Your name", required=True, attrs=' autocomplete="name"')}
+          {lead_field("cs-title", "Job title", attrs=' autocomplete="organization-title"')}
+          {lead_field("cs-email", "Email", "email", required=True, attrs=' autocomplete="email"')}
+          {lead_field("cs-phone", "Phone", "tel", required=True, attrs=' autocomplete="tel"')}
+          {lead_field("cs-nights", "Typical number of room nights per month", "select", options=["1–5", "6–15", "16–30", "30+"])}
+        </div>
+        <fieldset class="days mt-1"><legend>Usual nights of the week <span class="hint">Optional</span></legend><div class="day-row">{days}</div></fieldset>
+        <div class="grid-2 mt-1">{lead_field("cs-meeting", "Do you also need meeting space?", "select", options=["No", "Yes"])}</div>
+        <div class="mt-1">{lead_field("cs-msg", "Message", "textarea")}</div>
+        {LEAD_TAIL.format(id="cs", hotel=HOTEL, button="Request a corporate rate")}
+      </form>'''
+    body = f'''{meet_subnav(p, "corporate")}
+<section class="section page-open">
+  <div class="wrap split">
+    <div class="a">
+      <span class="kicker">Corporate stays</span>
+      <h1 class="h1-page">A dependable base for visiting colleagues</h1>
+      <p class="lede">Comfortable rooms near Coventry, Rugby and Warwick, with one named contact who looks after every booking from enquiry to invoice.</p>
+      <p class="price-line">Corporate rate: {price("corporateRoom", "per room per night, excluding VAT, on selected dates")}</p>
+      <div class="btn-row"><a class="btn btn--book" href="#rate">Request a corporate rate</a><a class="btn btn--line" href="../downloads/corporate-stays.pdf" download>Download the fact sheet</a></div>
+    </div>
+    <div class="b"><figure class="mount mount--tall"><img src="../assets/img/bedroom-teal.jpg" alt="A double bedroom with a teal feature wall and a desk by the window" fetchpriority="high"></figure></div>
+  </div>
+</section>
+
+<section class="section section--white">
+  <div class="wrap two-lists">
+    <div><h2>Who it's for</h2><ul class="ticks ticks--one"><li>Visiting engineers, suppliers and consultants</li><li>Project teams and contractors on longer stays</li><li>Trainers, lecturers and interview panels</li><li>Colleagues attending meetings in the area</li></ul></div>
+    <div><h2>What's included</h2><ul class="ticks ticks--one"><li>Bed and full breakfast</li><li>Free Wi-Fi throughout</li><li>On-site parking</li><li>Optional dinner in The Clarendon</li><li>Company account invoicing on request</li><li>Agreed cancellation terms</li></ul></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap split split--flip">
+    <div class="a"><figure class="mount"><img src="../assets/img/exterior-front.jpg" alt="The front of {HOTEL} with its glazed porch and bay windows" loading="lazy"></figure></div>
+    <div class="b">
+      <span class="kicker">Your corporate agreement</span>
+      <h2>One rate, one contact</h2>
+      <p>A negotiated rate on agreed dates, reviewed with you each quarter against what you book. One contact handles rooms, dinners and any meeting space you need.</p>
+      <p class="price-line">Corporate rate: {price("corporateRoom", "per room per night, excluding VAT, on selected dates")}</p>
+      <div class="xlink"><strong>Need a meeting room too?</strong> <a class="textlink" href="../meetings-events/">See our meeting spaces</a> or <a class="textlink" href="../meetings-events/planner/">plan it in the Event Planner</a>.</div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--white" id="rate">
+  <div class="wrap split split--form" style="align-items:start">
+    <div class="a">
+      <span class="kicker">Corporate stays</span>
+      <h2>Request a corporate rate</h2>
+      <p>Tell us a little about your travel and we'll come back with a rate for your dates.</p>
+      {dl(p, "corporate-stays.pdf", "Corporate Stays fact sheet", "PDF")}
+    </div>
+    <div class="b table-form-wrap">{form}{THANKS}</div>
+  </div>
+</section>
+'''
+    write("corporate-stays/index.html", h + header(p, "meetings") + body + footer(p, ["forms.js", "leadform.js"]))
+
+# ----------------------------------------------------------------
+# GROUP TOURS
+# ----------------------------------------------------------------
+def group_tours():
+    p = "../"
+    h = head(p, f"Coach and group tour hotel in Warwickshire | {HOTEL}",
+             "Two and three-night dinner, bed and breakfast group stays in 17 acres of Warwickshire grounds, with sample itineraries for Warwick, Stratford and Coventry.")
+    FB = "onerror=\"if(this.dataset.fallback){{this.src=this.dataset.fallback;this.dataset.fallback=''}}\""
+    form = f'''<form data-leadform data-team="groups" data-tag="Group" data-subject="Group enquiry" novalidate>
+        <div class="grid-2">
+          {lead_field("gt-org", "Company or club name", required=True, attrs=' autocomplete="organization"')}
+          {lead_field("gt-name", "Contact name", required=True, attrs=' autocomplete="name"')}
+          {lead_field("gt-email", "Email", "email", required=True, attrs=' autocomplete="email"')}
+          {lead_field("gt-phone", "Phone", "tel", required=True, attrs=' autocomplete="tel"')}
+          {lead_field("gt-dates", "Preferred arrival dates", hint="For example 12 or 19 April 2027")}
+          {lead_field("gt-nights", "Nights", "select", options=["2", "3", "Other"])}
+          {lead_field("gt-size", "Group size", "number", attrs=' min="1" inputmode="numeric"')}
+          {lead_field("gt-coach", "Coach size", hint="For example 49-seater")}
+        </div>
+        <div class="mt-1">{lead_field("gt-mix", "Room mix", hint="Twins, doubles and singles")}</div>
+        <div class="mt-1">{lead_field("gt-msg", "Message", "textarea")}</div>
+        {LEAD_TAIL.format(id="gt", hotel=HOTEL, button="Send group enquiry")}
+      </form>'''
+    body = f'''{meet_subnav(p, "groups")}
+<section class="section page-open">
+  <div class="wrap split">
+    <div class="a">
+      <span class="kicker">Group tours</span>
+      <h1 class="h1-page">Your Warwickshire base</h1>
+      <p class="lede">Two and three-night dinner, bed and breakfast stays in 17 acres of grounds, ideally arriving Sunday or Monday.</p>
+      <p class="price-line">Net group rates: {price("groupDbb", "per person per night, dinner, bed and breakfast, on selected dates")}</p>
+      <div class="btn-row"><a class="btn btn--book" href="#group-enquiry">Group enquiry</a><a class="btn btn--line" href="../downloads/group-stays.pdf" download>Download the fact sheet</a></div>
+    </div>
+    <div class="b"><figure class="mount mount--tall"><img src="../assets/img/exterior-summer.jpg" alt="{HOTEL} across a wide lawn under a blue sky" fetchpriority="high"></figure></div>
+  </div>
+</section>
+
+<section class="section section--white">
+  <div class="wrap">
+    <div class="intro mb-2"><div class="t"><span class="kicker">Sample itineraries</span><h2>Two ways to see Warwickshire</h2></div>
+      <div class="c"><p>Both stays are on a dinner, bed and breakfast basis, with group dining at set times.</p></div></div>
+    <div class="itins">
+      <article class="itin"><h3>Warwickshire Discovery</h3><p class="itin-meta">2 nights · dinner, bed and breakfast</p>
+        <ol><li><b>Day 1</b> Arrive and welcome dinner</li><li><b>Day 2</b> Warwick, then Stratford-upon-Avon</li><li><b>Day 3</b> Breakfast and depart</li></ol></article>
+      <article class="itin"><h3>Coventry and Heritage</h3><p class="itin-meta">3 nights · dinner, bed and breakfast</p>
+        <ol><li><b>Day 1</b> Arrive and dinner</li><li><b>Day 2</b> Coventry city and cathedral</li><li><b>Day 3</b> A Warwickshire excursion, for example Kenilworth</li><li><b>Day 4</b> Breakfast and depart</li></ol></article>
+    </div>
+    <p class="small mt-1">Suggested visits only. Attraction tickets and transport are arranged separately unless agreed.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap split">
+    <div class="a"><figure class="mount"><img src="../assets/img/site/dine-restaurant.jpg" data-fallback="https://www.brandonhallhotelandspa.com/wp-content/uploads/2025/09/68027_18010908440060921672.jpg" {FB} alt="The Clarendon restaurant with mirrors and warm, ambient lighting" loading="lazy"></figure></div>
+    <div class="b">
+      <span class="kicker">For operators</span>
+      <h2>Everything your group needs</h2>
+      <ul class="ticks ticks--one">
+        <li>Coach parking: please ask us about your coach size</li>
+        <li>Twin and accessible rooms</li>
+        <li>Group dining at set times</li>
+        <li>Driver and tour leader rooms: terms on request</li>
+        <li>Single supplement: <span data-price="groupSingleSupplement" data-suffix="per person per night">{"from <b>" + PRICES["groupSingleSupplement"] + "</b> per person per night" if PRICES.get("groupSingleSupplement") else "on request"}</span></li>
+        <li>Deposit, release and cancellation terms on request</li>
+      </ul>
+      <p class="price-line">Net group rates: {price("groupDbb", "per person per night, dinner, bed and breakfast, on selected dates")}</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section--white" id="group-enquiry">
+  <div class="wrap split split--form" style="align-items:start">
+    <div class="a">
+      <span class="kicker">Group tours</span>
+      <h2>Group enquiry</h2>
+      <p>Send us your dates and group details and we'll come back with rates and availability.</p>
+      {dl(p, "group-stays.pdf", "Group Stays fact sheet", "PDF")}
+    </div>
+    <div class="b table-form-wrap">{form}{THANKS}</div>
+  </div>
+</section>
+'''
+    write("group-tours/index.html", h + header(p, "meetings") + body + footer(p, ["forms.js", "leadform.js"]))
+
 if __name__ == "__main__":
-    home(); meetings(); spaces(); planner(); rooms(); leisure(); out_about(); christmas(); offers(); weddings(); dining(); contact(); privacy(); accessibility(); celebrations_hub(); [celebration_page(s) for s, _ in CELEB_ORDER]; seo_files()
+    home(); meetings(); spaces(); planner(); rooms(); leisure(); out_about(); christmas(); offers(); weddings(); dining(); contact(); privacy(); accessibility(); celebrations_hub(); [celebration_page(s) for s, _ in CELEB_ORDER]; corporate_stays(); group_tours(); seo_files()
