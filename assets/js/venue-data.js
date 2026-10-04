@@ -46,18 +46,39 @@ window.BH_CONFIG = {
 
   /* ----------------------------------------------------------
      WHERE THE WEBSITE FORMS SEND THEIR EMAILS
-     TESTING: everything goes to aj@ykawa.com.
-     GOING LIVE: change the two addresses below to
-       reservations: "reservations@brandonhallhotelandspa.com"
-       events:       "events@brandonhallhotelandspa.com"
+     LIVE: stays, dining, table bookings and general messages go
+     to reservations@; event planner and events topics go to events@.
+     For testing, both can temporarily be set to "aj@ykawa.com".
      Each new address must be activated once with FormSubmit:
      the first message to it triggers an "Activate Form" email.
      ---------------------------------------------------------- */
   formEmails: {
-    reservations: "aj@ykawa.com",   // contact form (stays, dining, other) and table bookings
-    events: "aj@ykawa.com"          // event planner, weddings, meetings, Christmas and celebrations
+    reservations: "reservations@brandonhallhotelandspa.com",   // contact form (stays, dining, other) and table bookings
+    events: "events@brandonhallhotelandspa.com",               // event planner, weddings, meetings, Christmas and celebrations
+    corporate: "events@brandonhallhotelandspa.com",            // Corporate Stays rate requests
+    groups: "events@brandonhallhotelandspa.com"                // Group Tours enquiries
   },
   formEndpoint: "https://formsubmit.co/ajax/",
+
+  /* ----------------------------------------------------------
+     "FROM" PRICES shown on package pages and fact sheets.
+     Leave a price as "" to show "Prices on request, please contact us".
+     Write prices as they should appear, e.g. "£89". The Event
+     Planner never shows prices.
+     ---------------------------------------------------------- */
+  fromPrices: /*PRICES*/{
+    "dayDelegate": "£35",
+    "twentyFourHour": "£155",
+    "corporateRoom": "",
+    "groupDbb": "",
+    "groupSingleSupplement": "",
+    "awardsDinner": "",
+    "party": "£35",
+    "babyShower": "£29",
+    "celebrationOfLife": "£27.50",
+    "masonic": "£200",
+    "christmasParty": "£45"
+  }/*END PRICES*/,
 
   /* The Clarendon table booking requests. Sent by email through
      FormSubmit (formsubmit.co), a free forwarding service, because
@@ -215,6 +236,7 @@ window.BH_EVENT_TYPES = [
   { id: "celebration", label: "Party or celebration", hospro: "celebration", layouts: ["cabaret", "reception"],       carbonPerHead: 4.0 },
   { id: "baby-shower", label: "Baby shower",      hospro: "baby-shower", layouts: ["cabaret", "reception"],           carbonPerHead: 3.0 },
   { id: "celebration-of-life", label: "Celebration of life", hospro: "funeral", layouts: ["cabaret", "reception"],    carbonPerHead: 3.0 },
+  { id: "awards",      label: "Awards or association dinner", hospro: "celebration", layouts: ["cabaret"],        carbonPerHead: 6.0 },
   { id: "masonic",     label: "Masonic event",    hospro: "celebration", layouts: ["cabaret", "boardroom", "theatre"], carbonPerHead: 6.0 },
   { id: "christmas",   label: "Christmas party",  hospro: "christmas",   layouts: ["cabaret", "reception"],           carbonPerHead: 6.0 },
   { id: "other",       label: "Something else",   hospro: "celebration", layouts: ["theatre", "cabaret", "reception"],carbonPerHead: 3.0 }

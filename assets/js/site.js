@@ -100,6 +100,16 @@
     });
   });
 
+  // "From" prices: fill from BH_CONFIG.fromPrices so prices can be
+  // changed in venue-data.js alone. Empty = "Prices on request".
+  if (window.BH_CONFIG && window.BH_CONFIG.fromPrices) {
+    document.querySelectorAll("[data-price]").forEach(function (el) {
+      var v = window.BH_CONFIG.fromPrices[el.getAttribute("data-price")];
+      var tail = el.getAttribute("data-suffix") || "";
+      el.innerHTML = v ? "from <b>" + v + "</b>" + (tail ? " " + tail : "") : "Prices on request, please contact us";
+    });
+  }
+
   var y = document.querySelector("[data-year]");
   if (y) y.textContent = new Date().getFullYear();
 })();
