@@ -1444,9 +1444,9 @@ def weddings():
           <li><span>Room-only accommodation in a standard bedroom</span><strong>from £100 per night</strong></li>
           <li><span>Hotel bar in your function room, with two bar staff and glassware</span><strong>£500</strong></li>
           <li><span>Additional waiting staff (minimum eight hours)</span><strong>£15 per hour</strong></li>
-          <li><span>Audiovisual equipment and staging</span><strong>On request</strong></li>
-          <li><span>Additional linen</span><strong>On request</strong></li>
-          <li><span>Alcohol corkage</span><strong>Ask your coordinator</strong></li>
+          <li><span>Audiovisual equipment and staging</span><strong>Prices on request</strong></li>
+          <li><span>Additional linen</span><strong>Prices on request</strong></li>
+          <li><span>Alcohol corkage</span><strong>Prices on request</strong></li>
         </ul>
       </div>
     </div>
@@ -1964,7 +1964,7 @@ def celebrations_hub():
         cards.append((f"{slug}/", c["img"], label, c["kicker"], price(k, sfx)))
     cards.append(("../meetings-events/planner/?type=awards&amp;layout=cabaret", "suite-dinner.jpg", "Awards evenings and association dinners",
                   "Formal dinners and presentations for clubs, associations and businesses, with a private suite, set menu and one coordinator", price("awardsDinner", "per person")))
-    cards.append(("../weddings/", "wedding-lawn.jpg", "Weddings", "Your day, in our 17 acres", ""))
+    cards.append(("../weddings/", "wedding-lawn.jpg", "Weddings", "Your day, in our 17 acres", price("wedding", "per guest")))
     tiles = "".join(f'<a class="path" href="{href}"><img src="../assets/img/{img}" alt="" loading="lazy"><div class="t"><h3>{t}</h3><span>{s}</span>{f"<span class=tile-price>{pr}</span>" if pr else ""}</div></a>' for href, img, t, s, pr in cards)
     body = f'''
 <section class="hero hero--page">
@@ -2241,7 +2241,7 @@ def group_tours():
         <li>Twin and accessible rooms</li>
         <li>Group dining at set times</li>
         <li>Driver and tour leader rooms: terms on request</li>
-        <li>Single supplement: <span data-price="groupSingleSupplement" data-suffix="per person per night">{"from <b>" + PRICES["groupSingleSupplement"] + "</b> per person per night" if PRICES.get("groupSingleSupplement") else "on request"}</span></li>
+        <li>Single supplement: <span data-price="groupSingleSupplement" data-suffix="per person per night">{"from <b>" + PRICES["groupSingleSupplement"] + "</b> per person per night" if PRICES.get("groupSingleSupplement") else ON_REQUEST}</span></li>
         <li>Deposit, release and cancellation terms on request</li>
       </ul>
       <p class="price-line">Net group rates: {price("groupDbb", "per person per night, dinner, bed and breakfast, on selected dates")}</p>
