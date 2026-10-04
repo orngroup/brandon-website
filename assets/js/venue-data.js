@@ -77,7 +77,8 @@ window.BH_CONFIG = {
     "babyShower": "£29",
     "celebrationOfLife": "£27.50",
     "masonic": "£200",
-    "christmasParty": "£45"
+    "christmasParty": "£45",
+    "wedding": "£60"
   }/*END PRICES*/,
 
   /* The Clarendon table booking requests. Sent by email through
