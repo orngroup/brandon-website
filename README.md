@@ -5,11 +5,11 @@ Static multi-page site for GitHub Pages. No build step is needed to publish: eve
 ## Publish on GitHub Pages
 1. Upload the contents of this folder to the root of the `orngroup/brandon-website` repository, replacing what's there. Mac Finder and GitHub's uploader skip hidden files, so also create an empty file called `.nojekyll` in the repo root (Add file > Create new file, name it `.nojekyll`, commit). This makes GitHub serve the files exactly as they are.
 2. Repository **Settings > Pages**: Source "Deploy from a branch", branch `main`, folder `/ (root)`.
-3. Preview address: `https://orngroup.github.io/brandon-website/`. All links are relative, so the site works there and on the real domain.
+3. Preview address: `https://www.brandonhallhotelandspa.com/`. All links are relative, so the site works there and on the real domain.
 4. To go live on the hotel domain, add a `CNAME` file containing `www.brandonhallhotelandspa.com`, then point the domain's DNS at GitHub Pages. Do this only when the full site is signed off, as it replaces the current WordPress site.
 
 ## Share previews (WhatsApp, Facebook, LinkedIn, iMessage)
-Every page has its own title and description, plus a 1200 x 630 share image (`assets/img/share.jpg`). Share previews need full web addresses, so they point at wherever the site is published. That's set on one line at the top of `tools/build.py` (`SITE_URL`, currently `https://orngroup.github.io/brandon-website`). When the site moves to the hotel domain, change that line, run `python3 tools/build.py`, and re-upload. WhatsApp and Facebook keep old previews for a while; Facebook's Sharing Debugger (developers.facebook.com/tools/debug) refreshes them.
+Every page has its own title and description, plus a 1200 x 630 share image (`assets/img/share.jpg`). Share previews need full web addresses, so they point at wherever the site is published. That's set on one line at the top of `tools/build.py` (`SITE_URL`, currently `https://www.brandonhallhotelandspa.com`). When the site moves to the hotel domain, change that line, run `python3 tools/build.py`, and re-upload. WhatsApp and Facebook keep old previews for a while; Facebook's Sharing Debugger (developers.facebook.com/tools/debug) refreshes them.
 
 ## Guest reviews
 The "What our guests say" section on the home page reads from the `REVIEWS` list near the top of `tools/build.py`. Add real reviews only, copied from Google or Tripadvisor, with the guest's first name and surname initial, the star rating and the type of stay, then run `python3 tools/build.py`. Update `GOOGLE_RATING` now and then from the Google Business Profile. The "Leave us a Google review" button (home page and footer) uses your review link.

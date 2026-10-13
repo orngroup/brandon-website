@@ -17,7 +17,7 @@ FB = "https://www.facebook.com/brandonhallhotelandspa"
 # iMessage) need full addresses, so change this ONE line when the site moves
 # to the hotel domain, e.g. "https://www.brandonhallhotelandspa.com",
 # then run: python3 tools/build.py
-SITE_URL = "https://orngroup.github.io/brandon-website"
+SITE_URL = "https://www.brandonhallhotelandspa.com"
 
 NAV_LEFT = [("stay", "rooms-suites/", "Stay"), ("dining", "dining/", "Dining"), ("spa", "spa-leisure/", "Leisure &amp; Wellness")]
 NAV_RIGHT = [("weddings", "weddings/", "Weddings"), ("meetings", "meetings-events/", "Meetings &amp; Events"), ("christmas", "celebrations/", "Christmas &amp; Celebrations")]
