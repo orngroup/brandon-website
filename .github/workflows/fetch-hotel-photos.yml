@@ -1,0 +1,62 @@
+name: Fetch hotel photos
+# Copies the photos that still load from the old WordPress site (and the
+# walk scenery from Geograph / Wikimedia Commons, CC BY-SA 2.0, credited on
+# the page) into this repository, so the site no longer depends on them.
+# Run once from Actions > Fetch hotel photos > Run workflow, BEFORE the
+# domain's DNS is moved away from the old WordPress host.
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download photos
+        run: |
+          mkdir -p assets/img/site assets/img/meetings assets/img/walk
+          ok=0; fail=0
+          get() {
+            for host in https://www.brandonhallhotelandspa.com https://brandonhallhotelandspa.com; do
+              if curl -fsSL --max-time 60 "$host/wp-content/uploads/$1" -o "$2"; then echo "OK   $2"; ok=$((ok+1)); return; fi
+            done
+            echo "FAIL $2"; fail=$((fail+1)); rm -f "$2"
+          }
+          ext() {
+            if curl -fsSL --max-time 60 "$1" -o "$2"; then echo "OK   $2"; ok=$((ok+1)); else echo "FAIL $2"; fail=$((fail+1)); rm -f "$2"; fi
+          }
+          get 2025/09/1758893100-1000x667.png assets/img/meetings/meeting-1.png
+          get 2025/09/1758893782-1000x757.png assets/img/meetings/meeting-2.png
+          get 2025/09/1758893922-1000x757.png assets/img/meetings/meeting-3.png
+          get 2025/09/brandon-hall-hotel-spa-warwickshire-brandon-warwickshire-pic-4-1000x750.jpeg assets/img/meetings/meeting-4.jpeg
+          get 2025/09/brandon-hall-hotel-spa-warwickshire-brandon-warwickshire-pic-9-1000x750.jpeg assets/img/meetings/meeting-5.jpeg
+          get 2025/09/brandon-hall-hotel-spa-warwickshire-brandon-warwickshire-pic-5.jpeg assets/img/meetings/meeting-6.jpeg
+          get 2025/09/fef4bddaeaee390da06b932b53ef4857.jpg assets/img/site/dine-cocktail.jpg
+          get 2025/09/68027_18010908440060921672.jpg assets/img/site/dine-restaurant.jpg
+          get 2025/09/809d258c6222a6af236ab8c0521abf6a.jpg assets/img/site/dine-steak.jpg
+          get 2025/09/38ae6766b4595803c8c492be14d4e6c8.jpg assets/img/site/dine-tea.jpg
+          get 2026/09/218517847-1000x750.jpg assets/img/site/leisure-fitness.jpg
+          get 2026/09/96137361-1000x667.jpg assets/img/site/leisure-gym.jpg
+          get 2026/09/17685405-1000x665.jpg assets/img/site/leisure-pool.jpg
+          get 2025/11/iStock-184639439-1000x756.jpg assets/img/site/out-compton-verney.jpg
+          get 2025/11/iStock-1456041071-1000x750.jpg assets/img/site/out-countryside.jpg
+          get 2025/11/kenilworhero-1000x521.jpg assets/img/site/out-kenilworth.jpg
+          get 2025/11/iStock-148521984-1000x669.jpg assets/img/site/out-stratford.jpg
+          get 2025/11/wars-of-the-roses-jousting.webp assets/img/site/out-warwick-castle.webp
+          C="https://commons.wikimedia.org/wiki/Special:FilePath"
+          ext "https://s0.geograph.org.uk/geophotos/02/00/26/2002679_3adee2e3.jpg" assets/img/walk/twelve-oclock-ride.jpg
+          ext "$C/The_drive,_Coombe_Park_-_geograph.org.uk_-_920007.jpg?width=800" assets/img/walk/coombe-drive.jpg
+          ext "$C/The_approach_to_Coombe_Abbey_-_geograph.org.uk_-_1232122.jpg?width=800" assets/img/walk/coombe-approach.jpg
+          ext "$C/Lake,_Coombe_Abbey_-_geograph.org.uk_-_190502.jpg?width=800" assets/img/walk/coombe-lake.jpg
+          ext "$C/Ducks_on_the_lake_at_Coombe_Abbey_Country_Park_-_geograph.org.uk_-_1478533.jpg?width=800" assets/img/walk/coombe-ducks.jpg
+          ext "$C/The_visitor_centre_at_Coombe_Country_Park_-_geograph.org.uk_-_1232125.jpg?width=800" assets/img/walk/coombe-visitor-centre.jpg
+          ext "$C/Farmland_by_Coombe_Abbey_park_-_geograph.org.uk_-_2480146.jpg?width=800" assets/img/walk/coombe-farmland.jpg
+          echo "Downloaded $ok, failed $fail"
+          echo "### Photos downloaded: $ok, failed: $fail" >> "$GITHUB_STEP_SUMMARY"
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898341+github-actions[bot]@users.noreply.github.com"
+          git add assets/img
+          git diff --cached --quiet && echo "Nothing new to commit" || (git commit -m "Copy hotel photos into the site" && git push)
