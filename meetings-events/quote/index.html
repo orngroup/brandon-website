@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your event quote | Brandon Hall Hotel and Spa</title>
+<meta name="description" content="Your event specification and quote request from Brandon Hall Hotel and Spa, with your room plan, to view, share or download as a PDF.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#2C3E50">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Brandon Hall Hotel and Spa">
+<meta property="og:locale" content="en_GB">
+<meta property="og:title" content="Your event quote | Brandon Hall Hotel and Spa">
+<meta property="og:description" content="Your event specification and room plan, ready to view or download as a PDF.">
+<meta property="og:image" content="https://www.brandonhallhotelandspa.com/assets/img/share/meetings.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/brand/apple-touch-icon.png?v=2">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/brand/favicon-32.png?v=2">
+<link rel="icon" type="image/png" sizes="64x64" href="../../assets/brand/favicon.png?v=2">
+<style>
+@font-face{font-family:Italiana;src:url(../../assets/fonts/italiana-latin-400-normal.woff2) format("woff2");font-display:swap}
+@font-face{font-family:Lato;src:url(../../assets/fonts/lato-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:Lato;src:url(../../assets/fonts/lato-latin-700-normal.woff2) format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:Lato;src:url(../../assets/fonts/lato-latin-400-italic.woff2) format("woff2");font-style:italic;font-display:swap}
+:root{--navy:#2C3E50;--gold:#BB9979;--ink:#2a3644;--muted:#5f6b78;--line:#e4ddd2;--paper:#f4f1ec}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.55 Lato,system-ui,sans-serif}
+a{color:var(--navy)}
+.tools{position:sticky;top:0;z-index:5;background:var(--navy);color:#fff;padding:10px 16px}
+.tools .in{max-width:794px;margin:0 auto;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.tools .lbl{font-size:13px;opacity:.85;margin-right:auto}
+.tools button,.tools a.b{font:700 13px Lato,sans-serif;letter-spacing:.04em;border:1px solid var(--gold);background:transparent;color:#fff;padding:9px 14px;border-radius:2px;cursor:pointer;text-decoration:none}
+.tools button.pri{background:var(--gold);color:var(--navy)}
+.tools button:disabled{opacity:.6;cursor:wait}
+.sheet{max-width:794px;margin:24px auto;background:#fff;box-shadow:0 2px 18px rgba(0,0,0,.08)}
+.doc{padding:44px 52px 36px}
+.hd{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;border-bottom:2px solid var(--gold);padding-bottom:18px}
+.hd img{width:150px;height:auto}
+.hd .meta{text-align:right;font-size:13px;color:var(--muted)}
+.hd .meta b{display:block;font-size:15px;color:var(--navy);letter-spacing:.06em}
+h1{font:400 34px/1.15 Italiana,Georgia,serif;color:var(--navy);margin:26px 0 4px}
+.sub{color:var(--muted);margin:0 0 22px}
+h2{font:700 12px Lato,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin:26px 0 10px}
+table.spec{width:100%;border-collapse:collapse}
+table.spec th,table.spec td{text-align:left;vertical-align:top;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+table.spec th{width:34%;font-weight:400;font-style:italic;color:var(--muted);padding-right:14px}
+table.spec td{font-weight:700;color:var(--navy)}
+.plan{border:1px solid var(--line);padding:14px;background:#fbf9f5}
+.plan svg{width:100%;height:auto;display:block;max-height:300px}
+.plan p{margin:8px 0 0;font-size:13px;color:var(--muted)}
+.price{display:flex;justify-content:space-between;align-items:baseline;gap:16px;background:var(--navy);color:#fff;padding:16px 20px}
+.price .p{font:400 28px Italiana,Georgia,serif;color:#fff;white-space:nowrap}
+.price small{display:block;color:#d9c7ae;font-size:13px}
+.note{font-size:13px;color:var(--muted)}
+.steps{margin:0;padding-left:20px;font-size:14px}
+.steps li{margin:4px 0}
+.ft{margin-top:28px;padding-top:14px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.empty{max-width:640px;margin:60px auto;background:#fff;padding:36px;text-align:center}
+.pb{break-inside:avoid;page-break-inside:avoid}
+@media (max-width:640px){.doc{padding:26px 18px}.hd{flex-direction:column}.hd .meta{text-align:left}.sheet{margin:0}h1{font-size:28px}table.spec th{width:40%}}
+@media print{
+  body{background:#fff}.tools{display:none}.sheet{box-shadow:none;margin:0;max-width:none}
+  .doc{padding:0}
+  @page{size:A4;margin:14mm}
+}
+/* Fixed A4 width while the PDF is generated, whatever the screen size */
+.pdf-mode .sheet{width:794px;max-width:none;margin:0 !important;box-shadow:none}
+.pdf-mode .tools{display:none}
+.pdf-mode .plan img{max-height:220px;width:auto !important;margin:0 auto}
+.pdf-mode h1{margin-top:18px}.pdf-mode h2{margin:18px 0 8px}.pdf-mode table.spec th,.pdf-mode table.spec td{padding:7px 0}
+.pdf-mode .doc{padding:40px 48px 30px}
+.pdf-mode .hd{flex-direction:row}.pdf-mode .hd .meta{text-align:right}
+</style>
+</head>
+<body>
+<div class="tools" id="tools" hidden>
+  <div class="in">
+    <span class="lbl" id="t-lbl">Your event quote</span>
+    <button type="button" class="pri" id="b-pdf">Download PDF</button>
+    <button type="button" id="b-print">Print</button>
+    <button type="button" id="b-copy">Copy link</button>
+  </div>
+</div>
+
+<main id="main"></main>
+
+<script src="../../assets/js/venue-data.js"></script>
+<script src="../../assets/js/floorplan.js"></script>
+<script src="../../assets/js/quote-link.js"></script>
+<script>
+(function () {
+  var C = window.BH_CONFIG, ROOMS = window.BH_ROOMS, LAYOUTS = window.BH_LAYOUTS, TYPES = window.BH_EVENT_TYPES, PKGS = window.BH_PACKAGES;
+  var byId = function (l, id) { return (l || []).find(function (x) { return x.id === id; }); };
+  var esc = function (s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); };
+  var main = document.getElementById("main");
+  var S = window.bhQuoteRead();
+
+  if (!S) {
+    main.innerHTML = '<div class="empty"><img src="../../assets/brand/logo-navy.svg" alt="Brandon Hall Hotel and Spa" width="150"><h1>Quote not found</h1>' +
+      '<p class="sub">This link looks incomplete. Please check you copied the whole link, or plan your event again.</p>' +
+      '<p><a href="../planner/">Open the event planner</a> or call us on <a href="tel:+442477102555">' + esc(C.phone) + '</a>.</p></div>';
+    return;
+  }
+
+  var t = byId(TYPES, S.type) || { label: "Event", layouts: [] };
+  var room = byId(ROOMS, S.room), lay = byId(LAYOUTS, S.layout) || { label: "" }, pkg = byId(PKGS, S.pkg) || { name: "To advise" };
+  var guests = +S.guests || 0, days = +S.days || 1;
+  var names = function (list, ids) { return (ids || []).map(function (id) { var x = byId(list, id); return x ? x.name : id; }); };
+  var fmtDate = function (iso, withDay) {
+    if (!iso) return "";
+    var d = new Date(iso.length <= 10 ? iso + "T12:00:00" : iso);
+    return d.toLocaleDateString("en-GB", withDay ? { weekday: "long", day: "numeric", month: "long", year: "numeric" } : { day: "numeric", month: "long", year: "numeric" });
+  };
+
+  var rows = [
+    ["Event", t.label],
+    ["Date", S.date ? fmtDate(S.date, true) + (days > 1 ? ", for " + days + " days" : "") : "To be confirmed"],
+    ["Guests", guests],
+    ["Room", room ? room.name + ", " + lay.label.toLowerCase() + " layout" : "Our events team will advise"],
+    ["Package", pkg.name]
+  ];
+  if (S.catering && S.catering.length) rows.push(["Food and drink", names(window.BH_CATERING, S.catering).join(", ")]);
+  if (S.extras && S.extras.length) rows.push(["Extras", names(window.BH_EXTRAS, S.extras).map(function (n, i) {
+    return S.extras[i] === "breakout" && byId(ROOMS, S.breakoutRoom) ? n + " (" + byId(ROOMS, S.breakoutRoom).name + ")" : n; }).join(", ")]);
+  if (S.stay) rows.push(["Bedrooms", S.bedrooms + " rooms × " + S.nights + (S.nights > 1 ? " nights" : " night") + (S.arrival ? " from " + fmtDate(S.arrival) : "") +
+    "; " + (S.singles || 0) + " single, " + (S.doubles || 0) + " double, " + (S.twins || 0) + " twin; " + (S.board === "dbb" ? "dinner, bed and breakfast" : "bed and breakfast")]);
+  else if (S.pkg === "24hr") rows.push(["Bedrooms", "Included in the 24-hour package"]);
+  if (S.notes) rows.push(["Your notes", S.notes]);
+
+  var plan = room && room.cap && room.cap[S.layout] ? window.bhPlan(room, S.layout, Math.min(guests, room.cap[S.layout])) : "";
+  var gp = window.bhGuidePrice(S);
+  var who = [S.name, S.company].filter(Boolean).join(", ");
+
+  main.innerHTML =
+    '<div class="sheet" id="sheet"><div class="doc">' +
+      '<div class="hd"><img src="../../assets/brand/logo-navy.svg" alt="Brandon Hall Hotel and Spa">' +
+        '<div class="meta"><b>' + esc(S.ref || "") + '</b>Requested ' + esc(fmtDate(S.ts)) + '</div></div>' +
+      '<h1>Your ' + esc(t.label.toLowerCase()) + ' at Brandon Hall</h1>' +
+      '<p class="sub">' + (who ? "Prepared for " + esc(who) + ". " : "") + 'Thank you for planning your event with us. Here is the specification you sent our events team.</p>' +
+      '<h2>Your event</h2>' +
+      '<table class="spec">' + rows.map(function (r) { return '<tr class="pb"><th scope="row">' + esc(r[0]) + '</th><td>' + esc(r[1]) + '</td></tr>'; }).join("") + '</table>' +
+      (plan ? '<div class="pb"><h2>Your room plan</h2><div class="plan">' + plan + '<p>' + esc(room.name) + ', ' + esc(lay.label.toLowerCase()) + ' for ' + guests + ' guests. Drawn to the room\'s measurements; our events team confirms the final layout.</p></div></div>' : '') +
+      '<div class="pb"><h2>Price</h2><div class="price"><div>' + (gp ? 'Guide price<small>' + esc(gp.suffix) + '. Your exact price depends on your date and final choices.</small>' : 'Prices on request<small>Our events team will send you a tailored, fully priced proposal.</small>') + '</div>' +
+        '<div class="p">' + (gp ? 'from ' + esc(gp.price) : '') + '</div></div></div>' +
+      '<div class="pb"><h2>What happens next</h2><ol class="steps">' +
+        '<li>Our events team checks availability for your date and room.</li>' +
+        '<li>We send you a fully priced proposal.</li>' +
+        '<li>Once you are happy, we hold the date for you provisionally.</li></ol>' +
+        '<p class="note">Please quote <b>' + esc(S.ref || "") + '</b> when you contact us: <a href="tel:+442477102555">' + esc(C.phone) + '</a> or <a href="mailto:' + esc(C.eventsEmail) + '?subject=' + encodeURIComponent("Event quote " + (S.ref || "")) + '">' + esc(C.eventsEmail) + '</a>.</p></div>' +
+      '<div class="ft"><span>' + esc(C.hotelName) + ', Main Street, Brandon, near Coventry CV8 3FW</span><span>www.brandonhallhotelandspa.com</span></div>' +
+    '</div></div>';
+
+  document.getElementById("tools").hidden = false;
+  document.getElementById("t-lbl").textContent = "Quote " + (S.ref || "");
+  document.title = "Event quote " + (S.ref || "") + " | Brandon Hall Hotel and Spa";
+
+  document.getElementById("b-print").onclick = function () { window.print(); };
+  document.getElementById("b-copy").onclick = function () {
+    var b = this;
+    (navigator.clipboard ? navigator.clipboard.writeText(location.href) : Promise.reject()).then(function () { b.textContent = "Link copied"; }, function () { prompt("Copy this link:", location.href); });
+  };
+
+  var pdfLib = null;
+  function loadPdf() {
+    if (window.html2pdf) return Promise.resolve();
+    if (pdfLib) return pdfLib;
+    pdfLib = new Promise(function (res, rej) { var s = document.createElement("script"); s.src = "../../assets/js/vendor/html2pdf.bundle.min.js"; s.onload = res; s.onerror = rej; document.head.appendChild(s); });
+    return pdfLib;
+  }
+  window.bhQuotePdf = function () {
+    var b = document.getElementById("b-pdf"); b.disabled = true; b.textContent = "Preparing PDF…";
+    var done = function () { document.documentElement.classList.remove("pdf-mode"); b.disabled = false; b.textContent = "Download PDF"; };
+    // html2canvas draws inline SVG unreliably, so swap the room plan for a picture first.
+    function svgToImg() {
+      var svg = document.querySelector("#sheet .plan svg");
+      if (!svg || svg.dataset.done) return Promise.resolve();
+      return new Promise(function (res) {
+        var vb = (svg.getAttribute("viewBox") || "0 0 800 300").split(/[ ,]+/).map(Number);
+        var w = 1400, h = Math.round(w * vb[3] / vb[2]);
+        var clone = svg.cloneNode(true); clone.setAttribute("width", w); clone.setAttribute("height", h);
+        clone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+        var img = new Image();
+        img.onload = function () {
+          var c = document.createElement("canvas"); c.width = w; c.height = h;
+          var x = c.getContext("2d"); x.fillStyle = "#fbf9f5"; x.fillRect(0, 0, w, h); x.drawImage(img, 0, 0, w, h);
+          var out = new Image(); out.src = c.toDataURL("image/png"); out.alt = "Room plan";
+          out.style.cssText = "width:100%;height:auto;display:block";
+          out.onload = function () { svg.dataset.done = 1; svg.style.display = "none"; svg.parentNode.insertBefore(out, svg); res(); };
+        };
+        img.onerror = function () { res(); };
+        img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(new XMLSerializer().serializeToString(clone));
+      });
+    }
+    return loadPdf().then(svgToImg).then(function () {
+      window.scrollTo(0, 0);
+      document.documentElement.classList.add("pdf-mode");
+      return html2pdf().set({
+        margin: [8, 0, 8, 0],
+        filename: "Brandon-Hall-event-quote-" + (S.ref || "quote") + ".pdf",
+        image: { type: "jpeg", quality: 0.95 },
+        html2canvas: { scale: 2, useCORS: true, backgroundColor: "#ffffff", scrollX: 0, scrollY: 0 },
+        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+        pagebreak: { mode: ["css"], avoid: [".pb", "tr"] }
+      }).from(document.getElementById("sheet")).save();
+    }).then(done, function (e) { console.warn("PDF failed, printing instead", e); done(); window.print(); });
+  };
+  document.getElementById("b-pdf").onclick = window.bhQuotePdf;
+  if (/[?&]download=1/.test(location.search)) setTimeout(window.bhQuotePdf, 600);
+})();
+</script>
+</body>
+</html>

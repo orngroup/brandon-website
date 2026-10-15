@@ -281,6 +281,7 @@
   }
 
   /* ---------- Send to HOSPRO (Firestore) ---------- */
+  var QREF = "", QLINK = "";
   function loadScript(src) {
     return new Promise(function (res, rej) {
       if (document.querySelector('script[src="' + src + '"]')) return res();
@@ -318,6 +319,7 @@
       carbonKg: c ? c.total : null,
       notes: notes,
       summary: body,
+      webQuoteRef: QREF, webQuoteLink: QLINK,
       source: "Website",
       status: "new",
       created: new Date().toISOString()
@@ -378,7 +380,9 @@
     ["name", "company", "email", "phone", "notes", "source"].forEach(function (k) { var el = $("#p-" + k); if (el) S[k] = el.value.trim(); });
     var errs = validate();
     if (errs.length) { $("#" + errs[0]).focus(); return; }
-    var body = specText();
+    QREF = window.bhQuoteRef();
+    QLINK = window.bhQuoteLink(S, QREF);
+    var body = specText() + "\n\nQuote reference: " + QREF + "\nView or download the quote: " + QLINK;
     var done = $("#p-done");
     var btn = $("#p-submit");
 
@@ -386,37 +390,26 @@
     $("#p-send-err").textContent = "";
     if ($("#p-website").value) { showDone(true); return; } // spam trap
 
-    // Email the full specification to the events team and save it to HOSPRO.
-    // Success if either gets through; never opens the visitor's email program.
-    var t = byId(TYPES, S.type), room = byId(ROOMS, S.room), lay = byId(LAYOUTS, S.layout), c = carbon();
-    var fields = {
-      "Event": t.label,
-      "Date": dateText(),
-      "Guests": String(S.guests),
-      "Room": (room ? room.name : "To advise") + ", " + lay.label + " layout",
-      "Package": byId(PKGS, S.pkg).name,
-      "Food and drink": S.catering.length ? names(window.BH_CATERING, S.catering).join(", ") : "None selected",
-      "Extras": S.extras.length ? names(window.BH_EXTRAS, S.extras).join(", ") + (S.extras.indexOf("breakout") > -1 && byId(ROOMS, S.breakoutRoom) ? " (breakout: " + byId(ROOMS, S.breakoutRoom).name + ")" : "") : "None selected",
-      "Bedrooms": S.stay ? S.bedrooms + " rooms × " + S.nights + (S.nights > 1 ? " nights" : " night") + (S.arrival ? " from " + S.arrival : "") + "; " + S.singles + " single, " + S.doubles + " double, " + S.twins + " twin; " + (S.board === "dbb" ? "dinner, bed and breakfast" : "bed and breakfast") : (S.pkg === "24hr" ? "Included in 24-hour package" : "Not required"),
-      "Name": S.name, "Company": S.company || "–", "Email": S.email, "Phone": S.phone || "–",
-      "Notes": S.notes || "–", "Heard about us": S.source || "–",
-      "Estimated footprint": c ? c.total + " kg CO2e" : "–"
-    };
-    var subject = "Event enquiry: " + t.label + ", " + S.guests + " guests" + (S.date ? ", " + S.date : "") + " (" + S.name + ")";
-    var auto = "Thank you for your enquiry to " + C.hotelName + ". Our events team has your specification and will be in touch with a tailored proposal.";
-    var results = [
-      window.bhSendForm("events", subject, S.email, fields, auto).then(function () { return true; }, function () { return false; }),
-      sendToHospro(body).then(function () { return true; }, function (err) { console.warn("HOSPRO not reached:", err && err.message); return false; })
-    ];
-    Promise.all(results).then(function (r) {
-      if (r[0] || r[1]) showDone(true);
-      else $("#p-send-err").textContent = window.bhSendError(C);
-    }).then(function () { btn.disabled = false; btn.textContent = "Request my quote"; });
+    // Save the enquiry straight into HOSPRO (no email step, so nothing can hold it up).
+    // The guest always leaves with their quote link and reference.
+    function save(tries) {
+      return sendToHospro(body).then(function () { return true; }, function (err) {
+        console.warn("HOSPRO not reached:", err && err.message);
+        return tries > 1 ? new Promise(function (r) { setTimeout(r, 1500); }).then(function () { return save(tries - 1); }) : false;
+      });
+    }
+    save(2).then(function (ok) { showDone(ok); })
+      .then(function () { btn.disabled = false; btn.textContent = "Request my quote"; });
 
     function showDone(sent) {
-      $("#p-done-title").textContent = "Thank you, your request has been sent";
-      $("#p-done-text").textContent = "It's with our events team now, and they'll be in touch with a tailored proposal. A copy of your specification is below for your records.";
-      $("#p-done-copy").textContent = body;
+      $("#p-done-title").textContent = "Thank you, here is your quote";
+      $("#p-done-text").textContent = sent !== false
+        ? "Your request is with our events team, and they'll be in touch with a tailored proposal. Download your quote below, or keep the link to view and share it later."
+        : "Download your quote below. We couldn't pass it to our events team automatically just now, so please call us on " + C.phone + " and quote your reference.";
+      $("#p-done-copy").textContent = specText();
+      $("#p-done-ref").innerHTML = "Your quote reference is <strong>" + QREF + "</strong>. Keep it handy if you contact us.";
+      $("#p-quote-view").href = QLINK;
+      $("#p-quote-pdf").href = QLINK + "&download=1";
       done.hidden = false; done.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   });
