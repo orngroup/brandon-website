@@ -56,7 +56,8 @@ window.BH_CONFIG = {
     reservations: "reservations@brandonhallhotelandspa.com",   // contact form (stays, dining, other) and table bookings
     events: "events@brandonhallhotelandspa.com",               // event planner, weddings, meetings, Christmas and celebrations
     corporate: "events@brandonhallhotelandspa.com",            // Corporate Stays rate requests
-    groups: "events@brandonhallhotelandspa.com"                // Group Tours enquiries
+    groups: "events@brandonhallhotelandspa.com",               // Group Tours enquiries
+    careers: "laith.hardy@brandonhallhotelandspa.com"          // Careers page: job applications with CV attached
   },
   formEndpoint: "https://formsubmit.co/ajax/",
 

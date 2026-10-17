@@ -814,3 +814,27 @@ fieldset.days legend { font-weight: 700; font-size: .9rem; margin-bottom: 8px; }
 @media (max-width: 980px) { .work-grid { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 520px) { .work-grid { grid-template-columns: 1fr; } .work-grid .path { min-height: 220px; } }
 .done .quote-ref { color: #fff; } .done .quote-ref strong { letter-spacing: .06em; }
+
+/* Careers */
+.jobs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 30px; }
+.job { background: var(--beige-light); display: flex; flex-direction: column; }
+.job figure { margin: 0; aspect-ratio: 4 / 3; overflow: hidden; }
+.job figure img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.job .jb { padding: 20px 22px 24px; display: flex; flex-direction: column; flex: 1; }
+.job h3 { margin: 0 0 .35em; }
+.job p { font-size: .95rem; color: var(--ink-soft); margin: 0 0 12px; }
+.job .ticks { margin: 0 0 18px; font-size: .95rem; }
+.job .btn { margin-top: auto; align-self: flex-start; }
+.job--any { background: var(--navy); color: #fff; }
+.job--any h3 { color: #fff; }
+.job--any p { color: #D6DEE5; }
+.job--any .jb { justify-content: center; }
+.perks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 28px; background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.18); }
+.perk { background: var(--navy); padding: 26px 24px; }
+.perk h3 { color: #fff; margin: 0 0 .35em; }
+.perk p { color: #D6DEE5; margin: 0; font-size: .97rem; }
+.cv-done { background: var(--navy); color: #fff; padding: 34px clamp(22px, 3vw, 36px); }
+.cv-done h3 { color: #fff; margin-top: 0; }
+.cv-done p { color: #E3E8EC; }
+@media (max-width: 1080px) { .jobs { grid-template-columns: repeat(2, 1fr); } .perks { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .jobs, .perks { grid-template-columns: 1fr; } }
