@@ -838,3 +838,28 @@ fieldset.days legend { font-weight: 700; font-size: .9rem; margin-bottom: 8px; }
 .cv-done p { color: #E3E8EC; }
 @media (max-width: 1080px) { .jobs { grid-template-columns: repeat(2, 1fr); } .perks { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 600px) { .jobs, .perks { grid-template-columns: 1fr; } }
+
+/* Christmas competition */
+.comp { max-width: 860px; }
+.quiz { margin-top: 26px; display: grid; gap: 18px; }
+.qq { border: 0; margin: 0; padding: 20px 22px; background: var(--white); border-left: 4px solid var(--beige); }
+.qq.ok { border-left-color: #2e7d4f; }
+.qq.no { border-left-color: var(--burnt); }
+.qq legend { float: left; width: 100%; padding: 0; margin: 0 0 12px; font-weight: 700; color: var(--navy); display: flex; gap: 12px; align-items: baseline; }
+.qn { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 28px; height: 28px; border-radius: 50%; background: var(--navy); color: #fff; font-size: .85rem; }
+.qa { clear: both; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.qopt { display: flex; gap: 10px; align-items: center; padding: 10px 12px; border: 1px solid var(--rule); cursor: pointer; background: var(--beige-light); }
+.qopt:hover { border-color: var(--gold); }
+.qopt input { accent-color: var(--navy); width: 18px; height: 18px; flex: 0 0 18px; }
+.qhint { margin: 10px 0 0; font-size: .92rem; color: var(--burnt); }
+.qq.ok .qhint { display: none; }
+.comp-entry { margin-top: 28px; padding: 28px clamp(20px, 3vw, 34px); background: var(--white); border-top: 3px solid var(--gold); }
+.comp-entry h3 { margin-top: 0; }
+.comp-done { margin-top: 28px; background: var(--navy); color: #E3E8EC; padding: 34px clamp(22px, 3vw, 36px); }
+.comp-done h3 { color: #fff; margin-top: 0; }
+.share-row .btn { margin-bottom: 6px; }
+.terms-text ol { padding-left: 1.2em; }
+.terms-text li { margin: 0 0 .6em; font-size: .95rem; color: var(--ink-soft); }
+.comp-banner { background: var(--burnt); color: #fff; text-align: center; padding: 12px 16px; font-weight: 700; }
+.comp-banner a { color: #fff; }
+@media (max-width: 600px) { .qa { grid-template-columns: 1fr; } }
