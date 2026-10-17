@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Take a tour | Brandon Hall Hotel and Spa</title>
+<meta name="description" content="Take a virtual tour of Brandon Hall Hotel and Spa: walk from the front entrance through reception, the bar, The Clarendon, bedrooms, pool, event suites and gardens.">
+<meta name="theme-color" content="#2C3E50">
+<link rel="canonical" href="https://www.brandonhallhotelandspa.com/tour/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Brandon Hall Hotel and Spa">
+<meta property="og:locale" content="en_GB">
+<meta property="og:url" content="https://www.brandonhallhotelandspa.com/tour/">
+<meta property="og:title" content="Take a tour | Brandon Hall Hotel and Spa">
+<meta property="og:description" content="Take a virtual tour of Brandon Hall Hotel and Spa: walk from the front entrance through reception, the bar, The Clarendon, bedrooms, pool, event suites and gardens.">
+<meta property="og:image" content="https://www.brandonhallhotelandspa.com/assets/img/share/tour.jpg">
+<meta property="og:image:secure_url" content="https://www.brandonhallhotelandspa.com/assets/img/share/tour.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Take a tour of Brandon Hall Hotel and Spa">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Take a tour | Brandon Hall Hotel and Spa">
+<meta name="twitter:description" content="Take a virtual tour of Brandon Hall Hotel and Spa: walk from the front entrance through reception, the bar, The Clarendon, bedrooms, pool, event suites and gardens.">
+<meta name="twitter:image" content="https://www.brandonhallhotelandspa.com/assets/img/share/tour.jpg">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/brand/apple-touch-icon.png?v=2">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/brand/favicon-32.png?v=2">
+<link rel="icon" type="image/png" sizes="64x64" href="../assets/brand/favicon.png?v=2">
+<link rel="preload" href="../assets/fonts/italiana-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/site.css">
+<style>
+html,body{height:100%;margin:0;background:#1d2a36;overflow:hidden}
+.tour{position:fixed;inset:0;color:#fff;font-family:var(--body,Lato,sans-serif)}
+#t-stage{position:absolute;inset:0;overflow:hidden;background:#1d2a36}
+#t-bg{position:absolute;inset:-40px;background-size:cover;background-position:center;filter:blur(30px) brightness(.55)}
+#t-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.04);transition:opacity .6s ease,transform 7s ease-out}
+#t-stage.in #t-img{opacity:1;transform:scale(1)}
+#t-stage.walking #t-img{transition:transform .55s cubic-bezier(.5,0,.7,.4),opacity .5s ease .1s;transform:scale(1.9);opacity:0}
+#t-stage::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(20,30,40,.55) 0%,rgba(20,30,40,0) 22%,rgba(20,30,40,0) 55%,rgba(20,30,40,.75) 100%)}
+#t-spots{position:absolute;inset:0;z-index:3;opacity:0;transition:opacity .4s ease .3s;pointer-events:none}
+#t-stage.in.has-spots~#t-spots{opacity:1;pointer-events:auto}
+.t-spot{position:absolute;transform:translate(-15px,-50%);background:none;border:0;padding:0;cursor:pointer;display:flex;align-items:center;gap:10px;color:#fff}
+.t-spot .dot{width:30px;height:30px;border-radius:50%;background:rgba(201,174,120,.95);box-shadow:0 0 0 6px rgba(201,174,120,.35),0 4px 14px rgba(0,0,0,.45);position:relative;flex:0 0 30px}
+.t-spot .dot::before{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid rgba(255,255,255,.9);animation:ping 2s ease-out infinite}
+.t-spot .dot::after{content:"";position:absolute;left:50%;top:50%;width:9px;height:9px;border-top:2.5px solid #23313e;border-right:2.5px solid #23313e;transform:translate(-65%,-50%) rotate(45deg)}
+@keyframes ping{0%{transform:scale(.8);opacity:1}100%{transform:scale(1.8);opacity:0}}
+.t-spot .lab{background:rgba(29,42,54,.88);padding:8px 13px;font:700 .9rem/1.2 var(--body,Lato,sans-serif);letter-spacing:.03em;white-space:nowrap;border-left:3px solid #C9AE78;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+.t-spot.lab-left{flex-direction:row-reverse;transform:translate(calc(-100% + 15px),-50%)}.t-spot.lab-left .lab{border-left:0;border-right:3px solid #C9AE78}
+.t-spot:hover .dot,.t-spot:focus-visible .dot{background:#fff}
+.t-top{position:absolute;left:0;right:0;top:0;z-index:5;display:flex;align-items:center;gap:14px;padding:16px clamp(16px,3vw,32px)}
+.t-top .logo img{height:52px;display:block}
+.t-top .sp{flex:1}
+.t-btn{background:rgba(29,42,54,.75);color:#fff;border:1px solid rgba(255,255,255,.35);padding:10px 16px;font:700 .85rem var(--body,Lato,sans-serif);letter-spacing:.06em;text-transform:uppercase;cursor:pointer;text-decoration:none;backdrop-filter:blur(4px)}
+.t-btn:hover{border-color:#C9AE78}
+#t-map{position:absolute;right:clamp(16px,3vw,32px);top:84px;z-index:6;background:rgba(29,42,54,.96);border:1px solid rgba(201,174,120,.5);padding:10px;display:grid;gap:2px;min-width:230px;max-height:70vh;overflow:auto}
+#t-map[hidden]{display:none}
+.t-map-h{margin:4px 8px 6px;color:#C9AE78;font:700 .75rem var(--body);letter-spacing:.2em;text-transform:uppercase}
+#t-map button{background:none;border:0;color:#E3E8EC;text-align:left;padding:8px 10px;font:400 .95rem var(--body);cursor:pointer}
+#t-map button:hover,#t-map button[aria-current=true]{background:rgba(201,174,120,.18);color:#fff}
+#t-panel{position:absolute;left:clamp(16px,3vw,32px);bottom:clamp(16px,3vw,28px);z-index:4;max-width:460px;background:rgba(29,42,54,.9);border-top:3px solid #C9AE78;padding:20px 22px 18px;box-shadow:0 10px 30px rgba(0,0,0,.4);backdrop-filter:blur(4px)}
+#t-panel .k{font:700 .74rem var(--body);letter-spacing:.24em;text-transform:uppercase;color:#C9AE78;display:flex;justify-content:space-between;gap:10px}
+#t-panel .k button{background:none;border:0;color:#C9D2DA;font:700 .74rem var(--body);letter-spacing:.12em;text-transform:uppercase;cursor:pointer;padding:0}
+#t-name{font-family:var(--display);font-weight:400;font-size:clamp(1.7rem,3vw,2.3rem);line-height:1.1;margin:8px 0 6px;color:#fff}
+#t-text{margin:0;color:#DDE3E8;font-size:.98rem;line-height:1.55}
+#t-thumbs{display:flex;gap:6px;margin-top:14px;flex-wrap:wrap}
+#t-thumbs button{width:62px;height:44px;padding:0;border:2px solid transparent;cursor:pointer;background:#000;opacity:.7}
+#t-thumbs button[aria-current=true]{border-color:#C9AE78;opacity:1}
+#t-thumbs img{width:100%;height:100%;object-fit:cover;display:block}
+#t-cta{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+#t-cta .btn{padding:10px 16px;font-size:.85rem}
+#t-panel.min #t-text,#t-panel.min #t-thumbs,#t-panel.min #t-cta{display:none}
+.t-nav{position:absolute;right:clamp(16px,3vw,32px);bottom:clamp(16px,3vw,28px);z-index:4;display:flex;gap:8px}
+.t-nav .t-btn{padding:12px 18px}
+#t-intro{position:fixed;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;text-align:center;background:#1d2a36 url(../assets/img/exterior-lawn.jpg) center/cover;transition:opacity .6s ease}
+#t-intro::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(29,42,54,.35),rgba(29,42,54,.8))}
+#t-intro.gone{opacity:0}
+#t-intro .in{position:relative;max-width:720px;padding:0 24px}
+#t-intro img{width:150px;margin:0 auto 22px;display:block}
+#t-intro .kk{font:700 .85rem var(--body);letter-spacing:.32em;text-transform:uppercase;color:#C9AE78}
+#t-intro h1{font-family:var(--display);font-weight:400;font-size:clamp(2.4rem,6vw,4.4rem);line-height:1.05;margin:12px 0 14px;color:#fff}
+#t-intro p{color:#E3E8EC;font-size:1.1rem;margin:0 0 26px}
+#t-intro .btn{font-size:1rem;padding:16px 30px}
+#t-intro .back{display:block;margin-top:18px;color:#C9D2DA;font-size:.9rem}
+@media (max-width:700px){
+  .t-top .logo img{height:40px}
+  #t-panel{left:12px;right:12px;bottom:76px;max-width:none;padding:16px}
+  .t-nav{left:12px;right:12px;bottom:14px;justify-content:space-between}
+  .t-nav .t-btn{flex:1;text-align:center}
+  .t-spot .lab{font-size:.8rem;padding:6px 9px}
+  #t-text{font-size:.92rem}
+}
+</style>
+</head>
+<body>
+<div class="tour">
+  <div id="t-intro">
+    <div class="in">
+      <img src="../assets/brand/logo-white.svg" alt="Brandon Hall Hotel and Spa">
+      <div class="kk">Take a tour</div>
+      <h1>Welcome to Brandon Hall Hotel and Spa</h1>
+      <p>Walk through the front door and explore the hotel, from reception, the bar and The Clarendon to our bedrooms, pool, event suites and gardens.</p>
+      <button class="btn btn--book" id="t-start" type="button">Start the tour</button>
+      <a class="back" href="../">Back to the website</a>
+    </div>
+  </div>
+
+  <div id="t-stage"><div id="t-bg"></div><img id="t-img" alt=""></div>
+  <div id="t-spots" aria-label="Places to go next"></div>
+
+  <div class="t-top">
+    <a class="logo" href="../" aria-label="Brandon Hall Hotel and Spa home"><img src="../assets/brand/logo-white.svg" alt="Brandon Hall Hotel and Spa"></a>
+    <span class="sp"></span>
+    <button class="t-btn" id="t-mapbtn" type="button" aria-expanded="false" aria-controls="t-map">All rooms</button>
+    <a class="t-btn" href="../">Exit tour</a>
+  </div>
+  <div id="t-map" hidden></div>
+
+  <section id="t-panel" aria-live="polite">
+    <div class="k"><span id="t-step"></span><button type="button" id="t-hide">Hide</button></div>
+    <h2 id="t-name"></h2>
+    <p id="t-text"></p>
+    <div id="t-thumbs"></div>
+    <div id="t-cta"></div>
+  </section>
+  <div class="t-nav"><button class="t-btn" id="t-prev" type="button">← Back</button><button class="t-btn" id="t-next" type="button">Next stop →</button></div>
+</div>
+<script src="../assets/js/tour.js"></script>
+</body>
+</html>
