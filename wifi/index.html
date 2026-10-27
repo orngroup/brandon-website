@@ -142,8 +142,8 @@ const firebaseConfig = {
    continueUrl: where the guest lands after connecting (hotel website)
    ------------------------------------------------------------------------- */
 const WIFI = {
-  vendor: "none",
-  grantUrl: "",
+  vendor: "unifi",
+  grantUrl: "",            // ← from Quest: http://<UDM guest IP>/guest/s/<site>/login  (page falls back to "You're connected" while blank)
   grantMethod: "POST",
   extraFields: {},
   continueUrl: "https://www.brandonhallhotelandspa.com",
