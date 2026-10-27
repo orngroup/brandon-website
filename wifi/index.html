@@ -50,7 +50,7 @@ input:focus{outline:none;border-color:var(--gold);background:rgba(255,255,255,.1
 details{margin-top:10px;font-size:12px;color:#b8c6d6;line-height:1.5}
 summary{cursor:pointer;color:var(--gold);font-weight:600;list-style:none;text-align:center}
 summary::-webkit-details-marker{display:none}
-details p{margin-top:8px}
+details p{margin-top:8px} details a{color:var(--gold)}
 /* done screen */
 .done{text-align:center;display:none}
 .tick{width:66px;height:66px;border-radius:50%;background:var(--gold);color:var(--navy);display:grid;place-items:center;
@@ -69,8 +69,7 @@ details p{margin-top:8px}
     <div id="form">
       <img class="logo" src="../assets/brand/logo-gold.svg" alt="Brandon Hall Hotel and Spa">
       <div class="eyebrow">GUEST WI-FI</div>
-      <h1>Welcome to Brandon Hall</h1>
-      <p class="sub" id="intro">Enjoy complimentary Wi-Fi during your visit. A few quick details and you're online.</p>
+      <p class="sub" id="intro" style="margin-top:14px">Enjoy complimentary Wi-Fi during your visit. A few quick details and you're online.</p>
 
       <div style="display:grid;grid-template-columns:96px 1fr 1fr;gap:8px;margin-bottom:14px">
         <div><label class="lbl" for="f-title">Title</label>
@@ -104,9 +103,9 @@ details p{margin-top:8px}
       <button class="connect" id="connect">Connect to Wi-Fi</button>
 
       <details id="terms">
-        <summary>Terms of use &amp; privacy</summary>
+        <summary style="display:none">Terms of use &amp; privacy</summary>
         <p><b>Terms of use.</b> This free Wi-Fi is provided for guests and visitors of Brandon Hall Hotel and Spa. Please use it lawfully and considerately; it is not secured, so avoid sending sensitive information over it. We may suspend access for misuse. The service is provided "as is" without guarantee of availability or speed.</p>
-        <p><b>Privacy.</b> Brandon Hall Hotel and Spa stores your name, email address, purpose of visit and the date and time you connected so we can provide the Wi-Fi service and understand who visits us. If you tick the marketing box we will also email you news and offers until you unsubscribe. We don't sell your details. You can ask us to see or delete them at any time by contacting the hotel.</p>
+        <p><b>Privacy.</b> Brandon Hall Hotel and Spa stores your name, email address, purpose of visit and the date and time you connected so we can provide the Wi-Fi service and understand who visits us. If you tick the marketing box we will also email you news and offers until you unsubscribe. We don't sell your details. You can ask us to see or delete them at any time by contacting the hotel. Full policy: <a href="https://www.brandonhallhotelandspa.com/privacy/" target="_blank" rel="noopener">brandonhallhotelandspa.com/privacy</a></p>
       </details>
     </div>
 
