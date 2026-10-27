@@ -214,6 +214,7 @@ async function submit(){
   const name = (firstName+" "+lastName).trim();
   const email = $("#f-email").value.trim().toLowerCase();
   $("#err").style.display = "none";
+  if (!$("#f-title").value)       return showErr("Please choose a title (or 'Prefer not to say').");
   if (firstName.length < 1)       return showErr("Please enter your first name.");
   if (lastName.length < 1)        return showErr("Please enter your last name.");
   if (!emailOk(email))            return showErr("Please enter a valid email address.");
