@@ -80,6 +80,9 @@ details p{margin-top:8px}
       <div class="field"><label class="lbl" for="f-email">Email address</label>
         <input id="f-email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" autocapitalize="none" spellcheck="false"></div>
 
+      <div class="field"><label class="lbl" for="f-town">Town or city you're visiting from <span style="font-weight:400;color:#8ea0b3">(optional)</span></label>
+        <input id="f-town" type="text" autocomplete="address-level2" placeholder="e.g. Coventry" autocapitalize="words"></div>
+
       <div class="field"><label class="lbl">Are you staying with us?</label>
         <div class="seg"><button type="button" id="s-yes" data-v="Staying">Yes, I'm staying</button><button type="button" id="s-no" data-v="Visiting">Just visiting</button></div></div>
 
@@ -218,7 +221,8 @@ async function submit(){
   if (!$("#f-terms").checked)     return showErr("Please accept the terms of use to connect.");
 
   const btn = $("#connect"); btn.disabled = true; btn.textContent = "Connecting…";
-  const rec = { name, firstName, lastName, email, purpose, staying, marketing: $("#f-marketing").checked };
+  const town = $("#f-town").value.trim().slice(0,60);
+  const rec = { name, firstName, lastName, email, purpose, staying, town, marketing: $("#f-marketing").checked };
   await save(rec);
   try { localStorage.setItem("bh_wifi", JSON.stringify({ ...rec, at:new Date().toISOString() })); } catch(e){}
 
@@ -233,7 +237,7 @@ async function submit(){
 async function save(rec){
   const doc = {
     name: rec.name, firstName: rec.firstName||"", lastName: rec.lastName||"",
-    email: rec.email, purpose: rec.purpose, staying: rec.staying||"",
+    email: rec.email, purpose: rec.purpose, staying: rec.staying||"", town: rec.town||"",
     marketing: !!rec.marketing, over18: !!rec.marketing,
     termsAccepted: true,
     consentAt: new Date().toISOString(),
