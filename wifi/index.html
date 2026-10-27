@@ -93,7 +93,8 @@ details p{margin-top:8px}
           <button type="button" data-r="Spa">💆 Spa</button>
           <button type="button" data-r="Restaurant or bar">🍽 Restaurant or bar</button>
           <button type="button" data-r="Wedding or party">🥂 Wedding or party</button>
-          <button type="button" data-r="Meeting or conference" style="grid-column:1/-1">💼 Meeting or conference</button>
+          <button type="button" data-r="Conference or event">🎤 Conference or event</button>
+          <button type="button" data-r="Work">💼 Work</button>
         </div></div>
 
       <label class="chk"><input id="f-terms" type="checkbox"><span>I accept the <a href="#" id="terms-link">terms of use</a> for the guest Wi-Fi. *</span></label>
@@ -224,7 +225,7 @@ async function submit(){
   const town = $("#f-town").value.trim().slice(0,60);
   const title = $("#f-title").value;
   const staying = reason==="Hotel stay" ? "Staying" : "Visiting";
-  const purpose = reason==="Meeting or conference" ? "Business" : reason ? "Leisure" : "";
+  const purpose = (reason==="Conference or event" || reason==="Work") ? "Business" : reason ? "Leisure" : "";
   const rec = { name, title, firstName, lastName, email, reason, purpose, staying, town, marketing: $("#f-marketing").checked };
   await save(rec);
   try { localStorage.setItem("bh_wifi", JSON.stringify({ ...rec, at:new Date().toISOString() })); } catch(e){}
