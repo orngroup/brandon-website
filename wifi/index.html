@@ -111,8 +111,8 @@ details p{margin-top:8px}
   </div>
 </div>
 
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script async src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js" onload="window._fbApp=1"></script>
+<script async src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js" onload="window._fbFs=1"></script>
 <script>
 /* ============================================================
    BRANDON HALL GUEST WI-FI — captive portal welcome page
@@ -154,7 +154,14 @@ const WIFI = {
 const $ = s => document.querySelector(s);
 const qs = Object.fromEntries(new URLSearchParams(location.search).entries());  // whatever the gateway appended
 let db = null;
-try { firebase.initializeApp(firebaseConfig); db = firebase.firestore(); } catch(e){ console.warn("Firebase:", e.message); }
+function getDb(){
+  if (db) return db;
+  try { if (window.firebase && firebase.firestore) { firebase.initializeApp(firebaseConfig); db = firebase.firestore(); } }
+  catch(e){ console.warn("Firebase:", e.message); }
+  return db;
+}
+// Wait (briefly) for the Firebase scripts if they're still arriving.
+function waitForDb(ms){ return new Promise(res=>{ const t0=Date.now(); (function tick(){ if (getDb() || Date.now()-t0>ms) return res(getDb()); setTimeout(tick,150); })(); }); }
 
 let purpose = "", staying = "";
 ["#p-leisure","#p-business"].forEach(id=>{ $(id).onclick = ()=>{
@@ -239,8 +246,9 @@ async function save(rec){
     userAgent: navigator.userAgent.slice(0,200),
     source: "wifi-portal"
   };
-  if (!db || qs.preview) return;          // ?preview=1 = look only, don't record
-  try { await Promise.race([ db.collection("wifi_signups").add(doc), new Promise(r=>setTimeout(r,6000)) ]); }
+  if (qs.preview) return;                 // ?preview=1 = look only, don't record
+  const d = await waitForDb(5000); if (!d) return;
+  try { await Promise.race([ d.collection("wifi_signups").add(doc), new Promise(r=>setTimeout(r,6000)) ]); }
   catch(e){ console.warn("save:", e.message); }
 }
 
