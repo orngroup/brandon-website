@@ -142,9 +142,9 @@ const firebaseConfig = {
    continueUrl: where the guest lands after connecting (hotel website)
    ------------------------------------------------------------------------- */
 const WIFI = {
-  vendor: "unifi",
-  grantUrl: "",            // ← from Quest: http://<UDM guest IP>/guest/s/<site>/login  (page falls back to "You're connected" while blank)
-  grantMethod: "POST",
+  vendor: "generic",
+  grantMethod: "GET",
+  grantUrl: "http://35.246.122.196/grant",   // Brandon Hall Wi-Fi relay (Google Cloud VM "wifi-portal") → posts guest to the UDM
   extraFields: {},
   continueUrl: "https://www.brandonhallhotelandspa.com",
   rememberDays: 180          // returning guests on the same device skip the form for this long
@@ -266,7 +266,7 @@ function grant(){
     }
     case "generic": {
       // Pass through everything the gateway sent us, plus any fixed fields the provider needs.
-      if (WIFI.grantUrl) {
+      if (WIFI.grantUrl && !WIFI.grantUrl.includes("REDIRECTOR_IP") && qs.id) {
         const fields = { ...qs, ...WIFI.extraFields };
         if (WIFI.grantMethod === "GET") return go(WIFI.grantUrl + (WIFI.grantUrl.includes("?")?"&":"?") + new URLSearchParams(fields).toString());
         return post(WIFI.grantUrl, fields);
