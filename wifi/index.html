@@ -28,8 +28,10 @@ h1{font-family:'Italiana',Georgia,serif;font-size:34px;font-weight:400;letter-sp
 .sub{font-size:14px;color:var(--muted);text-align:center;line-height:1.5;margin-bottom:20px}
 .field{margin-bottom:14px}
 label.lbl{display:block;font-size:12.5px;font-weight:700;color:var(--gold);margin-bottom:6px}
-input[type=text],input[type=email]{width:100%;padding:13px 14px;border-radius:10px;font-size:16px;font-family:inherit;
-  background:rgba(255,255,255,.07);border:1px solid rgba(201,169,120,.32);color:#fff;-webkit-appearance:none}
+input[type=text],input[type=email],select{width:100%;padding:13px 14px;border-radius:10px;font-size:16px;font-family:inherit;
+  background:rgba(255,255,255,.07);border:1px solid rgba(201,169,120,.32);color:#fff;-webkit-appearance:none;appearance:none}
+select{padding-right:10px} select option{background:#22374d;color:#fff}
+.reasons button{font-size:14px}
 input::placeholder{color:#8ea0b3}
 input:focus{outline:none;border-color:var(--gold);background:rgba(255,255,255,.11)}
 .seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -70,7 +72,9 @@ details p{margin-top:8px}
       <h1>Welcome to Brandon Hall</h1>
       <p class="sub" id="intro">Enjoy complimentary Wi-Fi during your visit. A few quick details and you're online.</p>
 
-      <div class="seg" style="margin-bottom:14px">
+      <div style="display:grid;grid-template-columns:96px 1fr 1fr;gap:8px;margin-bottom:14px">
+        <div><label class="lbl" for="f-title">Title</label>
+          <select id="f-title" autocomplete="honorific-prefix"><option value="">—</option><option>Mr</option><option>Mrs</option><option>Ms</option><option>Miss</option><option>Dr</option><option>Mx</option><option value="n/a">Prefer not to say</option></select></div>
         <div><label class="lbl" for="f-first">First name</label>
           <input id="f-first" type="text" autocomplete="given-name" placeholder="Sarah" autocapitalize="words"></div>
         <div><label class="lbl" for="f-last">Last name</label>
@@ -83,11 +87,14 @@ details p{margin-top:8px}
       <div class="field"><label class="lbl" for="f-town">Town or city you're visiting from <span style="font-weight:400;color:#8ea0b3">(optional)</span></label>
         <input id="f-town" type="text" autocomplete="address-level2" placeholder="e.g. Coventry" autocapitalize="words"></div>
 
-      <div class="field"><label class="lbl">Are you staying with us?</label>
-        <div class="seg"><button type="button" id="s-yes" data-v="Staying">Yes, I'm staying</button><button type="button" id="s-no" data-v="Visiting">Just visiting</button></div></div>
-
-      <div class="field"><label class="lbl">Purpose of your visit</label>
-        <div class="seg"><button type="button" id="p-leisure" data-v="Leisure">Leisure</button><button type="button" id="p-business" data-v="Business">Business</button></div></div>
+      <div class="field"><label class="lbl">What brings you here today?</label>
+        <div class="seg reasons">
+          <button type="button" data-r="Hotel stay">🛏 Hotel stay</button>
+          <button type="button" data-r="Spa">💆 Spa</button>
+          <button type="button" data-r="Restaurant or bar">🍽 Restaurant or bar</button>
+          <button type="button" data-r="Wedding or party">🥂 Wedding or party</button>
+          <button type="button" data-r="Meeting or conference" style="grid-column:1/-1">💼 Meeting or conference</button>
+        </div></div>
 
       <label class="chk"><input id="f-terms" type="checkbox"><span>I accept the <a href="#" id="terms-link">terms of use</a> for the guest Wi-Fi. *</span></label>
       <label class="chk"><input id="f-marketing" type="checkbox"><span>I'm 18 or over — yes please, send me news, offers and events from Brandon Hall Hotel and Spa by email. You can unsubscribe at any time.</span></label>
@@ -166,16 +173,10 @@ function getDb(){
 // Wait (briefly) for the Firebase scripts if they're still arriving.
 function waitForDb(ms){ return new Promise(res=>{ const t0=Date.now(); (function tick(){ if (getDb() || Date.now()-t0>ms) return res(getDb()); setTimeout(tick,150); })(); }); }
 
-let purpose = "", staying = "";
-["#p-leisure","#p-business"].forEach(id=>{ $(id).onclick = ()=>{
-  purpose = $(id).dataset.v;
-  $("#p-leisure").classList.toggle("on", purpose==="Leisure");
-  $("#p-business").classList.toggle("on", purpose==="Business");
-}; });
-["#s-yes","#s-no"].forEach(id=>{ $(id).onclick = ()=>{
-  staying = $(id).dataset.v;
-  $("#s-yes").classList.toggle("on", staying==="Staying");
-  $("#s-no").classList.toggle("on", staying==="Visiting");
+let reason = "";
+document.querySelectorAll(".reasons button").forEach(b=>{ b.onclick = ()=>{
+  reason = b.dataset.r;
+  document.querySelectorAll(".reasons button").forEach(x=>x.classList.toggle("on", x===b));
 }; });
 $("#terms-link").onclick = e=>{ e.preventDefault(); $("#terms").open = true; $("#terms").scrollIntoView({behavior:"smooth",block:"nearest"}); };
 
@@ -216,13 +217,15 @@ async function submit(){
   if (firstName.length < 1)       return showErr("Please enter your first name.");
   if (lastName.length < 1)        return showErr("Please enter your last name.");
   if (!emailOk(email))            return showErr("Please enter a valid email address.");
-  if (!staying)                   return showErr("Please tell us whether you're staying with us.");
-  if (!purpose)                   return showErr("Please tell us whether your visit is leisure or business.");
+  if (!reason)                    return showErr("Please tell us what brings you here today.");
   if (!$("#f-terms").checked)     return showErr("Please accept the terms of use to connect.");
 
   const btn = $("#connect"); btn.disabled = true; btn.textContent = "Connecting…";
   const town = $("#f-town").value.trim().slice(0,60);
-  const rec = { name, firstName, lastName, email, purpose, staying, town, marketing: $("#f-marketing").checked };
+  const title = $("#f-title").value;
+  const staying = reason==="Hotel stay" ? "Staying" : "Visiting";
+  const purpose = reason==="Meeting or conference" ? "Business" : reason ? "Leisure" : "";
+  const rec = { name, title, firstName, lastName, email, reason, purpose, staying, town, marketing: $("#f-marketing").checked };
   await save(rec);
   try { localStorage.setItem("bh_wifi", JSON.stringify({ ...rec, at:new Date().toISOString() })); } catch(e){}
 
@@ -236,9 +239,9 @@ async function submit(){
 /* ---- save to Firestore (never blocks the guest if it fails) ---- */
 async function save(rec){
   const doc = {
-    name: rec.name, firstName: rec.firstName||"", lastName: rec.lastName||"",
-    email: rec.email, purpose: rec.purpose, staying: rec.staying||"", town: rec.town||"",
-    marketing: !!rec.marketing, over18: !!rec.marketing,
+    name: rec.name, title: rec.title||"", firstName: rec.firstName||"", lastName: rec.lastName||"",
+    email: rec.email, reason: rec.reason||"", purpose: rec.purpose||"", staying: rec.staying||"", town: rec.town||"",
+    marketing: !!rec.marketing,
     termsAccepted: true,
     consentAt: new Date().toISOString(),
     created: new Date().toISOString(),
@@ -247,8 +250,7 @@ async function save(rec){
     deviceId: qs.id || qs.client_mac || qs.mac || "",      // MAC if the gateway passes it
     ap: qs.ap || qs.ap_mac || "",
     gatewayParams: qs,
-    userAgent: navigator.userAgent.slice(0,200),
-    source: "wifi-portal"
+    userAgent: navigator.userAgent.slice(0,200)
   };
   if (qs.preview) return;                 // ?preview=1 = look only, don't record
   const d = await waitForDb(5000); if (!d) return;
