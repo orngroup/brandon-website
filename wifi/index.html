@@ -71,30 +71,14 @@ details p{margin-top:8px} details a{color:var(--gold)}
       <div class="eyebrow">GUEST WI-FI</div>
       <p class="sub" id="intro" style="margin-top:14px">Enjoy complimentary Wi-Fi during your visit. A few quick details and you're online.</p>
 
-      <div style="display:grid;grid-template-columns:96px 1fr 1fr;gap:8px;margin-bottom:14px">
-        <div><label class="lbl" for="f-title">Title</label>
-          <select id="f-title" autocomplete="honorific-prefix"><option value="">—</option><option>Mr</option><option>Mrs</option><option>Ms</option><option>Miss</option><option>Dr</option><option>Mx</option><option value="n/a">Prefer not to say</option></select></div>
+      <div class="seg" style="margin-bottom:14px">
         <div><label class="lbl" for="f-first">First name</label>
           <input id="f-first" type="text" autocomplete="given-name" placeholder="Sarah" autocapitalize="words"></div>
         <div><label class="lbl" for="f-last">Last name</label>
           <input id="f-last" type="text" autocomplete="family-name" placeholder="Jones" autocapitalize="words"></div>
       </div>
-
       <div class="field"><label class="lbl" for="f-email">Email address</label>
         <input id="f-email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" autocapitalize="none" spellcheck="false"></div>
-
-      <div class="field"><label class="lbl" for="f-town">Town or city you're visiting from <span style="font-weight:400;color:#8ea0b3">(optional)</span></label>
-        <input id="f-town" type="text" autocomplete="address-level2" placeholder="e.g. Coventry" autocapitalize="words"></div>
-
-      <div class="field"><label class="lbl">What brings you here today?</label>
-        <div class="seg reasons">
-          <button type="button" data-r="Hotel stay">🛏 Hotel stay</button>
-          <button type="button" data-r="Spa">💆 Spa</button>
-          <button type="button" data-r="Restaurant or bar">🍽 Restaurant or bar</button>
-          <button type="button" data-r="Wedding or party">🥂 Wedding or party</button>
-          <button type="button" data-r="Conference or event">🎤 Conference or event</button>
-          <button type="button" data-r="Work">💼 Work</button>
-        </div></div>
 
       <label class="chk"><input id="f-terms" type="checkbox"><span>I accept the <a href="#" id="terms-link">terms of use</a> for the guest Wi-Fi. *</span></label>
       <label class="chk"><input id="f-marketing" type="checkbox"><span>I'm 18 or over — yes please, send me news, offers and events from Brandon Hall Hotel and Spa by email. You can unsubscribe at any time.</span></label>
@@ -174,10 +158,6 @@ function getDb(){
 function waitForDb(ms){ return new Promise(res=>{ const t0=Date.now(); (function tick(){ if (getDb() || Date.now()-t0>ms) return res(getDb()); setTimeout(tick,150); })(); }); }
 
 let reason = "";
-document.querySelectorAll(".reasons button").forEach(b=>{ b.onclick = ()=>{
-  reason = b.dataset.r;
-  document.querySelectorAll(".reasons button").forEach(x=>x.classList.toggle("on", x===b));
-}; });
 $("#terms-link").onclick = e=>{ e.preventDefault(); $("#terms").open = true; $("#terms").scrollIntoView({behavior:"smooth",block:"nearest"}); };
 
 function showErr(msg){ const e=$("#err"); e.textContent=msg; e.style.display="block"; }
@@ -214,16 +194,13 @@ async function submit(){
   const name = (firstName+" "+lastName).trim();
   const email = $("#f-email").value.trim().toLowerCase();
   $("#err").style.display = "none";
-  if (!$("#f-title").value)       return showErr("Please choose a title (or 'Prefer not to say').");
   if (firstName.length < 1)       return showErr("Please enter your first name.");
   if (lastName.length < 1)        return showErr("Please enter your last name.");
   if (!emailOk(email))            return showErr("Please enter a valid email address.");
-  if (!reason)                    return showErr("Please tell us what brings you here today.");
   if (!$("#f-terms").checked)     return showErr("Please accept the terms of use to connect.");
 
   const btn = $("#connect"); btn.disabled = true; btn.textContent = "Connecting…";
-  const town = $("#f-town").value.trim().slice(0,60);
-  const title = $("#f-title").value;
+  const town = "", title = "";
   const staying = reason==="Hotel stay" ? "Staying" : "Visiting";
   const purpose = (reason==="Conference or event" || reason==="Work") ? "Business" : reason ? "Leisure" : "";
   const rec = { name, title, firstName, lastName, email, reason, purpose, staying, town, marketing: $("#f-marketing").checked };
