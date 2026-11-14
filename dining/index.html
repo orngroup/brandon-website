@@ -144,19 +144,16 @@ try { if (matchMedia("(max-width: 760px)").matches && !sessionStorage.getItem("b
   <div class="wrap split split--form" style="align-items:start">
     <div class="a">
       <span class="kicker">The Clarendon</span>
-      <h2>Reserve a table</h2>
-      <p class="lede">To book a table at The Clarendon, please call our reservations team. We'll be happy to help with your booking, dietary needs and any special occasion.</p>
+      <h2>Book a table</h2>
+      <p class="lede">Choose your date, time and number of guests, and book your table at The Clarendon online in a few moments.</p>
       <div class="hours"><strong>Dinner</strong><span>6pm to 9pm daily</span></div>
+      <p class="small mt-1">Prefer to talk to us, or booking for a large group? Call our reservations team on <a class="textlink" href="tel:+442477102555">024 7710 2555</a>. Planning a private dinner for 11 or more guests? <a class="textlink" href="../meetings-events/planner/?type=dinner&amp;layout=cabaret">Plan a private dinner</a>.</p>
       <figure class="mount mt-2 hide-mobile"><img src="../assets/img/table-setting.jpg" alt="A table laid with white linen, gold chargers and flowers" loading="lazy"></figure>
     </div>
-    <div class="b table-form-wrap">
-      <div class="reserve-call">
-        <h3>Call to reserve</h3>
-        <p class="reserve-num"><a href="tel:+442477102555">024 7710 2555</a></p>
-        <p>Let us know the date, time and number of guests, and whether you need a high chair or have any allergies or dietary needs.</p>
-        <div class="btn-row"><a class="btn btn--book" href="tel:+442477102555">Call 024 7710 2555</a></div>
-        <p class="small mt-1">Planning a private dinner for 11 or more guests? <a class="textlink" href="../meetings-events/planner/?type=dinner&amp;layout=cabaret">Plan a private dinner</a>.</p>
-      </div>
+    <div class="b rd-booking">
+      <div id="rd-widget-frame" style="max-width:600px;margin:auto;"></div>
+      <input id="rdwidgeturl" name="rdwidgeturl" value="https://booking.resdiary.com/widget/Standard/TheClarendonRestaurantatBrandonHall/70074?includeJquery=true" type="hidden">
+      <noscript><p>To book a table, please call us on <a href="tel:+442477102555">024 7710 2555</a>.</p></noscript>
     </div>
   </div>
 </section>
@@ -237,5 +234,6 @@ try { if (matchMedia("(max-width: 760px)").matches && !sessionStorage.getItem("b
 <script src="../assets/js/venue-data.js"></script>
 <script src="../assets/js/forms.js"></script>
 <script src="../assets/js/site.js"></script>
+<script src="https://booking.resdiary.com/bundles/WidgetV2Loader.js"></script>
 </body>
 </html>
