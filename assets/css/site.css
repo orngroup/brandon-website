@@ -889,3 +889,16 @@ label.day input { accent-color: var(--navy); width: 16px; height: 16px; margin: 
 .rd-booking p { max-width: none; }
 /* Keep the ResDiary calendar as a proper grid even if site styles share class names */
 .rd-booking table td, .rd-booking table th { display: table-cell; float: none; }
+
+/* Legal pages: terms, privacy, cookies */
+.legal-toc { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 0 0 2.2rem; padding: 16px 18px; background: var(--beige-light); border-left: 3px solid var(--gold); }
+.legal-toc a { font-size: .92rem; }
+.legal-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 1rem 0 1.4rem; }
+.legal-facts > div { background: var(--white); border: 1px solid var(--rule); border-top: 3px solid var(--gold); padding: 16px 18px; }
+.legal-facts h3 { font-size: 1.35rem; margin: 0 0 .4rem; }
+.legal-facts p { font-size: .95rem; margin-bottom: .4em; }
+.prose h3 { margin-top: 1.4rem; }
+table.legal-table { width: 100%; border-collapse: collapse; font-size: .93rem; }
+table.legal-table th, table.legal-table td { text-align: left; vertical-align: top; padding: 12px 14px; border-bottom: 1px solid var(--rule); }
+table.legal-table th { background: var(--beige-light); font-size: .85rem; }
+@media (max-width: 640px) { .legal-facts { grid-template-columns: 1fr; } }
