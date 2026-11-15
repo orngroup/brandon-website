@@ -168,7 +168,7 @@ def footer(p, scripts=()):
       </div>
     </div>
     <div class="foot-base">
-      <span>&copy; <span data-year>2026</span> {HOTEL}. 7 Hospitality Management Ltd.</span>
+      <span>&copy; <span data-year>2026</span> {HOTEL}. All rights reserved.</span>
       <span><a href="{p}privacy/">Privacy</a> &nbsp;&nbsp; <a href="{p}accessibility/">Accessibility</a></span>
     </div>
   </div>
@@ -1820,7 +1820,7 @@ def privacy():
     <p class="lede">This notice explains how we collect, use and look after your personal information when you use this website or get in touch with us.</p>
 
     <h2>Who we are</h2>
-    <p>{HOTEL} is operated by 7 Hospitality Management Ltd, which is the controller of your personal information. You can contact us at {HOTEL}, Main Street, Brandon, Wolston, Coventry CV8 3FW, by email at <a href="mailto:{EMAIL}">{EMAIL}</a> or by phone on {PHONE}.</p>
+    <p>{HOTEL} is the controller of your personal information. You can contact us at {HOTEL}, Main Street, Brandon, Wolston, Coventry CV8 3FW, by email at <a href="mailto:{EMAIL}">{EMAIL}</a> or by phone on {PHONE}.</p>
 
     <h2>What we collect</h2>
     <p>When you use our event planner, contact form or email us, we collect the details you give us: your name, company or organisation, email address, phone number, and information about your stay, event or enquiry, such as dates, numbers, room choices, catering, accommodation and any notes you add. Please only tell us about dietary or access needs if you want us to take them into account.</p>
